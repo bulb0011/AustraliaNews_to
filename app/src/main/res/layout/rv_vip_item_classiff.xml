@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_hangyebaogao"
+    android:layout_height="match_parent"
+    android:layout_width="70dp"
+    android:layout_marginLeft="16dp"
+    >
+        <ImageView
+            android:id="@+id/image_hangyebaogao"
+            android:layout_width="26dp"
+            android:layout_height="30dp"
+            android:src="@drawable/hangqing"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_classif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_black_333333"
+            android:textSize="16sp"
+            android:text="行业报告"
+            android:layout_below="@id/image_hangyebaogao"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            />
+
+</RelativeLayout>

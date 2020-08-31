@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:background="@color/white"
+        >
+
+        <com.ruanyun.australianews.widget.TopBar
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:topBarTitleText="结算台"
+            app:topBarRightImageEnable="true"
+            app:topBarRightTextColor="@color/theme_color"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_merchandise"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            >
+
+            <ImageView
+                android:id="@+id/iv_pic"
+                android:layout_width="99dp"
+                android:layout_height="120dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/text_size_px_25"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_img" />
+
+            <TextView
+                android:id="@+id/tv_label"
+                android:text="房市"
+                style="@style/wealth_item_list_label_style"
+                />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_size_px_60"
+                android:layout_marginBottom="@dimen/text_size_px_30"
+                android:layout_toRightOf="@+id/iv_pic"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:minLines="2"
+                android:paddingRight="@dimen/text_size_px_33"
+                android:text="三室一厅三室一厅三室一厅三室一厅三室一厅三室一厅"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_sp_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_pic"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="27dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥180.00"
+                    android:textColor="#ff305f8b"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥200.00"
+                    android:textColor="#ff999999"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="12dp"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_add_vip"
+            android:layout_width="match_parent"
+            android:layout_height="96dp">
+
+            <TextView
+                android:id="@+id/tv_jiage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开通澳财经VIP会员"
+                android:textColor="#ff000000"
+                android:textSize="17sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="16dp"
+                />
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥330.00"
+                android:textColor="#ff305f8b"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="16dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可随时续费，有效期会在当前有效期后顺延一年"
+                android:textColor="#ff999999"
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="26dp"
+                android:layout_marginLeft="16dp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#F5F5F5"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="支付方式："
+                android:textColor="#ff666666"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_wenxin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_size_px_145"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            >
+            <TextView
+                android:id="@+id/tv_feedback"
+                style="@style/my_fragment_text"
+                android:drawableLeft="@drawable/weixinzhifu"
+                android:text="微信支付" />
+
+            <RadioButton
+                android:id="@+id/ckb_wenxin"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="@dimen/text_size_px_63"
+                android:background="@drawable/selector_checkbox"
+                android:button="@null"
+                android:checked="false"
+                android:textSize="17.0sp"
+                android:layout_gravity="right|center_vertical"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F5F5F5"
+                android:layout_gravity="bottom"
+                />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_zhifubao"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_size_px_145"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            >
+
+            <TextView
+                style="@style/my_fragment_text"
+                android:drawableLeft="@drawable/zhifubaozhifu"
+                android:text="支付宝支付" />
+
+            <RadioButton
+                android:id="@+id/ckb_zhifubao"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="@dimen/text_size_px_63"
+                android:background="@drawable/selector_checkbox"
+                android:button="@null"
+                android:checked="false"
+                android:textSize="17.0sp"
+                android:layout_gravity="right|center_vertical"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F5F5F5"
+                android:layout_gravity="bottom"
+                />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_paypal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_size_px_145"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            >
+
+            <TextView
+                style="@style/my_fragment_text"
+                android:drawableLeft="@drawable/paypal"
+                android:text="PAYPAL支付" />
+
+            <RadioButton
+                android:id="@+id/ckb_paypal"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="@dimen/text_size_px_63"
+                android:background="@drawable/selector_checkbox"
+                android:button="@null"
+                android:checked="false"
+                android:textSize="17.0sp"
+                android:layout_gravity="right|center_vertical"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F5F5F5"
+                android:layout_gravity="bottom"
+                />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        >
+
+        <TextView
+            android:id="@+id/tv_yingfu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="应付："
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_jine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="¥180.00"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/tv_yingfu"
+            />
+        
+        <Button
+            android:layout_width="106dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_yunajiao"
+            android:text="确认支付"
+            android:textColor="#ffffffff"
+            android:textSize="14sp"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_below="@id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="10sp"
+        android:textColor="#666666"
+        android:text="*购买商品为虚拟内容服务，购买后不支持退换，请斟酌确认。\n*购买后，可在我的页面查看使用。"
+        />
+
+</RelativeLayout>

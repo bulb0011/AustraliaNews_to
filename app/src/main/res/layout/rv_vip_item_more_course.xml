@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_layout"
+    android:layout_width="match_parent"
+    android:layout_height="121dp"
+    android:background="@color/white"
+    android:layout_marginTop="16dp"
+    >
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="@dimen/text_size_px_16"
+        android:layout_height="0dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_show_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="15dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="99dp"
+            android:layout_height="120dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/text_size_px_25"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_img" />
+
+        <TextView
+            android:id="@+id/tv_label"
+            android:text="房市"
+            style="@style/vip_item_list_label_style"
+            />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_size_px_25"
+            android:layout_marginBottom="@dimen/text_size_px_30"
+            android:layout_toRightOf="@+id/iv_pic"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:minLines="1"
+            android:paddingRight="@dimen/text_size_px_33"
+            android:text="三室一厅三室一厅三室一厅三室一厅三室一厅三室一厅"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_sp_16" />
+
+        <TextView
+            android:id="@+id/tv_jianjie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_pic"
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+            android:textColor="@color/color_grey_999999"
+            android:maxLines="2"
+            android:text="贷款中介全方位综述，预批贷款的重要性，四种职业贷款策略介绍"
+            />
+
+        <TextView
+            android:id="@+id/tv_update_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_pic"
+            android:layout_marginTop="@dimen/text_size_px_16"
+            android:layout_toRightOf="@+id/iv_pic"
+            android:includeFontPadding="false"
+            android:text="限时免费"
+            android:textColor="@color/theme_color"
+            android:textSize="@dimen/text_size_sp_16"
+            />
+
+        <TextView
+            android:id="@+id/jiage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_update_time"
+            android:textColor="@color/color_grey_999999"
+            android:layout_alignBottom="@+id/iv_pic"
+            android:layout_marginLeft="10dp"
+            android:text="¥200.00"
+            android:textSize="11sp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

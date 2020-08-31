@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="162dp"
+    android:layout_marginLeft="33dp"
+    android:layout_marginRight="33dp"
+    android:background="@drawable/bg_likai"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="确认要离开结算台？"
+        android:textColor="#ff000000"
+        android:textSize="17sp"
+        android:layout_marginTop="20dp"
+        />
+    
+    <Button
+        android:id="@+id/bt_likao"
+        android:layout_width="104dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_likai"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="确认离开"
+        android:textColor="#ff305f8b"
+        android:textSize="14sp"
+        android:gravity="center"
+        />
+
+    <Button
+        android:id="@+id/bt_jixuzhifu"
+        android:layout_width="104dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_yunajiao"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="继续支付"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        />
+        />
+
+</RelativeLayout>

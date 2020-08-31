@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/tv_fanhui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/nav_btn_back"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="16dp"
+        android:text="返回"
+        android:drawablePadding="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="90dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_tishiwenz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="试读结束"
+            android:textColor="#ff000000"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:background="#ff999999"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_tishiwenz"
+            android:layout_marginRight="13dp"
+            />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:background="#ff999999"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_tishiwenz"
+            android:layout_marginLeft="13dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="99dp"
+            android:layout_height="125dp"
+            android:background="@drawable/default_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="澳洲首次置业红宝书"
+            android:textColor="#ff000000"
+            android:textSize="17sp"
+            />
+        
+        <Button
+            android:id="@+id/bt_lijigoumai"
+            android:layout_width="300dp"
+            android:layout_height="43dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_name"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/bg_likai"
+            android:text="立即购买"
+            android:textColor="#ff305f8b"
+            android:textSize="16sp"
+            />
+
+        <Button
+            android:id="@+id/bt_jiaruhuiyuan"
+            android:layout_width="300dp"
+            android:layout_height="43dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/bt_lijigoumai"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/bg_yunajiao"
+            android:text="加入会员"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            />
+        
+    </RelativeLayout>
+
+</LinearLayout>

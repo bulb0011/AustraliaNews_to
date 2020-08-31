@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ruanyun.australianews.widget.TopBar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topBarRightImageEnable="true"
+        app:topBarTitleText="专栏"
+        app:topBarRightTextEnable="true"
+        app:topBarRightTextColor="@color/theme_color"
+        />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topbar"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp">
+                
+                <ImageView
+                    android:id="@+id/imge_zhuanlan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    />
+                
+                <Button
+                    android:id="@+id/bt_tv"
+                    android:layout_width="50dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/bg_theme_corners_15"
+                    android:text="更新中"
+                    android:textColor="#ffffffff"
+                    android:textSize="11sp"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="16dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="拯救疫情下的行业"
+                    android:textColor="#ffffffff"
+                    android:textSize="20sp"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_context"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="2020年初突如其来的一场新冠肺炎疫情，给各行各业都带来了巨大冲击。如何在常态化防控中，构建一个长效的食品安全网络，显得尤为迫切。"
+                android:textColor="#ff333333"
+                android:textSize="15sp"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="#f5f5f5"
+                android:layout_marginTop="20dp"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                >
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="#f5f5f5"
+                android:layout_marginTop="20dp"
+                />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

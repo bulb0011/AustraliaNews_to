@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/rl_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1, 什么是思维修炼？"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="试看"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:drawableRight="@drawable/icon_arrow_right"
+        android:layout_marginRight="16dp"
+        android:drawablePadding="10dp"
+        />
+
+    <View
+        android:id="@+id/view_xian"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E9E9E9"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        />
+
+</RelativeLayout>

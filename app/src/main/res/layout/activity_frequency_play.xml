@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:id="@+id/rv_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <LinearLayout
+            android:id="@+id/tmg_fanui"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:id="@+id/image_fanhui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nav_btn_back"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="16dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"
+            android:text="详情"
+            />
+
+        <ImageView
+            android:id="@+id/fenxiang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_share"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kefu"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/fenxiang"
+            />
+        
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rv_head"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                >
+
+                <ImageView
+                    android:id="@+id/tupian"
+                    android:layout_width="99dp"
+                    android:layout_height="124dp"
+                    android:background="@drawable/default_img"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_size_px_5"
+                    android:layout_toRightOf="@+id/tupian"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:text="三室一厅三室一厅三室一厅三室一厅三室一厅三室一厅"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_sp_17"
+                    android:layout_marginLeft="16dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_jiage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="46dp"
+                    android:layout_toRightOf="@+id/tupian"
+                    android:layout_below="@id/tv_title"
+                    android:ellipsize="end"
+                    android:text="¥112.00"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_sp_16"
+                    android:layout_marginLeft="16dp"
+                    />
+
+                <TextView
+                    android:id="@+id/zhiqianjiege"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="49dp"
+                    android:layout_toRightOf="@+id/tv_jiage"
+                    android:text="¥112.00"
+                    android:textColor="@color/color_grey_999999"
+                    android:textSize="@dimen/text_size_sp_12" />
+
+
+                <Button
+                    android:layout_width="63dp"
+                    android:layout_height="19dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@id/tupian"
+                    android:background="@drawable/free_button"
+                    android:text="会员免费"
+                    android:textSize="12sp"
+                    android:textColor="@color/theme_color"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#E9E9E9"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:id="@+id/rl_bofang"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_bofang"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/rl_xinxi"
+                android:layout_marginTop="10dp"
+                >
+
+                <ImageView
+                    android:id="@+id/head_bofang"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/bobao"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/head_zanting"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/bfzhong"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:text="1,高房价下的首次置业者"
+                    android:textColor="#ff000000"
+                    android:textSize="14sp"
+                    />
+                <TextView
+                    android:id="@+id/tv_shijian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_name"
+                    android:layout_marginLeft="60dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:text="10分20秒"
+                    android:textColor="#ff999999"
+                    android:textSize="14sp"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="#E9E9E9"
+                android:layout_marginTop="16dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="内容亮点"
+                    android:textColor="#ff305f8b"
+                    android:textSize="17sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_context"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#666666"
+                    android:layout_marginRight="16dp"
+                    android:text="现在和未来很长一段时间内房地产行业都将是我国的支柱产业，这也是现如今政府与百姓关注的热点话题。房地产行业发展带动社会经济发展，同时有效解决区域就业问题。
+                    \n但随着房地产行业肆无忌惮地扩张，地产泡沫经济越来越严重。高房价给经济带来严重影响，本文中笔者分析高房价形成原因，并详细阐述其对我国经济的影响。企业家彭博当选纽约市长后,使市政府变成了开放的空间,官员不再一人一间办公室,而是环坐在蓝色隔屏里,迅速交换意见与信息."
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rv_dibu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/tv_shidu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="试读"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            />
+
+        <View
+            android:id="@+id/view_fenge"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#E9E9E9"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_shidu"
+            android:layout_marginLeft="30dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_goumai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/goumai"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/view_fenge"
+            android:layout_marginLeft="30dp"
+            android:text="购买"
+            android:drawablePadding="10dp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:textColor="@color/color_grey_999999"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_goumai"
+            android:layout_marginLeft="10dp"
+            android:text="¥112.00"
+            />
+
+        <Button
+            android:layout_width="98dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bt_houmaihuiyuan"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="加入会员"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

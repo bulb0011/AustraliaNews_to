@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ruanyun.australianews.ui.news.SampleCoverVideo
+            android:id="@+id/detail_player"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_size_px_666" >
+        </com.ruanyun.australianews.ui.news.SampleCoverVideo>
+
+        <RelativeLayout
+            android:id="@+id/rv_jiashu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_size_px_666"
+            android:background="@color/black"
+            >
+            <TextView
+                android:id="@+id/guankanjiedhu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="试看结束"
+                android:textColor="#ffffffff"
+                android:textSize="17sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                />
+            
+            <Button
+                android:id="@+id/bu_lijigoumai"
+                android:layout_width="106dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_lijigoumai"
+                android:layout_below="@id/guankanjiedhu"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="20dp"
+                android:text="立即购买"
+                android:textColor="#ffffffff"
+                android:textSize="14sp"
+                />
+
+            <Button
+                android:id="@+id/rb_jiaruhiyuan"
+                android:layout_width="106dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_yunajiao"
+                android:layout_below="@id/guankanjiedhu"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/bu_lijigoumai"
+                android:layout_marginLeft="20dp"
+                android:text="加入会员"
+                android:textColor="#ffffffff"
+                android:textSize="14sp"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/fins_iamge"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/vido_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:text="什么是思维修炼？"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="16dp"
+        />
+
+    <View
+        android:id="@+id/view_xian"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_below="@id/fenge"
+        android:background="#E9E9E9"
+        android:layout_marginTop="23dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/theme_color"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="16dp"
+        android:text="内容亮点"
+        />
+
+    <TextView
+        android:id="@+id/tttt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/theme_color"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="本书从认知科学、
+        神经学、学习理论和行为理论角度，深入探讨了如何才能
+        具备优秀的学习能力和思考能力，阐述了成为一名专家级程序员的关键
+        要素，具体包括：大脑运行机制简介，如何正确使用和调试大脑，
+        改进学习能力的具体技巧，如何通过自我引导积累经验，控制注意力的方法。
+        为了让读者加深印象，作者还特别设立了一个“实践单元”，其中包括具体的练习和实验，
+        旨在让读者真正掌握所学内容。生命中没有什么是一成不变的，人们需要改变自己的习惯和方法。
+        不论你是程序员、软件公司管理者、技术奇人还是思想家，或者你只是想让自己的大脑更聪明一点儿
+        ，所有尝试改变自己的人，请把本书当作改变的开始……"
+        />
+
+</LinearLayout>

@@ -1,0 +1,6 @@
+# Project exclude paths
+/.gradle/
+/chatapp/build/
+/chatapp/build/intermediates/javac/debug/classes/
+/imagepicker/build/
+/imagepicker/build/intermediates/javac/debug/classes/
