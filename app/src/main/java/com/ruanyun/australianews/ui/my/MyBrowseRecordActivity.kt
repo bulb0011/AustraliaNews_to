@@ -39,7 +39,7 @@ class MyBrowseRecordActivity : BaseActivity() {
         setContentView(R.layout.activity_my_browse_record)
         initView()
     }
-
+//    ItemViewDelegateManager.getItemViewType
     private fun initView() {
         topbar.setTopBarClickListener(this)
         ll_tab.visibility = View.GONE

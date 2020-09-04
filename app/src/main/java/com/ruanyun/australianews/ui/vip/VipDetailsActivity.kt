@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.meiqia.meiqiasdk.util.MQIntentBuilder
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
@@ -20,6 +21,7 @@ import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.VipDetailIfo
 import com.ruanyun.australianews.ui.adapter.VipMuLvAdapter
 import com.ruanyun.australianews.util.C
+import com.ruanyun.australianews.util.FileUtil
 import com.ruanyun.australianews.util.RxUtil
 import com.ruanyun.australianews.widget.SharePopWindow
 import jiguang.chat.utils.ToastUtil
@@ -102,6 +104,7 @@ class VipDetailsActivity :BaseActivity(){
 
         initEvent()
 
+
     }
 
     fun initEvent(){
@@ -168,6 +171,22 @@ class VipDetailsActivity :BaseActivity(){
             sharePopWindow.show(fenxiang)
         }
 
+        //链接客服
+        iamge_kefu.clickWithTrigger {
+
+            if (App.app.userOid!=null){
+                val intent = MQIntentBuilder(this)
+                    .setCustomizedId(App.app.userOid)
+                    .build()
+                startActivity(intent)
+            }else{
+                val intent = MQIntentBuilder(this)
+                    .build()
+                startActivity(intent)
+            }
+
+        }
+
     }
 
     fun initData(){
@@ -177,6 +196,10 @@ class VipDetailsActivity :BaseActivity(){
                 override fun onSuccess(result: ResultBase<VipDetailIfo>) {
 //                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
                     val detailIfo=result.data
+
+                    App.getInstance().cityName
+
+                    App.getInstance().userOid
 
                     InfoId=detailIfo.afnNewsDirectoryList[0].oid
 
@@ -196,6 +219,8 @@ class VipDetailsActivity :BaseActivity(){
 
     }
 
+    val NEWS_DETAILS = "app/afnnewsinfo/getAfnNewsInfoDetails?region=%s&afnNewsInfoOid=%s&userOid=%s"//新闻详情
+
     fun setViewData(detailIfo:VipDetailIfo){
 
         val iso=App.app.iso
@@ -212,7 +237,10 @@ class VipDetailsActivity :BaseActivity(){
         sharePopWindow.share_title = detailIfo.title
         sharePopWindow.share_text = detailIfo.recommendation
         sharePopWindow.share_image = ApiManger.IMG_URL+detailIfo.mainPhoto
-        sharePopWindow.share_url = "https://www.baidu.com"
+
+        val url = FileUtil.getWebViewUrl(NEWS_DETAILS, App.getInstance().cityName, detailIfo.oid, App.getInstance().userOid)
+
+        sharePopWindow.share_url = url
 
 
         //价格正常
@@ -315,8 +343,7 @@ class VipDetailsActivity :BaseActivity(){
             }
         })
 
-
-
     }
+
 
 }

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.internal.LinkedTreeMap
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
@@ -34,6 +35,8 @@ import com.ruanyun.australianews.util.WebViewUrlUtil
 import com.ruanyun.australianews.widget.MyConvenientBanner
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.fragment_vip.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
@@ -41,6 +44,7 @@ import java.util.*
 
 import retrofit2.Callback
 import retrofit2.Response
+import rx.functions.Action1
 
 
 class VipFragment :BaseFragment(){
@@ -215,76 +219,7 @@ class VipFragment :BaseFragment(){
                 }
             })
 
-        //专栏数据
-        ApiManger.getApiService().getVipNewColumnList(2)
-            . enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
-            }
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
-
-                response.body().toString()
-
-                val jsonStr = String(response.body()!!.bytes()) //把原始数据转为字符串
-
-                val JSONObject = JSONObject(jsonStr)
-
-                val datajson = JSONObject.getJSONObject("data")
-
-                val dataArr = datajson.getJSONArray("datas")
-
-                val dataList=ArrayList<VipColumnInfo.DatasBean>()
-
-                for (i in 0 until dataArr.length()) {
-
-                    Log.e("aaa",dataArr.getJSONObject(i).getString("oid"))
-
-                   val ColumnInfo = VipColumnInfo.DatasBean()
-
-                    ColumnInfo.oid= dataArr.getJSONObject(i).getString("oid")
-
-                    ColumnInfo.title=dataArr.getJSONObject(i).getString("title")
-
-                    val afnInfoAllList = dataArr.getJSONObject(i).getJSONArray("afnInfoAllList")
-
-                    val dataBean=ArrayList<VipColumnInfo.DatasBean.AfnInfoAllListBean>()
-
-                    for (j in 0 until afnInfoAllList.length()) {
-
-                       val  ListBean=VipColumnInfo.DatasBean.AfnInfoAllListBean()
-
-                        ListBean.title= afnInfoAllList.getJSONObject(j).getString("title")
-
-                        ListBean.mainPhoto=afnInfoAllList.getJSONObject(j).getString("mainPhoto")
-                        ListBean.columnOid = afnInfoAllList.getJSONObject(j).getString("mainPhoto")
-                        dataBean.add(ListBean)
-
-                    }
-
-                    ColumnInfo.afnInfoAllList=dataBean
-
-                    dataList.add(ColumnInfo)
-
-                }
-
-                     val info=dataList[0].afnInfoAllList
-
-                    image_one.loadImage(ApiManger.IMG_URL+info[0].mainPhoto)
-
-                    iamge_to.loadImage(ApiManger.IMG_URL+info[1].mainPhoto)
-
-                    columnOid=dataList[0].oid
-
-                    tv_title_zhaunlan.text=dataList[0].title
-
-                    tv_one.text=info[0].title
-                    tv_tow.text=info[1].title
-
-                }
-            })
 
         //最下面的新闻
         ApiManger.getApiService().getNewsInfoByNewsType(App.app.cityName,App.app.userOid).compose(RxUtil.normalSchedulers())
@@ -334,6 +269,7 @@ class VipFragment :BaseFragment(){
                 }
             })
 
+
     }
     fun initEvent(){
 
@@ -378,7 +314,6 @@ class VipFragment :BaseFragment(){
         //热门更多
         tv_gengduo.clickWithTrigger { MoreActivity.start(mContext) }
 
-
         adapterClassif.setOnCliakListener(object : VipClassifAdapter.OnCliskListener{
             override fun onClisk(view: View?, title: String, id: String) {
                 VipListActivity.start(mContext,title,id)
@@ -386,6 +321,80 @@ class VipFragment :BaseFragment(){
         })
 
 
+        zhanlan()
+    }
+
+    fun zhanlan(){
+        //专栏数据
+        ApiManger.getApiService().getVipNewColumnList(2)
+            . enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+
+                    response.body().toString()
+
+                    val jsonStr = String(response.body()!!.bytes()) //把原始数据转为字符串
+
+                    val JSONObject = JSONObject(jsonStr)
+
+                    val datajson = JSONObject.getJSONObject("data")
+
+                    val dataArr = datajson.getJSONArray("datas")
+
+                    val dataList=ArrayList<VipColumnInfo.DatasBean>()
+
+                    for (i in 0 until dataArr.length()) {
+
+                        Log.e("aaa",dataArr.getJSONObject(i).getString("oid"))
+
+                        val ColumnInfo = VipColumnInfo.DatasBean()
+
+                        ColumnInfo.oid= dataArr.getJSONObject(i).getString("oid")
+
+                        ColumnInfo.title=dataArr.getJSONObject(i).getString("title")
+
+                        val afnInfoAllList = dataArr.getJSONObject(i).getJSONArray("afnInfoAllList")
+
+                        val dataBean=ArrayList<VipColumnInfo.DatasBean.AfnInfoAllListBean>()
+
+                        for (j in 0 until afnInfoAllList.length()) {
+
+                            val  ListBean=VipColumnInfo.DatasBean.AfnInfoAllListBean()
+
+                            ListBean.title= afnInfoAllList.getJSONObject(j).getString("title")
+
+                            ListBean.mainPhoto=afnInfoAllList.getJSONObject(j).getString("mainPhoto")
+                            ListBean.columnOid = afnInfoAllList.getJSONObject(j).getString("mainPhoto")
+                            dataBean.add(ListBean)
+
+                        }
+
+                        ColumnInfo.afnInfoAllList=dataBean
+
+                        dataList.add(ColumnInfo)
+
+                    }
+
+                    val info=dataList[0].afnInfoAllList
+
+                    image_one.loadImage(ApiManger.IMG_URL+info[0].mainPhoto)
+
+                    iamge_to.loadImage(ApiManger.IMG_URL+info[1].mainPhoto)
+
+                    columnOid=dataList[0].oid
+
+                    tv_title_zhaunlan.text=dataList[0].title
+
+                    tv_one.text=info[0].title
+                    tv_tow.text=info[1].title
+
+                }
+            })
     }
 
 }

@@ -14,6 +14,8 @@ import android.text.TextUtils;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.iflytek.cloud.SpeechUtility;
+import com.meiqia.core.callback.OnInitCallback;
+import com.meiqia.meiqiasdk.util.MQConfig;
 import com.mob.MobSDK;
 import com.ruanyun.australianews.di.component.DaggerApplicationComponent;
 import com.ruanyun.australianews.model.UserInfo;
@@ -77,6 +79,20 @@ public class App extends JGApplication implements HasActivityInjector, HasFragme
         MobSDK.init(this);
 
         SpeechUtility.createUtility(App.this, "appid=" + getString(R.string.iflytek));
+
+        MQConfig.init(this, "4bd2a25e767a4728c81e31a04491d106", new OnInitCallback() {
+            @Override
+            public void onSuccess(String s) {
+
+
+
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
 
     }
 
