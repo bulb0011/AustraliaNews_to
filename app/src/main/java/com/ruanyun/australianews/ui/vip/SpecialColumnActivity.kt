@@ -13,6 +13,7 @@ import com.ruanyun.australianews.base.ResultBase
 import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.data.ApiSuccessAction
+import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.ColumnDetailsInfo
 import com.ruanyun.australianews.model.ZhuanLanListInfo
@@ -61,6 +62,8 @@ class SpecialColumnActivity :BaseActivity(){
 //        })
 
         initData(columnOid)
+
+        topbar.topBarLeftImg.clickWithTrigger { this?.finish() }
 
     }
 

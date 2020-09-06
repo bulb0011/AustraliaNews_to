@@ -51,6 +51,8 @@ class MoreSpecialColumnAdapter constructor(context : Context, listData:List<VipC
             ViewHolder.tv_one.text=info[0].title
             ViewHolder.tv_tow.text=info[1].title
 
+            ViewHolder.tv_title.text=listData.get(i).title
+
             ViewHolder.item_ll.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     if (onCliskListener!=null){
@@ -69,6 +71,7 @@ class MoreSpecialColumnAdapter constructor(context : Context, listData:List<VipC
             var iamge_to : ImageView
             var tv_one : TextView
             var tv_tow : TextView
+            var tv_title : TextView
 
             constructor(itemView: View) :super(itemView){
 
@@ -77,6 +80,7 @@ class MoreSpecialColumnAdapter constructor(context : Context, listData:List<VipC
                 iamge_to=itemView.findViewById<ImageView>(R.id.iamge_to)
                 tv_one=itemView.findViewById<TextView>(R.id.tv_one)
                 tv_tow=itemView.findViewById<TextView>(R.id.tv_tow)
+                tv_title=itemView.findViewById<TextView>(R.id.tv_title)
 
 
             }

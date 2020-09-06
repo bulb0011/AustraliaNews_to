@@ -350,8 +350,6 @@ class VipFragment :BaseFragment(){
 
                     for (i in 0 until dataArr.length()) {
 
-                        Log.e("aaa",dataArr.getJSONObject(i).getString("oid"))
-
                         val ColumnInfo = VipColumnInfo.DatasBean()
 
                         ColumnInfo.oid= dataArr.getJSONObject(i).getString("oid")
