@@ -2,12 +2,14 @@ package com.ruanyun.australianews.ui.my
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
+import com.ruanyun.australianews.base.PageInfoBase
 import com.ruanyun.australianews.base.ResultBase
 import com.ruanyun.australianews.base.refreshview.data.IDataDelegate
 import com.ruanyun.australianews.base.refreshview.data.IDataSource
@@ -117,6 +119,25 @@ class MyBrowseRecordNewListFragment : BaseFragment(){
                 deleteBrowseInfo()
             }
         }
+
+        ApiManger.getApiService().getBrowseRecordNewsPageList(params).compose(RxUtil.normalSchedulers())
+            .subscribe(object : ApiSuccessAction<ResultBase<PageInfoBase<CollectionBrowseNewsInfo>>>() {
+                override fun onSuccess(result: ResultBase<PageInfoBase<CollectionBrowseNewsInfo>>) {
+                    result.data.datas
+                    Log.e("dengpao","App.app.userOid"+result.data.datas.size)
+
+                }
+                override fun onError(erroCode: Int, erroMsg: String) {
+//                disMissLoading()
+                    showToast(erroMsg)
+                }
+            }, object : ApiFailAction() {
+                override fun onFail(msg: String) {
+//                disMissLoading()
+                    showToast(msg)
+                }
+            })
+
     }
 
 

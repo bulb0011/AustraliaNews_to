@@ -40,7 +40,7 @@ public class ApiManger {
 //        }else if("au".equals(iso)||"AU".equals(iso)) {
 //            API_URL = "http://aozhou.afndaily.cn/aozhoucaijing/";
 //        }else {
-//            API_URL = "http://aozhou.afndaily.cn/aozhoucaijing/";
+//            API_URL = "http://dalu.afndaily.cn/aozhoucaijing/";
 //        }
 
 

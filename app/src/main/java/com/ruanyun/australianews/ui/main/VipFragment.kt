@@ -1,14 +1,17 @@
 package com.ruanyun.australianews.ui.main
 
+import `in`.srain.cube.views.ptr.PtrClassicDefaultHeader
+import `in`.srain.cube.views.ptr.PtrFrameLayout
+import `in`.srain.cube.views.ptr.PtrHandler
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.gson.internal.LinkedTreeMap
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
@@ -17,7 +20,6 @@ import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.clickWithTrigger
-import com.ruanyun.australianews.util.CommonUtil.dp2px
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.*
 import com.ruanyun.australianews.ui.adapter.AdverViewHolderTo
@@ -30,21 +32,18 @@ import com.ruanyun.australianews.ui.vip.SpecialColumnActivity
 import com.ruanyun.australianews.ui.vip.VipDetailsActivity
 import com.ruanyun.australianews.ui.vip.VipListActivity
 import com.ruanyun.australianews.util.C
+import com.ruanyun.australianews.util.CommonUtil.dp2px
 import com.ruanyun.australianews.util.RxUtil
 import com.ruanyun.australianews.util.WebViewUrlUtil
 import com.ruanyun.australianews.widget.MyConvenientBanner
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.fragment_vip.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
-import java.util.*
-
 import retrofit2.Callback
 import retrofit2.Response
-import rx.functions.Action1
+import java.util.*
 
 
 class VipFragment :BaseFragment(){
@@ -78,6 +77,9 @@ class VipFragment :BaseFragment(){
 
    var columnOid=""
 
+    // 滚动偏移距离
+    private var height: Int = 0
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -102,6 +104,35 @@ class VipFragment :BaseFragment(){
         rl_zhuanglian.clickWithTrigger {
             SpecialColumnActivity.start(mContext,columnOid)
         }
+
+        //这里是一个自定义的头部刷新布局,自带的也有一个布局  new PtrDefaultHandler();
+        //这里是一个自定义的头部刷新布局,自带的也有一个布局  new PtrDefaultHandler();
+        val header = PtrClassicDefaultHeader(getContext())
+        //将头布局添加
+        //将头布局添加
+        refresh_layoutto.addPtrUIHandler(header)
+        refresh_layoutto.headerView=header
+
+        refresh_layoutto.setPtrHandler(object : PtrHandler {
+            override fun onRefreshBegin(frame: PtrFrameLayout?) {
+                ToastUtil.shortToast(mContext,"加载数据")
+                refresh_layoutto.refreshComplete()
+            }
+
+            override fun checkCanDoRefresh(
+                frame: PtrFrameLayout?,
+                content: View?,
+                header: View?
+            ): Boolean {
+               return height<=20
+            }
+        })
+
+        nestedScrollView.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener{
+            override fun onScrollChange(p0: NestedScrollView?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                height=p2
+            }
+        })
 
     }
     var mDataList: MutableList<String> = ArrayList()

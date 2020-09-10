@@ -93,6 +93,9 @@ public class DefaultModel2ViewControler<Data> implements IDataDelegate {
                                         if (refreshViewHolder.emptyViewEnable())
                                             getEmptyView().loadFinish();
                                     }
+                                    if(result.datas.size()==0)
+                                        return;
+
                                     getDataAdapter().refresh(result.datas);
                                 }else {
                                     getEmptyView().showLoadFail(((ResultBase) data).msg);
