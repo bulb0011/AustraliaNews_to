@@ -115,7 +115,7 @@ class VipFragment :BaseFragment(){
 
         refresh_layoutto.setPtrHandler(object : PtrHandler {
             override fun onRefreshBegin(frame: PtrFrameLayout?) {
-                ToastUtil.shortToast(mContext,"加载数据")
+                initData(mContext)
                 refresh_layoutto.refreshComplete()
             }
 
