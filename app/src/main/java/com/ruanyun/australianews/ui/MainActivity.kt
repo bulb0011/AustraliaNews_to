@@ -54,13 +54,13 @@ class MainActivity : BaseActivity() {
     private val mIconUnselectIds = intArrayOf(
         R.drawable.tab_news,
         R.drawable.tab_life,
-        R.drawable.tab_vip,
+//        R.drawable.tab_vip,
         R.drawable.tab_my
     )
     private val mIconSelectIds = intArrayOf(
         R.drawable.tab_news_pre,
         R.drawable.tab_life_pre,
-        R.drawable.tab_vip_pre,
+//        R.drawable.tab_vip_pre,
         R.drawable.tab_my_pre
     )
 
@@ -90,8 +90,8 @@ class MainActivity : BaseActivity() {
 //                    }, 300)
                 }
                 2->{
-                    setFragment(2)
-//                    setFragment(1)
+//                    setFragment(2)
+                    setFragment(1)
                 }
                 3 -> {
                     setFragment(1)
@@ -125,7 +125,7 @@ class MainActivity : BaseActivity() {
         }
 
         //需要这里添加底部的文字
-        val mTitles = arrayOf(getResources().getString(R.string.xinwen),getResources().getString(R.string.caifu),"VIP",getResources().getString(R.string.gerenzxin))
+        val mTitles = arrayOf(getResources().getString(R.string.xinwen),getResources().getString(R.string.caifu),getResources().getString(R.string.gerenzxin))
 
         //注册sdk的event用于接收各种event事件
         JMessageClient.registerEventReceiver(this)
