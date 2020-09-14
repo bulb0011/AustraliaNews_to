@@ -41,6 +41,7 @@ class MySubscibeActivity :BaseActivity() {
         tab.setViewPager(vp, mTitlesArrays);//tab和ViewPager进行关联
 
         fenxiang.clickWithTrigger { SearchActivity.start(mContext, SearchActivity.HOME_SEARCH) }
+        image_fanhui.clickWithTrigger{finish()}
     }
 
 
