@@ -35,13 +35,13 @@ public class ApiManger {
 
         String iso= App.app.iso;
 
-        if("cn".equals(iso)||"CN".equals(iso)){
-            API_URL = "http://dalu.afndaily.cn/aozhoucaijing/";
-        }else if("au".equals(iso)||"AU".equals(iso)) {
-            API_URL = "http://afn.afndaily.cn/aozhoucaijing/";
-        }else {
-            API_URL = "http://afn.afndaily.cn/aozhoucaijing/";
-        }
+//        if("cn".equals(iso)||"CN".equals(iso)){
+//            API_URL = "http://dalu.afndaily.cn/aozhoucaijing/";
+//        }else if("au".equals(iso)||"AU".equals(iso)) {
+//            API_URL = "http://afn.afndaily.cn/aozhoucaijing/";
+//        }else {
+//            API_URL = "http://afn.afndaily.cn/aozhoucaijing/";
+//        }
 
 
         if (okHttpClient == null) {

@@ -29,6 +29,7 @@ class CivilEstateListActivityTo : BaseActivity(), View.OnClickListener {
                 v_nongc.visibility=View.INVISIBLE
                 supportFragmentManager.beginTransaction().
                     add(R.id.container,HousingMarketListFragment()).commit()
+                type=CivilEstateInfo.ESTATEINFO_TYPE4
             }
 
             R.id.rl_minshangyongdi ->{
@@ -127,6 +128,12 @@ class CivilEstateListActivityTo : BaseActivity(), View.OnClickListener {
 
     override fun onTopBarRightTextClick() {
         super.onTopBarRightTextClick()
+
+        if(type.equals(CivilEstateInfo.ESTATEINFO_TYPE4)){
+            ReleaseHousingMarketActivity.start(mContext)
+        }else{
+            ReleaseCivilEstateActivity.start(mContext, type)
+        }
     }
 
     override fun onTopBarRightImgClick() {
@@ -137,9 +144,6 @@ class CivilEstateListActivityTo : BaseActivity(), View.OnClickListener {
             }else{
                 ReleaseCivilEstateActivity.start(mContext, type)
             }
-
-
-
 
         }
     }

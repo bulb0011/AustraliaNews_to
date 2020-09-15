@@ -9,7 +9,7 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:topBarTitleText="发布房市" />
+        app:topBarTitleText="发布民用" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,7 +30,6 @@
                 android:layout_marginTop="@dimen/text_size_px_3"
                 android:layout_marginRight="@dimen/text_size_px_43"
                 android:background="@color/white"
-                android:visibility="gone"
                 >
 
                 <TextView

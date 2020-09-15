@@ -199,6 +199,13 @@ class BusinessTransferListActivity : BaseActivity(), OnFilterClickListener {
         }
     }
 
+    override fun onTopBarRightTextClick() {
+        super.onTopBarRightTextClick()
+        if(isLoginToActivityByIsRelease) {
+            ReleaseBusinessTransferActivity.start(mContext)
+        }
+    }
+
     override fun onTopBarRightImgClick() {
         if(isLoginToActivityByIsRelease) {
             ReleaseBusinessTransferActivity.start(mContext)

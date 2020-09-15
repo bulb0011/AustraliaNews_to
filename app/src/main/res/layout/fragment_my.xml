@@ -331,7 +331,9 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/text_size_px_145">
+                    android:layout_height="@dimen/text_size_px_145"
+                    android:visibility="gone"
+                    >
 
                     <TextView
                         android:id="@+id/tv_dingyue"
@@ -461,7 +463,6 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/text_size_px_145"
-                    android:visibility="gone"
                     >
 
                     <TextView

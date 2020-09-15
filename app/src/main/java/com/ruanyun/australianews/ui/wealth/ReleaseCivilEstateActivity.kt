@@ -114,7 +114,7 @@ class ReleaseCivilEstateActivity : ReleaseBaseActivity() {
         params.type = intent.getStringExtra(C.IntentKey.TYPE)
         val title = when(params.type){
             CivilEstateInfo.ESTATEINFO_TYPE1 -> {
-                "发布民用地产"
+                "发布土地"
             }
             CivilEstateInfo.ESTATEINFO_TYPE2 -> {
                 "发布商业地产"
