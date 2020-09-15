@@ -38,6 +38,7 @@ public class RvHeaderFootViewAdapter<T> extends HeaderAndFooterWrapper implement
 
     @Override
     public void refresh(List<T> datas) {
+        if (datas.size()>0)
         mBindAdapter.refresh(datas);
         refresh();
     }

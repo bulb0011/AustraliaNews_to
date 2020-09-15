@@ -96,7 +96,22 @@ public class DefaultModel2ViewControler<Data> implements IDataDelegate {
                                     if(result.datas.size()==0)
                                         return;
 
+//                                    if (result.datas.get(0) instanceof CollectionBrowseNewsInfo){
+//                                        for (Object info:result.datas) {
+//                                            NewsInfo info1 =((CollectionBrowseNewsInfo) info).getNewsInfo();
+//                                            if (info1.getBaseWebsite()==null)
+//                                                info1.setBaseWebsite("");
+//
+//                                            if (info1.getOutUrl()==null)
+//                                                info1.setOutUrl("");
+//                                        }
+//                                        getDataAdapter().refresh(result.datas);
+//                                     }else {
+//                                        getDataAdapter().refresh(result.datas);
+//                                    }
+
                                     getDataAdapter().refresh(result.datas);
+
                                 }else {
                                     getEmptyView().showLoadFail(((ResultBase) data).msg);
                                     getDataAdapter().refresh(new ArrayList<>());

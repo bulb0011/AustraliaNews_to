@@ -63,7 +63,7 @@ class MyBrowseRecordNewListFragment : BaseFragment(){
     lateinit var iRefreshViewHolder: PtrRefreshViewHolder
     private lateinit var delegate: IDataDelegate
     private val params = CollectionBrowseNewsLifeListParams()
-    private lateinit var headerAdapter: RvHeaderFootViewAdapter<CollectionBrowseNewsInfo>
+    private lateinit var headerAdapter: RvHeaderFootViewAdapter <CollectionBrowseNewsInfo>
     private val tipDialog by lazy { TipDialog(mContext) }
     var deleteType = 2//1清空 2删除选中
 
@@ -79,6 +79,25 @@ class MyBrowseRecordNewListFragment : BaseFragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+//        ApiManger.getApiService().getBrowseRecordNewsPageList(params).compose(RxUtil.normalSchedulers())
+//            .subscribe(object : ApiSuccessAction<ResultBase<PageInfoBase<CollectionBrowseNewsInfo>>>() {
+//                override fun onSuccess(result: ResultBase<PageInfoBase<CollectionBrowseNewsInfo>>) {
+//                    result.data.datas
+//                    Log.e("dengpao","App.app.userOid"+result.data.datas.size)
+//
+//                }
+//                override fun onError(erroCode: Int, erroMsg: String) {
+////                disMissLoading()
+//                    showToast(erroMsg)
+//                }
+//            }, object : ApiFailAction() {
+//                override fun onFail(msg: String) {
+////                disMissLoading()
+//                    showToast(msg)
+//                }
+//            })
+
         initView()
     }
 
@@ -120,23 +139,7 @@ class MyBrowseRecordNewListFragment : BaseFragment(){
             }
         }
 
-        ApiManger.getApiService().getBrowseRecordNewsPageList(params).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<PageInfoBase<CollectionBrowseNewsInfo>>>() {
-                override fun onSuccess(result: ResultBase<PageInfoBase<CollectionBrowseNewsInfo>>) {
-                    result.data.datas
-                    Log.e("dengpao","App.app.userOid"+result.data.datas.size)
 
-                }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-//                disMissLoading()
-                    showToast(msg)
-                }
-            })
 
     }
 

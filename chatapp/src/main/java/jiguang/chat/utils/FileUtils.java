@@ -26,7 +26,8 @@ public class FileUtils {
 //    public static String API_URL = "http://39.105.159.51:9099/aozhoucaijing/";//线上
 
 //    public static String API_URL = "http://afn.resolr.com/aozhoucaijing/";//线上
-    public static String API_URL = "http://39.105.159.51:9099/aozhoucaijing/";//线上
+//    public static String API_URL = "http://39.105.159.51:9099/aozhoucaijing/";//线上
+    public static String API_URL = "http://47.93.19.198:9090/afntest/";//测试
 
     public static final String IMG_URL = "http://api.app.localau.com/";//图片地址
 
