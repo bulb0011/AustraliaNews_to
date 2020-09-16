@@ -39,7 +39,7 @@ constructor(apiService: ApiService) : RxPresenter<RegisteredMvpView>(apiService)
             .subscribe(object : ApiSuccessAction<ResultBase<String>>() {
                 override fun onSuccess(result: ResultBase<String>) {
                     mvpView.disMissLoadingView()
-                    mvpView.showToast(result.data)
+//                    mvpView.showToast(result.data)
                     mvpView.getVCodeSuccess()
                 }
 

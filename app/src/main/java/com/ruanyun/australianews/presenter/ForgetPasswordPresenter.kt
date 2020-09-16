@@ -35,7 +35,7 @@ constructor(apiService: ApiService) : RxPresenter<ForgetPasswordMvpView>(apiServ
             .subscribe(object : ApiSuccessAction<ResultBase<String>>() {
                 override fun onSuccess(result: ResultBase<String>) {
                     mvpView.disMissLoadingView()
-                    mvpView.showToast(result.data)
+//                    mvpView.showToast(result.data)
                     mvpView.getVCodeSuccess()
                 }
 
