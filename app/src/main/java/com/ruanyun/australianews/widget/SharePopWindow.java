@@ -36,9 +36,11 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 public class SharePopWindow extends PopupWindow implements PopupWindow.OnDismissListener, PlatformActionListener,
         Handler.Callback {
     private Context mContext;
-    private String strings[] = {"微信", "朋友圈", "QQ", "QQ空间"};
-    private int icon[] = {R.drawable.news_icon_weixin, R.drawable.news_icon_pyq,
-            R.drawable.news_icon_qq, R.drawable.news_icon_qqspace};
+//    private String strings[] = {"微信", "朋友圈", "QQ", "QQ空间"};
+    private String strings[] = {"微信", "朋友圈"};
+//    private int icon[] = {R.drawable.news_icon_weixin, R.drawable.news_icon_pyq,
+//            R.drawable.news_icon_qq, R.drawable.news_icon_qqspace};
+    private int icon[] = {R.drawable.news_icon_weixin, R.drawable.news_icon_pyq};
 
     private GridView grid;
 

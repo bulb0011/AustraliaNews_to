@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:clipChildren="true"
-        android:numColumns="4"
+        android:numColumns="2"
         android:paddingBottom="@dimen/text_size_px_40" />
 
     <View

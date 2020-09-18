@@ -11,8 +11,8 @@ buildscript {
     ext.CONSTRAIT_SUPPORT_VERSION = '1.1.3'
     ext.GLIDE = '4.9.0'
 
-    ext.compilesdkversion = 28
-    ext.targetsdkversion = 28
+    ext.compilesdkversion = 29
+    ext.targetsdkversion = 29
     ext.minsdkversion = 23
     ext.sdkSourceCompatibility = 1.8
     ext.sdkTargetCompatibility = 1.8
