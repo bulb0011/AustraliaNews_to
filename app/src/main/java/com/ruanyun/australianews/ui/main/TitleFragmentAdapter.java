@@ -30,8 +30,6 @@ public class TitleFragmentAdapter extends FragmentPagerAdapter {
     List<String> preIds = new ArrayList<>();
     boolean isRefreshViewEnable = false;
 
-
-
     public TitleFragmentAdapter(FragmentManager fm, @NonNull List<ChannelInfo> channels) {
         super(fm);
         this.channels = channels;
@@ -80,24 +78,25 @@ public class TitleFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        NewsListChildFragment fragment = (NewsListChildFragment) object;
-        String title = fragment.getTitle();
-        int preId = preIds.indexOf(title);
-        int newId = -1;
-        int i = 0;
-        int size = getCount();
-        for (; i < size; i++) {
-            if (getPageTitle(i).equals(title)) {
-                newId = i;
-                break;
-            }
-        }
-        if (newId != -1 && newId == preId) {
-            return POSITION_UNCHANGED;
-        }
-        if (newId != -1) {
-            return newId;
-        }
+//
+//        NewsListChildFragment fragment = (NewsListChildFragment) object;
+//        String  title = fragment.getTitle();
+//        int preId = preIds.indexOf(title);
+//        int newId = -1;
+//        int i = 0;
+//        int size = getCount();
+//        for (; i < size; i++) {
+//            if (getPageTitle(i).equals(title)) {
+//                newId = i;
+//                break;
+//            }
+//        }
+//        if (newId != -1 && newId == preId) {
+//            return POSITION_UNCHANGED;
+//        }
+//        if (newId != -1) {
+//            return newId;
+//        }
         return POSITION_NONE;
     }
 

@@ -5,6 +5,9 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.ruanyun.australianews.App;
+
 import net.sourceforge.pinyin4j.PinyinHelper;
 
 import java.text.ParseException;
@@ -209,8 +212,26 @@ public class StringUtil {
 //                return getTimeStrFromFormatStr("yyyy-MM-dd", originalTime);
 //            }
 
+//            if("cn".equals(App.app.iso)||"CN".equals(App.app.iso)){
+//
+//            }else  {
+//                Calendar cal = Calendar.getInstance();
+//                cal.setTime(date);
+//                cal.add(Calendar.HOUR_OF_DAY, 30);
+//                date=cal.getTime();
+//            }
+//            7200000
+
             long ctime = date.getTime();
-            long time = System.currentTimeMillis() - ctime;
+
+            long time=0;
+            if("cn".equals(App.app.iso)||"CN".equals(App.app.iso)){
+                time = System.currentTimeMillis() - ctime;
+            }else  {
+                time =( System.currentTimeMillis() + 7200000)- ctime;
+            }
+
+//            time = System.currentTimeMillis() - ctime;
             long timeLeft;
             if (TimeUnit.MILLISECONDS.toDays(time) >= 1) {
                 return getTimeStrFromFormatStr("MM-dd", originalTime);
@@ -265,11 +286,11 @@ public class StringUtil {
         try {
             date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(createTime);
 
-//            date=addDate(date,30);
-
         } catch (Exception e) {
             return createTime;
         }
+
+
         boolean sameYear = false;
         SimpleDateFormat sfd;
         Calendar dateCalendar = Calendar.getInstance();
@@ -428,29 +449,7 @@ public class StringUtil {
         return format.format(date);
     }
 
-    public static Date addDate(Date day, int x){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//24小时制
-        //SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//12小时制
-        Date date = day;
-        try
-        {
-            date = day;
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-//        if (date == null) return "";
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.HOUR_OF_DAY, x);//24小时制
-        //cal.add(Calendar.HOUR, x);12小时制
-        date = cal.getTime();
-        System.out.println("front:" + date);
-        cal = null;
-//        return format.format(date);
-        return date;
-    }
+
 
 
 }

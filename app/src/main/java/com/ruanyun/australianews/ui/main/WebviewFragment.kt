@@ -78,6 +78,7 @@ class WebviewFragment : BaseFragment() {
         webview.webViewClient = object : WebViewClient(){
             override fun onPageFinished(p0: WebView?, p1: String?) {
                 super.onPageFinished(p0, p1)
+                if(webview!=null)
                 webview.evaluateJavascript(js, null)
             }
         }

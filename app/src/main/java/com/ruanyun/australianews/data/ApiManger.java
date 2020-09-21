@@ -25,7 +25,7 @@ public class ApiManger {
     private static ApiService apiService;
 
     public static  String API_URL = FileUtils.API_URL;//链接地址
-    public static final String IMG_URL = FileUtils.IMG_URL;//新图片地址
+    public static  String IMG_URL = FileUtils.IMG_URL;//新图片地址
 
     public ApiManger() {
         init();
@@ -37,10 +37,13 @@ public class ApiManger {
 
 //        if("cn".equals(iso)||"CN".equals(iso)){
 //            API_URL = "http://dalu.afndaily.cn/aozhoucaijing/";
+//            IMG_URL= "https://dalu.afndaily.cn/ftpFile/";
 //        }else if("au".equals(iso)||"AU".equals(iso)) {
 //            API_URL = "http://afn.afndaily.cn/aozhoucaijing/";
+//            IMG_URL= "https://afn.afndaily.cn/ftpFile/";
 //        }else {
 //            API_URL = "http://afn.afndaily.cn/aozhoucaijing/";
+//            IMG_URL= "https://afn.afndaily.cn/ftpFile/";
 //        }
 
 

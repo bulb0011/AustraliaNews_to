@@ -18,8 +18,8 @@ android {
         applicationId "com.ruanyun.australianews"
         minSdkVersion rootProject.ext.minsdkversion
         targetSdkVersion rootProject.ext.targetsdkversion
-        versionCode 21
-        versionName "0.0.21"
+        versionCode 22
+        versionName "0.0.22"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
