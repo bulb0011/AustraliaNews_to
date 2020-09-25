@@ -90,7 +90,7 @@ constructor(apiService: ApiService) : RxPresenter<LoginMvpView>(apiService){
 
                 override fun onError(erroCode: Int, erroMsg: String) {
                     mvpView.disMissLoadingView()
-                    mvpView.showToast(erroMsg)
+//                    mvpView.showToast(erroMsg)
 
                     if (erroCode==-2) {
 //                        TODO("绑定")
@@ -101,7 +101,7 @@ constructor(apiService: ApiService) : RxPresenter<LoginMvpView>(apiService){
             }, object : ApiFailAction() {
                 override fun onFail(msg: String) {
                     mvpView.disMissLoadingView()
-                    mvpView.showToast(msg)
+//                    mvpView.showToast(msg)
                 }
             })
         addSubscrebe(subscription)

@@ -64,8 +64,6 @@ class WebviewFragment : BaseFragment() {
 
         val js="\$('.jin-timeline_title a').hide();"
 
-
-
         if("行情".equals(channelInfo?.title)){
 
             webview.loadUrl("http://afn.resolr.com/aozhoucaijing/hangqing/hangqing.html")
@@ -73,7 +71,6 @@ class WebviewFragment : BaseFragment() {
 
             webview.loadUrl("https://www.jin10.com/example/jin10.com.html?fontSize=14px&theme=white")
         }
-
 
         webview.webViewClient = object : WebViewClient(){
             override fun onPageFinished(p0: WebView?, p1: String?) {

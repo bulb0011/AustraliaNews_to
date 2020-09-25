@@ -76,7 +76,7 @@ android {
 //                    appId "wx2d18376dd3c54154"
 //                    appSecret "8c065c2b66d0321a81719858d9fbde8b"
                     appId "wxacdd7c584e315282"
-                    appSecret "cde4413637403a6fa74d48be7272e437"
+                    appSecret "85a02a568f445b35923a2b5ecf05726c"
                 }
                 WechatMoments {
                     sortId 2

@@ -520,11 +520,11 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun goHome(s: String) {
-//            LogX.e("retrofit", "goHome() : s = [$s]")
-//            runOnUiThread {
-//                MainActivity.start(mContext, 0)
-//                finish()
-//            }
+            LogX.e("retrofit", "goHome() : s = [$s]")
+            runOnUiThread {
+                MainActivity.start(mContext, 0)
+                finish()
+            }
         }
 
 
@@ -533,23 +533,23 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun privateLetter(thirdNum: String) {
-//            LogX.e("retrofit", "goOnline() : thirdNum = [$thirdNum]")
-//            if(TextUtils.isEmpty(thirdNum) || "undefined" == thirdNum){
-//                showToast("请稍后再试")
-//                return
-//            }
-//            if (isLoginToActivity) {
-//                if(CacheHelper.getInstance().isImLoginSuccess) {
-//                    if(thirdNum != app.userOid) {
-//                        P2pChatActivity.start(mContext, thirdNum)
-//                    }else {
-//                        runOnUiShowToast("您不能给自己发私信哦")
-//                    }
-//                }else {
-//                    runOnUiShowToast("私信异常，请联系客服！")
-//                    CacheHelper.getInstance().imLogin()
-//                }
-//            }
+            LogX.e("retrofit", "goOnline() : thirdNum = [$thirdNum]")
+            if(TextUtils.isEmpty(thirdNum) || "undefined" == thirdNum){
+                showToast("请稍后再试")
+                return
+            }
+            if (isLoginToActivity) {
+                if(CacheHelper.getInstance().isImLoginSuccess) {
+                    if(thirdNum != app.userOid) {
+                        P2pChatActivity.start(mContext, thirdNum)
+                    }else {
+                        runOnUiShowToast("您不能给自己发私信哦")
+                    }
+                }else {
+                    runOnUiShowToast("私信异常，请联系客服！")
+                    CacheHelper.getInstance().imLogin()
+                }
+            }
         }
 
         /**
@@ -557,8 +557,8 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun jumpHomepage(userOid: String) {
-//            LogX.e("retrofit", "jumpHomepage() : userOid = [$userOid]")
-//            UserHomePageActivity.start(mContext, userOid)
+            LogX.e("retrofit", "jumpHomepage() : userOid = [$userOid]")
+            UserHomePageActivity.start(mContext, userOid)
         }
 
         /**
@@ -567,9 +567,9 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
         @JavascriptInterface
         fun judgeLogin(s: String) {
             LogX.e("retrofit", "judgeLogin() : s = [$s]")
-//            if(app.user==null) {
-//                LoginActivity.start(mContext)
-//            }
+            if(app.user==null) {
+                LoginActivity.start(mContext)
+            }
         }
 
         /**
@@ -577,8 +577,8 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun historyBack(s: String) {
-//            LogX.e("retrofit", "historyBack() : s = [$s]")
-//            goBack()
+            LogX.e("retrofit", "historyBack() : s = [$s]")
+            goBack()
         }
 
         /**
@@ -586,8 +586,8 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun addingGoods(shopNum: String) {
-//            LogX.e("retrofit", "addingGoods() : shopNum = [$shopNum]")
-//            ReleaseShopGoodsActivity.start(mContext, shopNum)
+            LogX.e("retrofit", "addingGoods() : shopNum = [$shopNum]")
+            ReleaseShopGoodsActivity.start(mContext, shopNum)
         }
 
         /**
@@ -595,8 +595,8 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun moreComments(s: String) {
-//            LogX.e("retrofit", "moreComments() : s = [$s]")
-//            NewsCommentActivity.start(mContext, presenter.newsInfoOid, presenter.newsInfoType)
+            LogX.e("retrofit", "moreComments() : s = [$s]")
+            NewsCommentActivity.start(mContext, presenter.newsInfoOid, presenter.newsInfoType)
         }
 
         /**
@@ -604,11 +604,11 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun detailsLeaveFeedback(json: String) {
-//            LogX.e("retrofit", "moreComments() : json = [$json]")
-//            val info = GsonUtil.parseJson(json, CommentInfo::class.java)
-//            info.userPhoto = info.sysUser?.userPhoto
-//            info.name = info.sysUser?.name
-//            SecondaryCommentActivity.start(mContext, info, presenter.newsInfoType)
+            LogX.e("retrofit", "moreComments() : json = [$json]")
+            val info = GsonUtil.parseJson(json, CommentInfo::class.java)
+            info.userPhoto = info.sysUser?.userPhoto
+            info.name = info.sysUser?.name
+            SecondaryCommentActivity.start(mContext, info, presenter.newsInfoType)
         }
 
         /**
@@ -616,9 +616,9 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun jumpAdvertisement(json: String) {
-//            LogX.e("retrofit", "jumpAdvertisement() : json = [$json]")
-//            val info = GsonUtil.parseJson(json, AdvertInfoBase::class.java)
-//            WebViewUrlUtil.showAdvertDetailsWeb(mContext, info)
+            LogX.e("retrofit", "jumpAdvertisement() : json = [$json]")
+            val info = GsonUtil.parseJson(json, AdvertInfoBase::class.java)
+            WebViewUrlUtil.showAdvertDetailsWeb(mContext, info)
         }
 
         /**
@@ -626,8 +626,8 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          */
         @JavascriptInterface
         fun clickCopy(name: String) {
-//            LogX.e("retrofit", "jumpAdvertisement() : name = [$name]")
-//            copyText(name)
+            LogX.e("retrofit", "jumpAdvertisement() : name = [$name]")
+            copyText(name)
         }
 
         /**
@@ -645,7 +645,7 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
                 }
                 datas.add(FileUtil.getImageUrl(s))
             }
-//            ImageListUtil.showBigImagesWithStringList(mContext, datas, currentPic)
+            ImageListUtil.showBigImagesWithStringList(mContext, datas, currentPic)
         }
 
         /**
@@ -662,7 +662,7 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
                 3 -> name = QQ.NAME
                 4 -> name = QZone.NAME
             }
-//            share(name, shareInfo.title, shareInfo.content, shareInfo.imgUrl, shareInfo.url)
+            share(name, shareInfo.title, shareInfo.content, shareInfo.imgUrl, shareInfo.url)
         }
 
     }

@@ -4,7 +4,6 @@ import `in`.srain.cube.views.ptr.PtrFrameLayout
 import `in`.srain.cube.views.ptr.PtrHandler
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
@@ -12,7 +11,6 @@ import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.ruanyun.australianews.R
@@ -36,7 +34,6 @@ import com.ruanyun.australianews.ui.news.ChannelManagerActivity
 import com.ruanyun.australianews.util.*
 import com.ruanyun.australianews.util.CommonUtil.dp2px
 import com.ruanyun.australianews.widget.MyConvenientBanner
-import com.ruanyun.australianews.widget.ReWebChromeClient
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.layout_news_header.*
 import org.greenrobot.eventbus.EventBus

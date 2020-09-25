@@ -38,8 +38,8 @@ import me.jessyan.autosize.internal.CancelAdapt
 class SplashActivity : BaseActivity(), CancelAdapt {
 
     var isShow = false
-//    internal var time = 5
-    internal var time = 1
+    internal var time = 8
+//    internal var time = 1
 
     @SuppressLint("HandlerLeak")
     internal var handler: Handler? = object : Handler() {
