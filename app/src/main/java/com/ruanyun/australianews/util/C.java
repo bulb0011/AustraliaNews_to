@@ -232,6 +232,8 @@ public final class C {
         public static final String SCROLL_TO_TOP = "scroll_to_top";
         public static final String ADD_COMMENT_SUCCESS = "add_comment_success";
 
+        public static final String UPDATE_NOTIFICATION_MANAGER = "update_notification_manager";
+
         public static final String CHANGE_APP_LANGUAGE = "change_app_language";
     }
 

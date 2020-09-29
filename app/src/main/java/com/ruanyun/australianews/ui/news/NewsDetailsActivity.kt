@@ -404,11 +404,11 @@ open class NewsDetailsActivity : WebViewActivity() {
                     isChina = true
                 }
 
-                ttsholder.start()
+//                ttsholder.start()
 
                 setPercent()
 
-                rl_xuanfu.visibility = View.VISIBLE
+//                rl_xuanfu.visibility = View.VISIBLE
             }
         })
 

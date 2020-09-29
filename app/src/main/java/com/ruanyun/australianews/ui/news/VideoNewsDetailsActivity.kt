@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.view.KeyEvent
+import android.widget.ImageView
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
+import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.ext.clickWithTrigger
+import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.ext.toImgUrl
 import com.ruanyun.australianews.model.NewsInfo
 import com.ruanyun.australianews.model.ShareJsonInfo
@@ -20,6 +23,7 @@ import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
+import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_video_web_view.*
 
 /**
@@ -63,10 +67,6 @@ class VideoNewsDetailsActivity : NewsDetailsActivity(){
         }
     }
 
-    lateinit var videoPath: String
-    lateinit var imageCover: String
-
-
     private var isPlay: Boolean = false
     private var isPause: Boolean = false
 
@@ -84,14 +84,40 @@ class VideoNewsDetailsActivity : NewsDetailsActivity(){
     override fun initView() {
         super.initView()
 
-        videoPath = intent.getStringExtra(C.IntentKey.NEWS_VIDEO_PATH)
-        imageCover = intent.getStringExtra(C.IntentKey.NEWS_IMAGE_COVER)
+        var videoPath=""
+        var imageCover=""
 
-        sharePopWindow.share_url= videoPath
-//        sharePopWindow.share_image=imageCover
+        if (intent.getStringExtra(C.IntentKey.NEWS_VIDEO_PATH)!=null && intent.getStringExtra(C.IntentKey.NEWS_VIDEO_PATH)!=""){
+            videoPath =intent.getStringExtra(C.IntentKey.NEWS_VIDEO_PATH)
+        }else{
+            videoPath ="http://vfx.mtime.cn/Video/2019/02/04/mp4/190204084208765161.mp4"
+            ToastUtil.shortToast(mContext,"没有视频地址")
+        }
+
+        if (intent.getStringExtra(C.IntentKey.NEWS_IMAGE_COVER)!=null && intent.getStringExtra(C.IntentKey.NEWS_IMAGE_COVER)!=""){
+            imageCover =intent.getStringExtra(C.IntentKey.NEWS_IMAGE_COVER)
+        }else{
+            imageCover = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1601056215235&di=2e81461d7887fcc06684d82e4f220d7f&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F08f790529822720efd479a2f7acb0a46f31fab5e.jpg"
+            ToastUtil.shortToast(mContext,"没有图片地址")
+
+        }
 
 
-        detailPlayer.loadCoverImage(imageCover, 0)
+        initVideo(videoPath,imageCover)
+//        Handler().postDelayed({
+//            detailPlayer.startAfterPrepared()
+//        },1000)
+    }
+
+    private fun initVideo(videoPath :String,imageCover:String) {
+        val imageView = ImageView(context)
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        imageView.loadImage(imageCover)
+
+        sharePopWindow.share_url = videoPath
+        //        sharePopWindow.share_image=imageCover
+
+
         detailPlayer.enlargeImageRes = R.drawable.video_btn_fullscreen
         detailPlayer.shrinkImageRes = R.drawable.video_btn_narrow
         detailPlayer.backButton.clickWithTrigger { finish() }
@@ -102,15 +128,18 @@ class VideoNewsDetailsActivity : NewsDetailsActivity(){
         orientationUtils?.isEnable = false
 
         val gsyVideoOption = GSYVideoOptionBuilder()
-        gsyVideoOption.setRotateViewAuto(false).setAutoFullWithSize(true).setShowFullAnimation(false)
-            .setNeedLockFull(true).setUrl(videoPath).setCacheWithPlay(true).setFullHideStatusBar(true)
+        gsyVideoOption
+            .setThumbImageView(imageView)
+            .setRotateViewAuto(false).setAutoFullWithSize(true).setShowFullAnimation(false)
+            .setNeedLockFull(true).setUrl(videoPath).setCacheWithPlay(true)
+            .setFullHideStatusBar(true)
             .setVideoAllCallBack(object : GSYSampleCallBack() {
                 override fun onPrepared(url: String?, vararg objects: Any) {
                     Debuger.printfError("***** onPrepared **** " + objects[0])
                     Debuger.printfError("***** onPrepared **** " + objects[1])
                     super.onPrepared(url, *objects)
                     //开始播放了才能旋转和全屏
-//                    orientationUtils?.isEnable = false
+    //                    orientationUtils?.isEnable = false
                     isPlay = true
                 }
 
@@ -141,9 +170,6 @@ class VideoNewsDetailsActivity : NewsDetailsActivity(){
             //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
             detailPlayer.startWindowFullscreen(this@VideoNewsDetailsActivity, true, true)
         }
-//        Handler().postDelayed({
-            detailPlayer.startAfterPrepared()
-//        },1000)
     }
 
 //    override fun onBackPressed() {

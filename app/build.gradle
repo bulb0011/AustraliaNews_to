@@ -27,9 +27,10 @@ android {
             abiFilters "armeabi-v7a", "arm64-v8a"
         }
         flavorDimensions "versionCode"
+
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "ee84f5ca818862b08ffc168d", //JPush上注册的包名对应的appkey.
+                JPUSH_APPKEY : "1f668305c3ab62def16f1dc0", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
@@ -219,7 +220,7 @@ dependencies {
     implementation files('libs/Msc.jar')
 
 
-    // 极光推送
+    // 极光推送 //    ee84f5ca818862b08ffc168d
     implementation 'cn.jiguang.sdk:jpush:3.1.3'
     implementation 'cn.jiguang.sdk:jcore:1.2.3'
 

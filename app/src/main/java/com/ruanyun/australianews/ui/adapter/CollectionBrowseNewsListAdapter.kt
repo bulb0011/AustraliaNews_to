@@ -44,7 +44,8 @@ class CollectionBrowseNewsListAdapter(context: Context, datas: List<CollectionBr
                 holder.getView<ImageView>(R.id.iv_photo).loadImage(item.mainPhoto.toImgUrl())
                 holder.setText(R.id.tv_title, item.title)
                 holder.setText(R.id.tv_source, NewsInfo.getSourceStr(item))
-                holder.getView<TextView>(R.id.tv_hot).visibility = if(item.isHot==1)View.VISIBLE else View.GONE
+//                holder.getView<TextView>(R.id.tv_hot).visibility = if(item.isHot==1)View.VISIBLE else View.GONE
+                holder.getView<TextView>(R.id.tv_hot).visibility =View.GONE
                 updateStatusChange(holder, t)
 
             }
@@ -66,7 +67,8 @@ class CollectionBrowseNewsListAdapter(context: Context, datas: List<CollectionBr
                 val item = t.newsInfo?:return
                 holder.setText(R.id.tv_title, item.title)
                 holder.setText(R.id.tv_source, NewsInfo.getSourceStr(item))
-                holder.getView<TextView>(R.id.tv_hot).visibility = if(item.isHot==1)View.VISIBLE else View.GONE
+//                holder.getView<TextView>(R.id.tv_hot).visibility = if(item.isHot==1)View.VISIBLE else View.GONE
+                holder.getView<TextView>(R.id.tv_hot).visibility = View.GONE
                 updatePhotoList(holder, item)
                 updateStatusChange(holder, t)
             }
@@ -89,7 +91,8 @@ class CollectionBrowseNewsListAdapter(context: Context, datas: List<CollectionBr
                 holder.getView<ImageView>(R.id.iv_video_main_photo).loadImage(item.mainPhoto.toImgUrl())
                 holder.setText(R.id.tv_title, item.title)
                 holder.setText(R.id.tv_source, NewsInfo.getSourceStr(item))
-                holder.getView<TextView>(R.id.tv_hot).visibility = if(item.isHot==1)View.VISIBLE else View.GONE
+//                holder.getView<TextView>(R.id.tv_hot).visibility = if(item.isHot==1)View.VISIBLE else View.GONE
+                holder.getView<TextView>(R.id.tv_hot).visibility = View.GONE
                 updateStatusChange(holder, t)
 //                holder.convertView.clickWithTrigger {
 //                    VideoNewsDetailsActivity.start(mContext, item)

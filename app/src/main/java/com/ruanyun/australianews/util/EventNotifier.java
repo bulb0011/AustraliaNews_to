@@ -106,4 +106,11 @@ public class EventNotifier {
         EventBus.getDefault().post(new Event<String>(C.EventKey.ADD_COMMENT_SUCCESS, ""));
     }
 
+    /**
+     * 刷新推送记录页面
+     **/
+    public void updateNotificationManager() {
+        EventBus.getDefault().post(new Event<String>(C.EventKey.UPDATE_NOTIFICATION_MANAGER, ""));
+    }
+
 }

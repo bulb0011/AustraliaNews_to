@@ -24,6 +24,7 @@ import com.ruanyun.australianews.ext.loadCircleImage
 import com.ruanyun.australianews.ext.setStatusBarHeightPaddingTop
 import com.ruanyun.australianews.model.Event
 import com.ruanyun.australianews.model.UserInfo
+import com.ruanyun.australianews.ui.MyReceiver
 import com.ruanyun.australianews.ui.login.LoginActivity
 import com.ruanyun.australianews.ui.my.*
 import com.ruanyun.australianews.util.*
@@ -106,7 +107,16 @@ class MyFragment : BaseFragment() {
 
         tv_comment.clickWithTrigger { if(isLoginToActivity) MyEvaluationListActivity.start(mContext) }
         tv_collection.clickWithTrigger { if(isLoginToActivity) MyCollectionActivity.start(mContext) }
-        tv_push_record.clickWithTrigger { if(isLoginToActivity) MyPushRecordNewListActivity.start(mContext) }
+        tv_push_record.clickWithTrigger {
+            if(isLoginToActivity){
+                MyPushRecordNewListActivity.start(mContext)
+                if (tv_myiconrecord_my.visibility==View.VISIBLE){
+                    tv_myiconrecord_my.visibility = View.GONE
+                    MyReceiver.number=0
+                }
+
+            }
+        }
         tv_browsing_history.clickWithTrigger { if(isLoginToActivity) MyBrowseRecordActivity.start(mContext) }
         iv_notice_switch.click {
             CacheHelper.getInstance().isTurnOnPush = !iv_notice_switch.isSelected
@@ -232,6 +242,22 @@ class MyFragment : BaseFragment() {
         if (C.EventKey.UPDATE_UNREAD_COUNT == event.key) {
             updateMsgCount()
         }
+    }
+
+    /**
+     * 有通知，刷新数量
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateNotificationManager(event: Event<String>) {
+        if (C.EventKey.UPDATE_NOTIFICATION_MANAGER == event.key) {
+            updateNotification()
+        }
+    }
+
+    private fun updateNotification() {
+        tv_myiconrecord_my.text = String.format("%s", MyReceiver.number)
+        tv_myiconrecord_my.visibility = if (MyReceiver.number > 0) View.VISIBLE else View.GONE
     }
 
     private fun updateMsgCount() {

@@ -25,6 +25,7 @@ import com.ruanyun.australianews.ext.loadImageNoDefault
 import com.ruanyun.australianews.ext.toImgUrl
 import com.ruanyun.australianews.model.*
 import com.ruanyun.australianews.model.params.UserOidPageParams
+import com.ruanyun.australianews.ui.MainActivity
 import com.ruanyun.australianews.ui.WebViewActivity
 import com.ruanyun.australianews.ui.life.BusinessTransferListActivity
 import com.ruanyun.australianews.ui.main.SearchActivity
@@ -131,6 +132,8 @@ class WealthActivity : BaseActivity(), OnFilterClickListener {
 
         image_que.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
+//              val mainactivity = MainActivity()
+//                  mainactivity.setCurrentTab()
                 finish();
             }
         })

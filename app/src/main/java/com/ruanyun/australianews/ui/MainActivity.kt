@@ -51,6 +51,7 @@ import java.util.*
 class MainActivity : BaseActivity() {
     private val mTabEntities = ArrayList<CustomTabEntity>()
 
+
     private val mIconUnselectIds = intArrayOf(
         R.drawable.tab_news,
         R.drawable.tab_life,
@@ -165,7 +166,6 @@ class MainActivity : BaseActivity() {
             setFragment(position)
             bottom_tabLayout.currentTab = position
         }
-
     }
 
     /**
@@ -206,6 +206,8 @@ class MainActivity : BaseActivity() {
                 1 -> {
                     myFragment?.let {
                         this.show(it)
+                        if (tv_unread_count.visibility==View.VISIBLE)
+                            tv_unread_count.visibility = View.INVISIBLE
                     }
                 }
 
@@ -218,6 +220,10 @@ class MainActivity : BaseActivity() {
         }.commitAllowingStateLoss()
     }
 
+
+   public fun setCurrentTab(){
+       bottom_tabLayout.currentTab = currentPosition
+    }
 
     /**
      * 隐藏所有fragment
@@ -355,6 +361,18 @@ class MainActivity : BaseActivity() {
 //            System.exit(0)
 
 
+        }
+    }
+
+    /**
+     * 有通知，刷新数量
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateNotificationManager(event: Event<String>) {
+        if (C.EventKey.UPDATE_NOTIFICATION_MANAGER == event.key) {
+            tv_unread_count.text = String.format("%s",(MyReceiver.number+JMessageClient.getAllUnReadMsgCount()))
+            tv_unread_count.visibility = if (MyReceiver.number > 0) View.VISIBLE else View.INVISIBLE
         }
     }
 

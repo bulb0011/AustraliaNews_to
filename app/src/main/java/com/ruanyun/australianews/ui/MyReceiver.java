@@ -9,6 +9,7 @@ import com.ruanyun.australianews.App;
 import com.ruanyun.australianews.model.JPushInfo;
 import com.ruanyun.australianews.model.NewsInfo;
 import com.ruanyun.australianews.model.uimodel.LifeReleaseCommonUiModel;
+import com.ruanyun.australianews.util.EventNotifier;
 import com.ruanyun.australianews.util.FileUtil;
 import com.ruanyun.australianews.util.GsonUtil;
 import com.ruanyun.australianews.util.LogX;
@@ -17,6 +18,7 @@ import com.ruanyun.australianews.util.WebViewUrlUtil;
 import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * 自定义接收器
@@ -28,10 +30,19 @@ import cn.jpush.android.api.JPushInterface;
 public class MyReceiver extends BroadcastReceiver {
     private static final String TAG = "JPush";
 
+    public  static int number = 0;
+
     @Override
     public final void onReceive(Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
+            number=number+1;
+            EventNotifier.getInstance().updateNotificationManager();
+
+            int unreadMsgCount = JMessageClient.getAllUnReadMsgCount();
+
+            LogX.e("dengpao","未读消息"+unreadMsgCount);
+
             if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {//点击通知时
                 LogX.e(TAG, "[MyReceiver] 用户点击打开了通知");
                 if (App.getInstance().containsActivity(MainActivity.class)) {
