@@ -18,8 +18,8 @@ android {
         applicationId "com.ruanyun.australianews"
         minSdkVersion rootProject.ext.minsdkversion
         targetSdkVersion rootProject.ext.targetsdkversion
-        versionCode 22
-        versionName "0.0.22"
+        versionCode 23
+        versionName "0.0.23"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
@@ -213,8 +213,9 @@ dependencies {
 
     //百度地图
     implementation files('libs/BaiduLBS_Android.jar')
-    //支付宝
-    implementation files('libs/alipaySdk-20180601.jar')
+
+//    //支付宝
+    implementation(name: 'alipaySdk-15.7.4', ext: 'aar')
 
     //飞讯
     implementation files('libs/Msc.jar')

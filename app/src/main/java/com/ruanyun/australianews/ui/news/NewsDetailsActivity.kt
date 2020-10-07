@@ -5,10 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.view.View
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.SeekBar
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.ResultBase
@@ -25,6 +22,7 @@ import com.ruanyun.australianews.ui.WebViewActivity
 import com.ruanyun.australianews.ui.main.NewsFragment
 import com.ruanyun.australianews.util.*
 import com.ruanyun.australianews.widget.LeaveMessageDialogFragment
+import com.ruanyun.australianews.widget.LoadingDialog
 import com.ruanyun.australianews.widget.SharePopWindow
 import com.ruanyun.australianews.widget.SlideDialog
 import kotlinx.android.synthetic.main.activity_news_web_view.*
@@ -115,9 +113,12 @@ open class NewsDetailsActivity : WebViewActivity() {
 
     var url_en = ""
 
+    lateinit var LoadDialog : LoadingDialog
 
     override fun initView() {
         super.initView()
+
+        LoadDialog=LoadingDialog(this)
 
         if ("English".equals(
                 DbHelper.getInstance().getSubscribedList(app.isLogin)
@@ -201,6 +202,17 @@ open class NewsDetailsActivity : WebViewActivity() {
                     }
                 })
         }
+
+        webView.setWebChromeClient(object : WebChromeClient(){
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                super.onProgressChanged(view, newProgress)
+                if (newProgress==10){
+                    LoadDialog.show()
+                }else if(newProgress==100){
+                    LoadDialog.dismiss()
+                }
+            }
+        })
 
 
         webView.webViewClient = object : WebViewClient() {
@@ -607,6 +619,7 @@ open class NewsDetailsActivity : WebViewActivity() {
                     disMissLoading()
                     showToast("收藏成功")
                     iv_collect.isSelected = true
+                    newsCommentCountInfo?.mark = true
                     newsCommentCountInfo?.collectionInfo = result.data.oid
                 }
 
@@ -641,6 +654,7 @@ open class NewsDetailsActivity : WebViewActivity() {
                     disMissLoadingView()
                     showToast("取消收藏成功")
                     iv_collect.isSelected = false
+                    newsCommentCountInfo?.mark = false
                     newsCommentCountInfo?.collectionInfo = null
                 }
 

@@ -36,8 +36,8 @@ class LoadingDialog(context: Context) : Dialog(context) {
         colorDrawable.alpha = 120
         window?.setBackgroundDrawable(colorDrawable)
         window?.setLayout(context.dp2Px(123f), context.dp2Px(123f))
-        window?.attributes?.dimAmount = 0f//activity背景不变暗
-        setCanceledOnTouchOutside(true)// 点击Dialog外部消失
+        window?.attributes?.dimAmount = 0.5f//activity背景不变暗1-0
+        setCanceledOnTouchOutside(false)// 点击Dialog外部true消失 false不消失
 
     }
 
