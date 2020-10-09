@@ -14,15 +14,14 @@ import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.ext.loadImage
-import com.ruanyun.australianews.model.HotInfo
 
 class VipReMenAdapter(
     context: Context,
-    listData: MutableList<HotInfo.HotInfoDatasBean>
+    listData: MutableList<com.ruanyun.australianews.model.HotInfo.DatasEntity>
 ) : RecyclerView.Adapter<VipReMenAdapter.ReMenViewHolder>(){
 
      var contet:Context
-     var listData:List<HotInfo.HotInfoDatasBean>
+     var listData:List<com.ruanyun.australianews.model.HotInfo.DatasEntity>
 
     val iso:String
 

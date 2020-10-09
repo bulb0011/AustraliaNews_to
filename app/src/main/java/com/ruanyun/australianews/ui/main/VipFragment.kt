@@ -16,12 +16,16 @@ import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
 import com.ruanyun.australianews.base.ResultBase
+import com.ruanyun.australianews.base.refreshview.data.IDataSource
+import com.ruanyun.australianews.base.refreshview.impl.PageDataSource
 import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
+import com.ruanyun.australianews.data.ApiService
 import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.*
+import com.ruanyun.australianews.model.params.NewsListParams
 import com.ruanyun.australianews.ui.adapter.AdverViewHolderTo
 import com.ruanyun.australianews.ui.adapter.VipClassifAdapter
 import com.ruanyun.australianews.ui.adapter.VipReMenAdapter
@@ -43,10 +47,20 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import rx.Observable
+import javax.inject.Inject
 
 
 class VipFragment :BaseFragment(){
+
+    lateinit var convenientBanner: MyConvenientBanner<VipBannerInfo>
+
+    val advertList = arrayListOf<VipBannerInfo>()
+
+    var columnOid=""
+
+    // 滚动偏移距离
+    private var height: Int = 0
 
 
     override fun onCreateView(
@@ -60,8 +74,6 @@ class VipFragment :BaseFragment(){
         return mContentView
     }
 
-    lateinit var convenientBanner: MyConvenientBanner<VipBannerInfo>
-
     override fun onResume() {
         super.onResume()
         convenientBanner.startTurning(4000)
@@ -72,13 +84,6 @@ class VipFragment :BaseFragment(){
         convenientBanner.stopTurning()
 
     }
-
-   val advertList = arrayListOf<VipBannerInfo>()
-
-   var columnOid=""
-
-    // 滚动偏移距离
-    private var height: Int = 0
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -99,6 +104,7 @@ class VipFragment :BaseFragment(){
         ll_soushuo.clickWithTrigger { SearchActivity.start(mContext, SearchActivity.HOME_SEARCH) }
 
         img_dinbyue.clickWithTrigger { MySubscibeActivity.start(mContext) }
+
 
         //专栏查看更多
         rl_zhuanglian.clickWithTrigger {
@@ -128,11 +134,14 @@ class VipFragment :BaseFragment(){
             }
         })
 
+
         nestedScrollView.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener{
             override fun onScrollChange(p0: NestedScrollView?, p1: Int, p2: Int, p3: Int, p4: Int) {
                 height=p2
             }
         })
+
+        initEvent()
 
     }
     var mDataList: MutableList<String> = ArrayList()
@@ -169,6 +178,31 @@ class VipFragment :BaseFragment(){
 
                     rv_remincanpin.adapter = adapterVipReMen
 
+                    adapterVipReMen?.setOnCliakListener(object : VipReMenAdapter.OnCliskListener {
+                        override fun onClisk(view: View?, po: Int,type:Int,id:String) {
+                            var s=""
+                            if (type==1){
+
+                                s=C.IntentKey.VIP_TYPE_PDF
+                            }else if (type==2){
+
+                                s=C.IntentKey.VIP_TYPE_VIDEO
+                            }else if (type==3){
+
+                                s=C.IntentKey.VIP_TYPE_MP3
+                            }
+
+                            context?.let {
+                                VipDetailsActivity.start(
+                                    it,
+                                    s,
+                                    id
+                                )
+                            }
+
+                        }
+                    })
+
                 }
                 override fun onError(erroCode: Int, erroMsg: String) {
 //                disMissLoading()
@@ -182,29 +216,26 @@ class VipFragment :BaseFragment(){
         })
 
 
-
         //分类
         ApiManger.getApiService().getClassifList().compose(RxUtil.normalSchedulers())
             .subscribe(object : ApiSuccessAction<ResultBase<List<ClassifyInfo>>>() {
                 override fun onSuccess(result: ResultBase<List<ClassifyInfo>>) {
 //                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
-
                     val layoutManager = LinearLayoutManager(context)
-
                     layoutManager.orientation = LinearLayoutManager.HORIZONTAL
                     rv_classify.layoutManager = layoutManager
                     rv_classify.isNestedScrollingEnabled = false
-
                     Log.e("dengpao", result.data.toString())
-
-
                     adapterClassif = VipClassifAdapter(context,
                         result.data as MutableList<ClassifyInfo>
                     )
-
                     rv_classify.adapter = adapterClassif
 
-
+                    adapterClassif?.setOnCliakListener(object : VipClassifAdapter.OnCliskListener{
+                        override fun onClisk(view: View?, title: String, id: String) {
+                            VipListActivity.start(mContext,title,id)
+                        }
+                    })
 
                 }
                 override fun onError(erroCode: Int, erroMsg: String) {
@@ -238,6 +269,19 @@ class VipFragment :BaseFragment(){
                         ToastUtil.shortToast(mContext,"111")
                     }
 
+                    convenientBanner?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+
+                        override fun onPageScrollStateChanged(p0: Int) {
+                        }
+
+                        override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                        }
+
+                        override fun onPageSelected(p0: Int) {
+                            tv_banner.text=advertList.get(p0).title
+                        }
+                    })
+
                 }
                 override fun onError(erroCode: Int, erroMsg: String) {
 //                disMissLoading()
@@ -253,14 +297,60 @@ class VipFragment :BaseFragment(){
 
 
         //最下面的新闻
-        ApiManger.getApiService().getNewsInfoByNewsType(App.app.cityName,App.app.userOid).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<NewsInfoNewsInfo>>() {
-                override fun onSuccess(result: ResultBase<NewsInfoNewsInfo>) {
-//                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
+//        ApiManger.getApiService().getNewsInfoByNewsType(App.app.cityName,App.app.userOid).compose(RxUtil.normalSchedulers())
+//            .subscribe(object : ApiSuccessAction<ResultBase<NewsInfoNewsInfo>>() {
+//                override fun onSuccess(result: ResultBase<NewsInfoNewsInfo>) {
+////                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
+//
+//                    val   data =  result.data.datas
+//                    val  vipColumnInfo =  data.datas
+//
+////                    mDataList.add("")
+//
+//                    val layoutManager = LinearLayoutManager(context)
+//
+//                    layoutManager.orientation = LinearLayoutManager.VERTICAL
+//
+//                    rv_to.layoutManager = layoutManager
+//
+//                    rv_to.isNestedScrollingEnabled = false
+//
+//                    adapterVipReTo = context?.let { VipReToAdapter(it, vipColumnInfo) }
+//
+//                    rv_to.adapter=adapterVipReTo
+//
+//                    adapterVipReTo.setOnCliakListener(object : VipReToAdapter.OnCliskListener{
+//                        override fun onClisk(view: View?,i:Int) {
+//                            ToastUtil.shortToast(mContext,"$"+i)
+//
+//                           val objInfo= vipColumnInfo[i]
+//
+//                            WebViewUrlUtil.showVIPNewsWeb(mContext,objInfo.title,objInfo.mainPhoto,objInfo.oid,objInfo.createTime)
+//
+//                        }
+//                    })
+//
+//                }
+//                override fun onError(erroCode: Int, erroMsg: String) {
+////                disMissLoading()
+//                    showToast(erroMsg)
+//                }
+//            }, object : ApiFailAction() {
+//                override fun onFail(msg: String) {
+////                disMissLoading()
+//                    showToast(msg)
+//                }
+//            })
+        ApiManger.getApiService().getNewsInfoByNewsType(App.app.cityName,App.app.userOid,100)
+            .enqueue(object : Callback<TextNewInfo> {
+                override fun onFailure(call: Call<TextNewInfo>, t: Throwable) {
 
-                    val  vipColumnInfo =  result.data.datas
+                }
 
-//                    mDataList.add("")
+                override fun onResponse(call: Call<TextNewInfo>, response: Response<TextNewInfo>) {
+
+                    val   data =  response.body()!!.data
+                    val  vipColumnInfo =  data.datas
 
                     val layoutManager = LinearLayoutManager(context)
 
@@ -285,71 +375,17 @@ class VipFragment :BaseFragment(){
                         }
                     })
 
-                    initEvent()
+                }
 
-
-                }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-//                disMissLoading()
-                    showToast(msg)
-                }
             })
 
 
     }
     fun initEvent(){
-
-        adapterVipReMen?.setOnCliakListener(object : VipReMenAdapter.OnCliskListener {
-            override fun onClisk(view: View?, po: Int,type:Int,id:String) {
-                var s=""
-                if (type==1){
-
-                    s=C.IntentKey.VIP_TYPE_PDF
-                }else if (type==2){
-
-                    s=C.IntentKey.VIP_TYPE_VIDEO
-                }else if (type==3){
-
-                    s=C.IntentKey.VIP_TYPE_MP3
-                }
-
-                context?.let {
-                    VipDetailsActivity.start(
-                        it,
-                        s,
-                        id
-                    )
-                }
-
-            }
-        })
-
-        convenientBanner.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-
-            override fun onPageScrollStateChanged(p0: Int) {
-            }
-
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-            }
-
-            override fun onPageSelected(p0: Int) {
-                tv_banner.text=advertList.get(p0).title
-            }
-        })
-
         //热门更多
-        tv_gengduo.clickWithTrigger { MoreActivity.start(mContext) }
-
-        adapterClassif.setOnCliakListener(object : VipClassifAdapter.OnCliskListener{
-            override fun onClisk(view: View?, title: String, id: String) {
-                VipListActivity.start(mContext,title,id)
-            }
-        })
+        gengduo.clickWithTrigger{
+            MoreActivity.start(mContext)
+        }
 
 
         zhanlan()

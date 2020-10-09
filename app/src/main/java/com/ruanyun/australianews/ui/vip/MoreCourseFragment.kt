@@ -36,7 +36,7 @@ class MoreCourseFragment @SuppressLint constructor():BaseFragment(){
         return inflater.inflate(R.layout.fragment_more_course,container,false)
     }
 
-    val mDataListCurriculum= arrayListOf<HotInfo.HotInfoDatasBean>()
+    val mDataListCurriculum= arrayListOf<com.ruanyun.australianews.model.HotInfo.DatasEntity>()
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -2,25 +2,23 @@ package com.ruanyun.australianews.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import cn.addapp.pickers.util.DateUtils
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.ext.loadImage
-import com.ruanyun.australianews.model.NewsInfoNewsInfo
 
-class MorePayAdapter constructor(context : Context, listData:List<NewsInfoNewsInfo.DatasBean>) : RecyclerView.Adapter<MorePayAdapter.MorePayHolder>(){
 
+class MorePayAdapter constructor(context : Context, listData:List<com.ruanyun.australianews.model.TextNewInfo.DataEntity.DatasEntity>) : RecyclerView.Adapter<MorePayAdapter.MorePayHolder>(){
+    //NewsInfoNewsInfo.DatasBean
         lateinit var contet:Context
-        lateinit var listData:List<NewsInfoNewsInfo.DatasBean>
+        lateinit var listData:List<com.ruanyun.australianews.model.TextNewInfo.DataEntity.DatasEntity>
 
         init {
             this.contet=context

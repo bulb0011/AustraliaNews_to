@@ -12,19 +12,13 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
-import com.ruanyun.australianews.base.ResultBase
-import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.loadImage
-import com.ruanyun.australianews.model.HotInfo
-import com.ruanyun.australianews.util.CommonUtil.showToast
-import com.ruanyun.australianews.util.RxUtil
 
-class MoreCourseAdapter constructor(context : Context,listData:List<HotInfo.HotInfoDatasBean>) : RecyclerView.Adapter<MoreCourseAdapter.MoreCourseHolder>(){
+class MoreCourseAdapter constructor(context : Context,listData:List<com.ruanyun.australianews.model.HotInfo.DatasEntity>) : RecyclerView.Adapter<MoreCourseAdapter.MoreCourseHolder>(){
 
         lateinit var contet:Context
-        lateinit var listData:List<HotInfo.HotInfoDatasBean>
+        lateinit var listData:List<com.ruanyun.australianews.model.HotInfo.DatasEntity>
         val iso:String
 
         init {

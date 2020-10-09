@@ -88,7 +88,7 @@ class VipListActivity : BaseActivity() {
 
 
 
-    fun initEvent(adapterVipReListOne: VipColumnAdapter,dataList:List<VipNewsType.DatasBean>){
+    fun initEvent(adapterVipReListOne: VipColumnAdapter,dataList:List<VipNewsType.DatasEntity>){
 
         adapterVipReListOne?.setOnItemClickListener(object :VipColumnAdapter.OnRecyclerViewItemClickListener {
             override fun onClisk(view: View?, i: Int,id:String) {

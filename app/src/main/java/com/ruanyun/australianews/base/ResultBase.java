@@ -1,7 +1,5 @@
 package com.ruanyun.australianews.base;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Description:
  * author: zhangsan on 16/7/20 下午5:11.

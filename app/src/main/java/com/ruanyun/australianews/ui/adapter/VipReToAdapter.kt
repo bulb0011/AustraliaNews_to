@@ -12,17 +12,15 @@ import android.widget.TextView
 import cn.addapp.pickers.util.DateUtils
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.ext.loadCircleImage
 import com.ruanyun.australianews.ext.loadImage
-import com.ruanyun.australianews.model.NewsInfoNewsInfo
 import java.util.*
 
-class VipReToAdapter constructor(context :Context,listData:List<NewsInfoNewsInfo.DatasBean>) : RecyclerView.Adapter<VipReToAdapter.VipReToViewHolder>() {
+class VipReToAdapter constructor(context :Context,listData:List<com.ruanyun.australianews.model.TextNewInfo.DataEntity.DatasEntity>) : RecyclerView.Adapter<VipReToAdapter.VipReToViewHolder>() {
 
 
 
     lateinit var contet: Context
-    lateinit var listData:List<NewsInfoNewsInfo.DatasBean>
+    lateinit var listData:List<com.ruanyun.australianews.model.TextNewInfo.DataEntity.DatasEntity>
 
     init {
         this.contet=context

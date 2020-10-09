@@ -37,10 +37,10 @@ import com.ruanyun.australianews.model.NewParticularsBean;
 import com.ruanyun.australianews.model.NewsCommentCountInfo;
 import com.ruanyun.australianews.model.NewsDirectoryDetails;
 import com.ruanyun.australianews.model.NewsInfo;
-import com.ruanyun.australianews.model.NewsInfoNewsInfo;
 import com.ruanyun.australianews.model.NotificationInfo;
 import com.ruanyun.australianews.model.ParentCodeInfo;
 import com.ruanyun.australianews.model.PushRecordNewsInfo;
+import com.ruanyun.australianews.model.TextNewInfo;
 import com.ruanyun.australianews.model.UserInfo;
 import com.ruanyun.australianews.model.VipBannerInfo;
 import com.ruanyun.australianews.model.VipColumnInfo;
@@ -891,11 +891,17 @@ public interface ApiService {
     Observable<ResultBase<VipNewsType>> getNewsType(@Query("newsTypeOid") String newsTypeOid, @Query("userOid") String userOid);
 
 
+//    /**
+//     * vip界面最下面的新闻
+//     **/
+//    @POST("app/newsinfo/getNewsInfoByNewsType")
+//    Observable<ResultBase<NewsInfoNewsInfo>> getNewsInfoByNewsType(@Query("city") String city, @Query("userOid") String userOid);
+
     /**
      * vip界面最下面的新闻
      **/
     @POST("app/newsinfo/getNewsInfoByNewsType")
-    Observable<ResultBase<NewsInfoNewsInfo>> getNewsInfoByNewsType(@Query("city") String city, @Query("userOid") String userOid);
+    Call<TextNewInfo> getNewsInfoByNewsType(@Query("city") String city, @Query("userOid") String userOid,@Query("pageSize") int s);
 
 
 }

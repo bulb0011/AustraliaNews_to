@@ -23,9 +23,9 @@ public class VipColumnAdapter extends RecyclerView.Adapter {
 
      Context context;
 
-     List<VipNewsType.DatasBean> listData;
+     List<VipNewsType.DatasEntity> listData;
 
-    public VipColumnAdapter(Context context, List<VipNewsType.DatasBean> textInfos) {
+    public VipColumnAdapter(Context context, List<VipNewsType.DatasEntity> textInfos) {
         this.context = context;
         this.listData = textInfos;
     }
@@ -47,7 +47,7 @@ public class VipColumnAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, @SuppressLint("RecyclerView") int i) {
-        VipNewsType.DatasBean objinfo= listData.get(i);
+        VipNewsType.DatasEntity objinfo= listData.get(i);
         String iso= App.app.iso;
 
         switch (objinfo.getDataType()){
