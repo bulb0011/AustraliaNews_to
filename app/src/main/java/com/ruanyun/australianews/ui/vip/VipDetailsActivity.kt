@@ -12,20 +12,19 @@ import com.meiqia.meiqiasdk.util.MQIntentBuilder
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
-import com.ruanyun.australianews.base.ResultBase
-import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.VipDetailIfo
 import com.ruanyun.australianews.ui.adapter.VipMuLvAdapter
 import com.ruanyun.australianews.util.C
 import com.ruanyun.australianews.util.FileUtil
-import com.ruanyun.australianews.util.RxUtil
 import com.ruanyun.australianews.widget.SharePopWindow
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_vip_details.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class VipDetailsActivity :BaseActivity(){
@@ -191,29 +190,28 @@ class VipDetailsActivity :BaseActivity(){
 
     fun initData(){
 
-        ApiManger.getApiService().getVipNewInfo(id, App.getInstance().userOid).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<VipDetailIfo>>() {
-                override fun onSuccess(result: ResultBase<VipDetailIfo>) {
-//                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
-                    val detailIfo=result.data
+        ApiManger.getApiService().getVipNewInfo(id, App.getInstance().userOid)
+            .enqueue(object : Callback<VipDetailIfo> {
+                override fun onFailure(call: Call<VipDetailIfo>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<VipDetailIfo>, response: Response<VipDetailIfo>) {
+
+//                    val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
+                    val detailIfo=response.body()!!.data
 
                     App.getInstance().cityName
 
                     App.getInstance().userOid
 
-                    InfoId=detailIfo.afnNewsDirectoryList[0].oid
+                    if(detailIfo.afnNewsDirectoryList!=null){
+                        InfoId=detailIfo.afnNewsDirectoryList[0].oid
+                    }
+
 
                     setViewData(detailIfo)
 
-                }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-//                disMissLoading()
-                    showToast(msg)
                 }
             })
 
@@ -221,7 +219,7 @@ class VipDetailsActivity :BaseActivity(){
 
     val NEWS_DETAILS = "app/afnnewsinfo/getAfnNewsInfoDetails?region=%s&afnNewsInfoOid=%s&userOid=%s"//新闻详情
 
-    fun setViewData(detailIfo:VipDetailIfo){
+    fun setViewData(detailIfo: com.ruanyun.australianews.model.VipDetailIfo.DataEntity){
 
         val iso=App.app.iso
 

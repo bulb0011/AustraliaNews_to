@@ -47,8 +47,6 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import rx.Observable
-import javax.inject.Inject
 
 
 class VipFragment :BaseFragment(){
@@ -349,31 +347,35 @@ class VipFragment :BaseFragment(){
 
                 override fun onResponse(call: Call<TextNewInfo>, response: Response<TextNewInfo>) {
 
-                    val   data =  response.body()!!.data
-                    val  vipColumnInfo =  data.datas
+                    if (response!=null&&response.code()==200){
+                        val   data =  response.body()!!.data
+                        val  vipColumnInfo =  data.datas
 
-                    val layoutManager = LinearLayoutManager(context)
+                        val layoutManager = LinearLayoutManager(context)
 
-                    layoutManager.orientation = LinearLayoutManager.VERTICAL
+                        layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-                    rv_to.layoutManager = layoutManager
+                        rv_to.layoutManager = layoutManager
 
-                    rv_to.isNestedScrollingEnabled = false
+                        rv_to.isNestedScrollingEnabled = false
 
-                    adapterVipReTo = context?.let { VipReToAdapter(it, vipColumnInfo) }
+                        adapterVipReTo = context?.let { VipReToAdapter(it, vipColumnInfo) }
 
-                    rv_to.adapter=adapterVipReTo
+                        rv_to.adapter=adapterVipReTo
 
-                    adapterVipReTo.setOnCliakListener(object : VipReToAdapter.OnCliskListener{
-                        override fun onClisk(view: View?,i:Int) {
-                            ToastUtil.shortToast(mContext,"$"+i)
+                        adapterVipReTo.setOnCliakListener(object : VipReToAdapter.OnCliskListener{
+                            override fun onClisk(view: View?,i:Int) {
+                                ToastUtil.shortToast(mContext,"$"+i)
 
-                           val objInfo= vipColumnInfo[i]
+                                val objInfo= vipColumnInfo[i]
 
-                            WebViewUrlUtil.showVIPNewsWeb(mContext,objInfo.title,objInfo.mainPhoto,objInfo.oid,objInfo.createTime)
+                                WebViewUrlUtil.showVIPNewsWeb(mContext,objInfo.title,objInfo.mainPhoto,objInfo.oid,objInfo.createTime)
 
-                        }
-                    })
+                            }
+                        })
+                    }else{
+
+                    }
 
                 }
 

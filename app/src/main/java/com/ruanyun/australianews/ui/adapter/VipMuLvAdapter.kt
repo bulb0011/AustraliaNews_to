@@ -11,10 +11,10 @@ import android.widget.TextView
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.model.VipDetailIfo
 
-class VipMuLvAdapter constructor(context : Context, listData:List<VipDetailIfo.AfnNewsDirectoryListBean>) : RecyclerView.Adapter<VipMuLvAdapter.MuLvViewHolder>() {
+class VipMuLvAdapter constructor(context : Context, listData:List<com.ruanyun.australianews.model.VipDetailIfo.DataEntity.AfnNewsDirectoryListEntity>) : RecyclerView.Adapter<VipMuLvAdapter.MuLvViewHolder>() {
 
     lateinit var contet: Context
-    lateinit var listData:List<VipDetailIfo.AfnNewsDirectoryListBean>
+    lateinit var listData:List<com.ruanyun.australianews.model.VipDetailIfo.DataEntity.AfnNewsDirectoryListEntity>
 
     init {
         this.contet=context

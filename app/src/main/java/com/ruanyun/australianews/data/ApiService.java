@@ -848,7 +848,7 @@ public interface ApiService {
      * 获取AFNk课程的详情
      **/
     @POST("app/afnnewsinfo/getAppAfnNewsInfoDetails")
-    Observable<ResultBase<VipDetailIfo>> getVipNewInfo(@Query("afnNewsInfoOid") String afnNewsInfoOid, @Query("userOid") String userOid);
+    Call<VipDetailIfo> getVipNewInfo(@Query("afnNewsInfoOid") String afnNewsInfoOid, @Query("userOid") String userOid);
 
 
     /**
