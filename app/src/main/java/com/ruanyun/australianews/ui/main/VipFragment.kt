@@ -83,7 +83,7 @@ class VipFragment :BaseFragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        context?.let { initData(it) }
+//        context?.let { initData(it) }
 
         Log.e("dengpao","App.app.userOid"+App.app.userOid)
         Log.e("dengpao","App.app.cityName"+App.app.cityName)
