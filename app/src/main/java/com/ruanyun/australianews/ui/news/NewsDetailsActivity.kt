@@ -387,14 +387,14 @@ open class NewsDetailsActivity : WebViewActivity() {
         ll_en_zhong.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
 
-                iv_kaishi.visibility = View.GONE
-                iv_zanting.visibility = View.VISIBLE
-
-                head_bofang.visibility = View.GONE
-
-                head_zanting.visibility = View.VISIBLE
-
-                ttsholder.stopSpeaking()
+//                iv_kaishi.visibility = View.GONE
+//                iv_zanting.visibility = View.VISIBLE
+//
+//                head_bofang.visibility = View.GONE
+//
+//                head_zanting.visibility = View.VISIBLE
+//
+//                ttsholder.stopSpeaking()
 
                 if (isChina) {
                     ttsholder = TtsHolder(context, text)
