@@ -5,24 +5,20 @@ import android.content.Intent
 import android.graphics.Paint
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
-import com.ruanyun.australianews.base.ResultBase
-import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.NewsDirectoryDetails
-import com.ruanyun.australianews.model.VipDetailIfo
 import com.ruanyun.australianews.util.C
-import com.ruanyun.australianews.util.RxUtil
 import com.ruanyun.australianews.util.getTime
-import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_frequency_play.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FrequencyPlayActivity :BaseActivity() {
 
@@ -69,12 +65,16 @@ class FrequencyPlayActivity :BaseActivity() {
     }
 
     fun initDta(infoId:String){
-        ApiManger.getApiService().getVipNewInfoDirectoryDetails(infoId, App.getInstance().userOid).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<NewsDirectoryDetails>>() {
-                override fun onSuccess(result: ResultBase<NewsDirectoryDetails>) {
-//                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
+        ApiManger.getApiService().getVipNewInfoDirectoryDetails(infoId, App.getInstance().userOid)
+            .enqueue(object : Callback<NewsDirectoryDetails> {
+                override fun onFailure(call: Call<NewsDirectoryDetails>, t: Throwable) {
 
-                    val detailIfo=result.data
+                }
+
+                override fun onResponse(call: Call<NewsDirectoryDetails>, response: Response<NewsDirectoryDetails>) {
+//                    val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
+
+                    val detailIfo=response!!.body()!!.data
 
                     tupian.loadImage(ApiManger.IMG_URL+detailIfo.afnNewsInfo.mainPhoto)
 
@@ -88,18 +88,9 @@ class FrequencyPlayActivity :BaseActivity() {
 
                     tv_shijian.text= getTime.stM((detailIfo.afnNewsInfo.normalPricecny).toInt())
 
-                    initjiage(detailIfo)
+                    initjiage(detailIfo.afnNewsInfo)
 
 
-                }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-//                disMissLoading()
-                    showToast(msg)
                 }
             })
     }
@@ -124,32 +115,32 @@ class FrequencyPlayActivity :BaseActivity() {
         }
     }
 
-    fun initjiage(detailIfo:NewsDirectoryDetails){
+    fun initjiage(detailIfo: NewsDirectoryDetails.DataEntity.AfnNewsInfoEntity){
 
         val iso=App.app.iso
 
         //价格正常
-        if (detailIfo.afnNewsInfo.priceType==1){
+        if (detailIfo.priceType==1){
             zhiqianjiege.paint.isAntiAlias=false
             zhiqianjiege.visibility= View.GONE
 
             //国内
             if(iso=="cn"||iso=="CN"){
 
-                tv_jiage.text = "¥"+detailIfo.afnNewsInfo.normalPricecny.toString()
+                tv_jiage.text = "¥"+detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
-                tv_jiage.text = "A$"+detailIfo.afnNewsInfo.normalPriceaud.toString()
+                tv_jiage.text = "A$"+detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
-                tv_jiage.text  = "$"+detailIfo.afnNewsInfo.normalPriceusd.toString()
+                tv_jiage.text  = "$"+detailIfo.normalPriceusd.toString()
             }
 
         }
         //特价
-        else if (detailIfo.afnNewsInfo.priceType==2){
+        else if (detailIfo.priceType==2){
 
             zhiqianjiege.visibility= View.VISIBLE
 
@@ -158,18 +149,18 @@ class FrequencyPlayActivity :BaseActivity() {
 
             //国内
             if(iso=="cn"||iso=="CN"){
-                tv_jiage.text= "¥"+detailIfo.afnNewsInfo.specialOffercny.toString()
-                zhiqianjiege.text = "¥"+detailIfo.afnNewsInfo.normalPricecny.toString()
+                tv_jiage.text= "¥"+detailIfo.specialOffercny.toString()
+                zhiqianjiege.text = "¥"+detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
-                tv_jiage.text= "A$"+detailIfo.afnNewsInfo.specialOfferaud.toString()
-                zhiqianjiege.text = "A$"+detailIfo.afnNewsInfo.normalPriceaud.toString()
+                tv_jiage.text= "A$"+detailIfo.specialOfferaud.toString()
+                zhiqianjiege.text = "A$"+detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
-                tv_jiage.text= "$"+detailIfo.afnNewsInfo.specialOfferusd.toString()
-                zhiqianjiege.text = "$"+detailIfo.afnNewsInfo.normalPriceusd.toString()
+                tv_jiage.text= "$"+detailIfo.specialOfferusd.toString()
+                zhiqianjiege.text = "$"+detailIfo.normalPriceusd.toString()
             }
 
         }
@@ -183,17 +174,17 @@ class FrequencyPlayActivity :BaseActivity() {
             //国内
             if(iso=="cn"||iso=="CN"){
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "¥"+detailIfo.afnNewsInfo.normalPricecny.toString()
+                zhiqianjiege.text = "¥"+detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "A$"+detailIfo.afnNewsInfo.normalPriceaud.toString()
+                zhiqianjiege.text = "A$"+detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "$"+detailIfo.afnNewsInfo.normalPriceusd.toString()
+                zhiqianjiege.text = "$"+detailIfo.normalPriceusd.toString()
             }
 
         }

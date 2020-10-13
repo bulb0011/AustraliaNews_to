@@ -855,7 +855,7 @@ public interface ApiService {
      * 获取AFNk获取目录信息详情(具体的界面)
      **/
     @POST("app/afnnewsinfo/getAppAfnNewsDirectoryDetails")
-    Observable<ResultBase<NewsDirectoryDetails>> getVipNewInfoDirectoryDetails(@Query("afnNewsDirectoryoid") String afnNewsInfoOid, @Query("userOid") String userOid);
+    Call<NewsDirectoryDetails> getVipNewInfoDirectoryDetails(@Query("afnNewsDirectoryoid") String afnNewsInfoOid, @Query("userOid") String userOid);
 
 
     /**

@@ -11,17 +11,16 @@ import com.github.barteksc.pdfviewer.listener.OnRenderListener
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
-import com.ruanyun.australianews.base.ResultBase
-import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.model.NewsDirectoryDetails
 import com.ruanyun.australianews.util.C
-import com.ruanyun.australianews.util.RxUtil
 import kotlinx.android.synthetic.main.activity_pdf.*
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PDFActivity :BaseActivity() {
 
@@ -53,27 +52,20 @@ class PDFActivity :BaseActivity() {
 
         showLoading()
 
-        ApiManger.getApiService().getVipNewInfoDirectoryDetails(infoId, App.getInstance().userOid).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<NewsDirectoryDetails>>() {
-                override fun onSuccess(result: ResultBase<NewsDirectoryDetails>) {
-//                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
+        ApiManger.getApiService().getVipNewInfoDirectoryDetails(infoId, App.getInstance().userOid)
+            .enqueue(object : Callback<NewsDirectoryDetails> {
+                override fun onFailure(call: Call<NewsDirectoryDetails>, t: Throwable) {
 
-                    val detailIfo=result.data
+                }
+
+                override fun onResponse(call: Call<NewsDirectoryDetails>, response: Response<NewsDirectoryDetails>) {
+
+                    val detailIfo=response!!.body()!!.data
 
 //                    setViewData(detailIfo)
 
                     initPTF(ApiManger.IMG_URL+detailIfo.fileUrl)
 
-
-                }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-//                disMissLoading()
-                    showToast(msg)
                 }
             })
     }

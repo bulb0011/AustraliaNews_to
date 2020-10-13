@@ -9,20 +9,20 @@ import com.ruanyun.australianews.base.BaseActivity
 import android.content.res.Configuration;
 import android.widget.ImageView
 import com.ruanyun.australianews.App
-import com.ruanyun.australianews.base.ResultBase
 import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.NewsDirectoryDetails
 import com.ruanyun.australianews.util.C
-import com.ruanyun.australianews.util.RxUtil
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import kotlinx.android.synthetic.main.activity_video.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class VideoActivity :BaseActivity() {
 
@@ -85,12 +85,17 @@ class VideoActivity :BaseActivity() {
     }
 
     fun initDta(infoId:String,context: Context){
-        ApiManger.getApiService().getVipNewInfoDirectoryDetails(infoId, App.getInstance().userOid).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<NewsDirectoryDetails>>() {
-                override fun onSuccess(result: ResultBase<NewsDirectoryDetails>) {
+        ApiManger.getApiService().getVipNewInfoDirectoryDetails(infoId, App.getInstance().userOid)
+            .enqueue(object : Callback<NewsDirectoryDetails> {
+                override fun onFailure(call: Call<NewsDirectoryDetails>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<NewsDirectoryDetails>, response: Response<NewsDirectoryDetails>) {
+
 //                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
 
-                    val detailIfo=result.data
+                    val detailIfo=response!!.body()!!.data
 
                     val url=ApiManger.IMG_URL+detailIfo.fileUrl
 
@@ -173,16 +178,6 @@ class VideoActivity :BaseActivity() {
 
 //                    setViewData(detailIfo)
 
-
-                }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-//                disMissLoading()
-                    showToast(msg)
                 }
             })
     }

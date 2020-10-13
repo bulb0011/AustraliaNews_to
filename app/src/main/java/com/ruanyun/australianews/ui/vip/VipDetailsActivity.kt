@@ -205,10 +205,9 @@ class VipDetailsActivity :BaseActivity(){
 
                     App.getInstance().userOid
 
-                    if(detailIfo.afnNewsDirectoryList!=null){
+                    if(detailIfo.afnNewsDirectoryList!=null && detailIfo.afnNewsDirectoryList.size>0){
                         InfoId=detailIfo.afnNewsDirectoryList[0].oid
                     }
-
 
                     setViewData(detailIfo)
 
