@@ -15,6 +15,7 @@ import com.ruanyun.australianews.base.BaseActivity
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
+import com.ruanyun.australianews.model.BuyInfo
 import com.ruanyun.australianews.model.VipDetailIfo
 import com.ruanyun.australianews.ui.adapter.VipMuLvAdapter
 import com.ruanyun.australianews.util.C
@@ -22,6 +23,9 @@ import com.ruanyun.australianews.util.FileUtil
 import com.ruanyun.australianews.widget.SharePopWindow
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_vip_details.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,13 +49,15 @@ class VipDetailsActivity :BaseActivity(){
         }
 
     }
-    var isZhanKai=true
+    var isZhanKai=false
 
     var type=""
 
     var id=""
 
     var InfoId=""
+
+    var isBuy=2
 
     lateinit var sharePopWindow: SharePopWindow
 
@@ -79,6 +85,7 @@ class VipDetailsActivity :BaseActivity(){
             tv_shidu.text="试听"
         }
 
+        EventBus.getDefault().register(this)
 
 //        zhiqianjiege.paint.isAntiAlias=true
 //        zhiqianjiege.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
@@ -87,6 +94,9 @@ class VipDetailsActivity :BaseActivity(){
         ll_gaodu.setLayoutParams(LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 207))
 
         rv_neirongmulv.setLayoutParams(LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 207))
+
+        tv_chakanquanbu.visibility=View.VISIBLE
+        tv_zhedieshouqi.visibility=View.INVISIBLE
 
         bt_add_vip.clickWithTrigger{
             AddVipActivity.start(this)
@@ -110,10 +120,17 @@ class VipDetailsActivity :BaseActivity(){
 
         ll_neirongmulv.clickWithTrigger{
             if (isZhanKai){
+                tv_chakanquanbu.visibility=View.VISIBLE
+                tv_zhedieshouqi.visibility=View.INVISIBLE
+
                 rv_neirongmulv.setLayoutParams(LinearLayout.
                 LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
                 isZhanKai=false
             }else{
+                tv_chakanquanbu.visibility=View.INVISIBLE
+                tv_zhedieshouqi.visibility=View.VISIBLE
+
+
                 rv_neirongmulv.setLayoutParams(LinearLayout.
                 LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 207))
                 isZhanKai=true
@@ -132,11 +149,15 @@ class VipDetailsActivity :BaseActivity(){
         }
 
         rv_mlv.clickWithTrigger{
+            isZhanKai=true
             xiahua_neirong.visibility=View.INVISIBLE
             xiahua_mulv.visibility=View.VISIBLE
 
             tv_neirongianjie.visibility=View.GONE
             rv_mulv.visibility=View.VISIBLE
+
+            tv_chakanquanbu.visibility=View.VISIBLE
+            tv_zhedieshouqi.visibility=View.INVISIBLE
 
             rv_neirongmulv.setLayoutParams(LinearLayout.
             LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200))
@@ -150,6 +171,23 @@ class VipDetailsActivity :BaseActivity(){
 
 
         tv_shidu.clickWithTrigger{
+
+            if (InfoId!="") {
+                if(C.IntentKey.VIP_TYPE_VIDEO.equals(type)){
+                    VideoActivity.start(this,InfoId)
+
+                }else if (C.IntentKey.VIP_TYPE_PDF.equals(type)){
+                    PDFActivity.start(this,InfoId)
+
+                }else if (C.IntentKey.VIP_TYPE_MP3.equals(type)){
+                    FrequencyPlayActivity.start(this,InfoId)
+                }
+            }else{
+                ToastUtil.shortToast(this,"id为空")
+            }
+        }
+
+        bofang.clickWithTrigger{
 
             if (InfoId!="") {
                 if(C.IntentKey.VIP_TYPE_VIDEO.equals(type)){
@@ -186,6 +224,10 @@ class VipDetailsActivity :BaseActivity(){
 
         }
 
+        tv_goumai.clickWithTrigger {
+            SelectPayActivity.start(this,1,id,
+                inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+        }
     }
 
     fun initData(){
@@ -209,6 +251,8 @@ class VipDetailsActivity :BaseActivity(){
                         InfoId=detailIfo.afnNewsDirectoryList[0].oid
                     }
 
+                    isBuy = detailIfo.isBuy
+
                     setViewData(detailIfo)
 
                 }
@@ -218,11 +262,18 @@ class VipDetailsActivity :BaseActivity(){
 
     val NEWS_DETAILS = "app/afnnewsinfo/getAfnNewsInfoDetails?region=%s&afnNewsInfoOid=%s&userOid=%s"//新闻详情
 
+    var inamge_url=""
+    var price_Type=1
+    var jige=""
+    var zhiqianjiage=""
+
     fun setViewData(detailIfo: com.ruanyun.australianews.model.VipDetailIfo.DataEntity){
 
         val iso=App.app.iso
 
         iv_pic.loadImage(ApiManger.IMG_URL+detailIfo.mainPhoto)
+
+        inamge_url=ApiManger.IMG_URL+detailIfo.mainPhoto
 
         tv_title.text=detailIfo.title
 
@@ -232,12 +283,15 @@ class VipDetailsActivity :BaseActivity(){
 
         sharePopWindow = SharePopWindow(mContext)
         sharePopWindow.share_title = detailIfo.title
+        //
         sharePopWindow.share_text = detailIfo.recommendation
         sharePopWindow.share_image = ApiManger.IMG_URL+detailIfo.mainPhoto
 
         val url = FileUtil.getWebViewUrl(NEWS_DETAILS, App.getInstance().cityName, detailIfo.oid, App.getInstance().userOid)
 
         sharePopWindow.share_url = url
+
+        price_Type=detailIfo.priceType
 
 
         //价格正常
@@ -247,16 +301,18 @@ class VipDetailsActivity :BaseActivity(){
 
             //国内
             if(iso=="cn"||iso=="CN"){
-
                 tv_jiage.text = "¥"+detailIfo.normalPricecny.toString()
+                jige="¥"+detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 tv_jiage.text = "A$"+detailIfo.normalPriceaud.toString()
+                jige = "A$"+detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
                 tv_jiage.text  = "$"+detailIfo.normalPriceusd.toString()
+                jige = "$"+detailIfo.normalPriceusd.toString()
             }
 
         }
@@ -272,16 +328,25 @@ class VipDetailsActivity :BaseActivity(){
             if(iso=="cn"||iso=="CN"){
                 tv_jiage.text= "¥"+detailIfo.specialOffercny.toString()
                 zhiqianjiege.text = "¥"+detailIfo.normalPricecny.toString()
+
+                jige="¥"+detailIfo.normalPricecny.toString()
+                zhiqianjiage="¥"+detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 tv_jiage.text= "A$"+detailIfo.specialOfferaud.toString()
                 zhiqianjiege.text = "A$"+detailIfo.normalPriceaud.toString()
+
+                jige="A$"+detailIfo.specialOfferaud.toString()
+                zhiqianjiage="A$"+detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
                 tv_jiage.text= "$"+detailIfo.specialOfferusd.toString()
                 zhiqianjiege.text = "$"+detailIfo.normalPriceusd.toString()
+
+                jige="$"+detailIfo.specialOfferusd.toString()
+                zhiqianjiage="$"+detailIfo.normalPriceusd.toString()
             }
 
         }
@@ -292,24 +357,35 @@ class VipDetailsActivity :BaseActivity(){
             zhiqianjiege.paint.isAntiAlias=true
             zhiqianjiege.paint.flags=Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
 
+            setIsBuy(1)
+
             //国内
             if(iso=="cn"||iso=="CN"){
                 tv_jiage.text= "限时免费"
                 zhiqianjiege.text = "¥"+detailIfo.normalPricecny.toString()
+
+                jige="限时免费"
+                zhiqianjiage="¥"+detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 tv_jiage.text= "限时免费"
                 zhiqianjiege.text = "A$"+detailIfo.normalPriceaud.toString()
+                jige="限时免费"
+                zhiqianjiage="A$"+detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
                 tv_jiage.text= "限时免费"
                 zhiqianjiege.text = "$"+detailIfo.normalPriceusd.toString()
+
+                jige="限时免费"
+                zhiqianjiage="$"+detailIfo.normalPriceusd.toString()
             }
 
         }
 
+        tv_goumaijiage.text=tv_jiage.text
 
         val layoutManager = LinearLayoutManager(context)
 
@@ -340,7 +416,33 @@ class VipDetailsActivity :BaseActivity(){
             }
         })
 
+        setIsBuy(isBuy)
+
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+   fun updateBuy( buyinfo: BuyInfo){
+        setIsBuy(buyinfo.isBuy)
+    }
+
+    fun setIsBuy(type : Int){
+        isBuy=type
+        updateIsBuy()
+    }
+
+    fun updateIsBuy(){
+        if(isBuy==1){
+            rl_goumai.visibility=View.VISIBLE
+            rv_dibu.visibility=View.GONE
+        }else{
+            rl_goumai.visibility=View.GONE
+            rv_dibu.visibility=View.VISIBLE
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

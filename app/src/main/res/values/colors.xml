@@ -29,4 +29,6 @@
     <color name="color_orange_red">#E65B22</color>
     <color name="color_fund_red">#E6363A</color>
     <color name="color_fund_green">#48A854</color>
+
+    <color name="navpage">#FFE1E8EB</color>
 </resources>

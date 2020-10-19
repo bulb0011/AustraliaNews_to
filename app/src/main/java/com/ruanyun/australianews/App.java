@@ -7,6 +7,8 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ContentProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.multidex.MultiDex;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -24,6 +26,9 @@ import com.ruanyun.australianews.util.CommonUtil;
 import com.ruanyun.imagepicker.Util;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Vector;
 
@@ -50,6 +55,12 @@ public class App extends JGApplication implements HasActivityInjector, HasFragme
     private String cityName = "";
     public String longitude;//经度
     public String latitude;//纬度
+
+    // APP_ID 替换为你的应用从官方网站申请到的合法appID
+    private static final String WX_APP_ID = "wxacdd7c584e315282";
+
+    // IWXAPI 是第三方app和微信通信的openApi接口
+    private IWXAPI api;
 
     public static App app;
     private Vector<Activity> activityStacks = new Vector<Activity>();
@@ -93,6 +104,27 @@ public class App extends JGApplication implements HasActivityInjector, HasFragme
 
             }
         });
+
+        regToWx();
+
+    }
+
+    private void regToWx() {
+        // 通过WXAPIFactory工厂，获取IWXAPI的实例
+        api = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
+
+        // 将应用的appId注册到微信
+        api.registerApp(WX_APP_ID);
+
+        //建议动态监听微信启动广播进行注册到微信
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                // 将该app注册到微信
+                api.registerApp("anf_android_com_ruanyun_australianews");
+            }
+        }, new IntentFilter(ConstantsAPI.ACTION_REFRESH_WXAPP));
 
     }
 

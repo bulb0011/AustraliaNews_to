@@ -305,21 +305,31 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_neirongmulv"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_alignParentBottom="true"
-                android:orientation="vertical"
                 >
                 <TextView
+                    android:id="@+id/tv_chakanquanbu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:text="查看全部"
+                    android:layout_centerInParent="true"
+                    android:drawableRight="@drawable/zhankai"
                     />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_zhedieshouqi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="折叠收起"
+                    android:layout_centerInParent="true"
+                    android:drawableRight="@drawable/shouqi"
+                    />
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -365,6 +375,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
+        android:visibility="gone"
         >
         <TextView
             android:id="@+id/tv_shidu"
@@ -401,6 +412,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_goumaijiage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
@@ -420,6 +432,27 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text="加入会员"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_goumai"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        >
+
+        <Button
+            android:id="@+id/bofang"
+            android:layout_width="98dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bt_houmaihuiyuan"
+            android:layout_centerInParent="true"
+            android:text="播放"
             android:textColor="@color/white"
             android:textSize="14dp"
             />

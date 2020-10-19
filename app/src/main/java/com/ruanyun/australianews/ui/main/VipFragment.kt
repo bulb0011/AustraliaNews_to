@@ -16,21 +16,17 @@ import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
 import com.ruanyun.australianews.base.ResultBase
-import com.ruanyun.australianews.base.refreshview.data.IDataSource
-import com.ruanyun.australianews.base.refreshview.impl.PageDataSource
 import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.data.ApiService
 import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.*
-import com.ruanyun.australianews.model.params.NewsListParams
 import com.ruanyun.australianews.ui.adapter.AdverViewHolderTo
 import com.ruanyun.australianews.ui.adapter.VipClassifAdapter
 import com.ruanyun.australianews.ui.adapter.VipReMenAdapter
 import com.ruanyun.australianews.ui.adapter.VipReToAdapter
-import com.ruanyun.australianews.ui.my.MySubscibeActivity
+import com.ruanyun.australianews.ui.my.MyMessageListActivity
 import com.ruanyun.australianews.ui.vip.MoreActivity
 import com.ruanyun.australianews.ui.vip.SpecialColumnActivity
 import com.ruanyun.australianews.ui.vip.VipDetailsActivity
@@ -101,7 +97,7 @@ class VipFragment :BaseFragment(){
 
         ll_soushuo.clickWithTrigger { SearchActivity.start(mContext, SearchActivity.HOME_SEARCH) }
 
-        img_dinbyue.clickWithTrigger { MySubscibeActivity.start(mContext) }
+        img_dinbyue.clickWithTrigger { MyMessageListActivity.start(mContext) }
 
 
         //专栏查看更多

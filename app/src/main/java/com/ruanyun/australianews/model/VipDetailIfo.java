@@ -138,6 +138,15 @@ public class VipDetailIfo {
         private int isHot;
         private boolean mark;
         private int watchCount;
+        private int isBuy;
+
+        public int getIsBuy() {
+            return isBuy;
+        }
+
+        public void setIsBuy(int isBuy) {
+            this.isBuy = isBuy;
+        }
 
         public void setColumnOid(String columnOid) {
             this.columnOid = columnOid;

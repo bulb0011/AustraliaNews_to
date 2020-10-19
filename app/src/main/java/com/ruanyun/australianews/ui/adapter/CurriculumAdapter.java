@@ -2,6 +2,7 @@ package com.ruanyun.australianews.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.ruanyun.australianews.App;
 import com.ruanyun.australianews.R;
-import com.ruanyun.australianews.model.TextInfo;
+import com.ruanyun.australianews.data.ApiManger;
 
 import java.util.List;
 
@@ -21,9 +23,9 @@ public class CurriculumAdapter extends RecyclerView.Adapter {
 
      Context context;
 
-     List<TextInfo> listData;
+     List<com.ruanyun.australianews.model.DingYueKeCheng.DataEntity.DatasEntity> listData;
 
-    public CurriculumAdapter(Context context, List<TextInfo> textInfos) {
+    public CurriculumAdapter(Context context, List<com.ruanyun.australianews.model.DingYueKeCheng.DataEntity.DatasEntity> textInfos) {
         this.context = context;
         this.listData = textInfos;
     }
@@ -46,14 +48,99 @@ public class CurriculumAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, @SuppressLint("RecyclerView") int i) {
-        TextInfo textInfo= listData.get(i);
+        com.ruanyun.australianews.model.DingYueKeCheng.DataEntity.DatasEntity.AfnInfoAllEntity afnInfoAllEntity= listData.get(i).getAfnInfoAll();
 
-        switch (textInfo.type){
+        switch (afnInfoAllEntity.getDataType()){
 
             case 1:
                 ViewHolderOne viewHolderOne   = (ViewHolderOne) viewHolder;
-                viewHolderOne.tv_title.setText(textInfo.title);
-                Glide.with(this.context).load(textInfo.image).into(viewHolderOne.iv_pic);
+
+                if (afnInfoAllEntity.getContentType()==1) {
+                    viewHolderOne.tv_label.setText("PDF");
+                } else  if (afnInfoAllEntity.getContentType()==2){
+                    viewHolderOne.tv_label.setText("视频");
+                }else
+                    viewHolderOne.tv_label.setText("音频");
+
+
+                viewHolderOne.tv_title.setText(afnInfoAllEntity.getTitle());
+                Glide.with(this.context).load(ApiManger.IMG_URL+afnInfoAllEntity.getMainPhoto()).into(viewHolderOne.iv_pic);
+                viewHolderOne.tv_jianjie.setText(afnInfoAllEntity.getCreateTimeStr());
+
+                String iso= App.app.iso;
+
+                //价格正常
+                if (afnInfoAllEntity.getPriceType()==1){
+                    
+                    viewHolderOne.zhiqianjiege.getPaint().setAntiAlias(false);
+                    viewHolderOne.zhiqianjiege.setVisibility(View.GONE);
+
+                    //国内
+                    if(iso=="cn"||iso=="CN"){
+                        viewHolderOne.tv_jianjie.setText("¥"+afnInfoAllEntity.getNormalPricecny());
+                    }
+                    //澳洲
+                    else if(iso=="au"|| iso=="AU") {
+                        viewHolderOne.tv_jianjie.setText("A$"+afnInfoAllEntity.getNormalPriceaud());
+                    }
+                    //其他地区
+                    else{
+                        viewHolderOne.tv_jianjie.setText("A$"+afnInfoAllEntity.getNormalPriceusd());
+                    }
+
+                }
+                //特价
+                else if (afnInfoAllEntity.getPriceType()==2){
+
+                    viewHolderOne.zhiqianjiege.setVisibility(View.VISIBLE);
+                    viewHolderOne.zhiqianjiege.getPaint().setAntiAlias(true);
+
+                    viewHolderOne.zhiqianjiege.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+
+                    //国内
+                    if(iso=="cn"||iso=="CN"){
+                        viewHolderOne.tv_jianjie.setText("¥"+afnInfoAllEntity.getSpecialOffercny());
+                        viewHolderOne.zhiqianjiege.setText("¥"+afnInfoAllEntity.getNormalPricecny());
+                    }
+                    //澳洲
+                    else if(iso=="au"|| iso=="AU") {
+                        viewHolderOne.tv_jianjie.setText( "A$"+afnInfoAllEntity.getSpecialOfferaud());
+                        viewHolderOne.zhiqianjiege.setText( "A$"+afnInfoAllEntity.getNormalPriceaud());
+
+                    }
+                    //其他地区
+                    else{
+                        viewHolderOne.tv_jianjie.setText( "$"+afnInfoAllEntity.getSpecialOfferusd());
+                        viewHolderOne.zhiqianjiege.setText("$"+afnInfoAllEntity.getNormalPriceusd());
+                    }
+
+                }
+                //限时免费
+                else{
+
+                    viewHolderOne.zhiqianjiege.setVisibility(View.VISIBLE);
+                    viewHolderOne.zhiqianjiege.getPaint().setAntiAlias(true);
+                    viewHolderOne.zhiqianjiege.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+
+                    //国内
+                    if(iso=="cn"||iso=="CN"){
+                        viewHolderOne.tv_jianjie.setText("限时免费");
+                        viewHolderOne.zhiqianjiege.setText( "¥"+afnInfoAllEntity.getNormalPricecny());
+                    }
+                    //澳洲
+                    else if(iso=="au"|| iso=="AU") {
+                        viewHolderOne.tv_jianjie.setText("限时免费");
+                        viewHolderOne.zhiqianjiege.setText( "¥"+afnInfoAllEntity.getNormalPriceaud());
+                    }
+                    //其他地区
+                    else{
+                        viewHolderOne.tv_jianjie.setText("限时免费");
+                        viewHolderOne.zhiqianjiege.setText( "¥"+afnInfoAllEntity.getNormalPriceusd());
+                    }
+
+                }
+
+                Glide.with(this.context).load(afnInfoAllEntity.getMainPhoto()).into(viewHolderOne.iv_pic);
                 viewHolderOne.rl_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -66,8 +153,8 @@ public class CurriculumAdapter extends RecyclerView.Adapter {
                 break;
             case 2:
                 ViewHolderTeo viewHolderTeo   = (ViewHolderTeo) viewHolder;
-                viewHolderTeo.tv_title.setText(textInfo.title);
-                Glide.with(this.context).load(textInfo.image).into(viewHolderTeo.iv_photo);
+                viewHolderTeo.tv_title.setText(afnInfoAllEntity.getTitle());
+                Glide.with(this.context).load(ApiManger.IMG_URL+afnInfoAllEntity.getMainPhoto()).into(viewHolderTeo.iv_photo);
                 viewHolderTeo.rl_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -79,8 +166,8 @@ public class CurriculumAdapter extends RecyclerView.Adapter {
                 break;
             case 3:
                 ViewHolderThreeu viewHolderThree   = (ViewHolderThreeu) viewHolder;
-                viewHolderThree.tv_title.setText(textInfo.title);
-                Glide.with(this.context).load(textInfo.image).into(viewHolderThree.iv_pic);
+                viewHolderThree.tv_title.setText(afnInfoAllEntity.getTitle());
+                Glide.with(this.context).load(ApiManger.IMG_URL+afnInfoAllEntity.getMainPhoto()).into(viewHolderThree.iv_pic);
                 viewHolderThree.rv_three.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -102,18 +189,26 @@ public class CurriculumAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return listData.get(position).type;
+        return listData.get(position).getAfnInfoAll().getDataType();
     }
 
 
     class ViewHolderOne extends RecyclerView.ViewHolder{
 
         TextView  tv_title;
+        TextView  tv_jianjie;
+        TextView  zhiqianjiege;
+        TextView  tv_label;
+        TextView  tv_jiage;
         ImageView  iv_pic;
         RelativeLayout  rl_layout;
         public ViewHolderOne(@NonNull View itemView) {
             super(itemView);
             tv_title=(TextView) itemView.findViewById(R.id.tv_title);
+            tv_jianjie=(TextView) itemView.findViewById(R.id.tv_jianjie);
+            tv_jiage=(TextView) itemView.findViewById(R.id.tv_jiage);
+            tv_label=(TextView) itemView.findViewById(R.id.tv_label);
+            zhiqianjiege=(TextView) itemView.findViewById(R.id.zhiqianjiege);
             iv_pic=(ImageView) itemView.findViewById(R.id.iv_pic);
             rl_layout=(RelativeLayout) itemView.findViewById(R.id.rl_layout);
 

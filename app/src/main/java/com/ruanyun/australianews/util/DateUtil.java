@@ -188,4 +188,46 @@ public class DateUtil {
         return format.format(date);
     }
 
+    /**
+     * 调此方法输入所要转换的时间输入例如（"2014-06-14-16-09-00" ,yyyy-MM-dd HH-mm-ss）返回时间戳
+     *
+     * @param time
+     * @return
+     */
+    public static String dataOne(String time,String format) {
+        SimpleDateFormat sdr = new SimpleDateFormat(format,
+                Locale.CHINA);
+        Date date;
+        String times = null;
+        try {
+            date = sdr.parse(time);
+            long l = date.getTime();
+            String stf = String.valueOf(l);
+            times = stf.substring(0, 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return times;
+    }
+
+    /**
+     * 调用此方法输入所要转换的时间戳输入例如（1402733340）输出（"2014年06月14日16时09分00秒"）
+     *
+     * @param time
+     * @return
+     */
+    public static String times(String time,String format) {
+        SimpleDateFormat sdr = new SimpleDateFormat(format);
+        @SuppressWarnings("unused")
+        long lcc = Long.valueOf(time);
+        int i = Integer.parseInt(time);
+        String times = sdr.format(new Date(i * 1000L));
+        return times;
+
+
+    }
+
+
+
+
 }

@@ -12,6 +12,7 @@ import com.ruanyun.australianews.base.refreshview.view.IDataAdapter;
 import com.ruanyun.australianews.base.refreshview.view.ILoadMoreListenerHandler;
 import com.ruanyun.australianews.base.refreshview.view.IRefreshListLoadViewFactory;
 import com.ruanyun.australianews.base.refreshview.view.IRefreshViewHolder;
+import com.ruanyun.australianews.model.CollectionBrowseNewsInfo;
 import com.ruanyun.australianews.util.NoDoubleClicksListener;
 
 import java.util.ArrayList;
@@ -96,21 +97,23 @@ public class DefaultModel2ViewControler<Data> implements IDataDelegate {
                                     if(result.datas.size()==0)
                                         return;
 
-//                                    if (result.datas.get(0) instanceof CollectionBrowseNewsInfo){
-//                                        for (Object info:result.datas) {
-//                                            NewsInfo info1 =((CollectionBrowseNewsInfo) info).getNewsInfo();
-//                                            if (info1.getBaseWebsite()==null)
-//                                                info1.setBaseWebsite("");
-//
-//                                            if (info1.getOutUrl()==null)
-//                                                info1.setOutUrl("");
-//                                        }
-//                                        getDataAdapter().refresh(result.datas);
-//                                     }else {
-//                                        getDataAdapter().refresh(result.datas);
-//                                    }
+                                    if (result.datas.get(0) instanceof CollectionBrowseNewsInfo){
 
-                                    getDataAdapter().refresh(result.datas);
+                                       List <CollectionBrowseNewsInfo>  collectionBrowseNewsInfos= new ArrayList<>();
+                                        List <CollectionBrowseNewsInfo>  collectionBrowseNewsInfoList= result.datas;
+
+                                        for (int i = 0; i < collectionBrowseNewsInfoList.size(); i++) {
+                                            if (collectionBrowseNewsInfoList.get(i).getNewsInfo()!=null){
+                                                collectionBrowseNewsInfos.add(collectionBrowseNewsInfoList.get(i));
+                                            }
+                                        }
+
+                                        getDataAdapter().refresh(collectionBrowseNewsInfos);
+                                     }else {
+                                        getDataAdapter().refresh(result.datas);
+                                    }
+
+//                                    getDataAdapter().refresh(result.datas);
 
                                 }else {
                                     getEmptyView().showLoadFail(((ResultBase) data).msg);

@@ -4,6 +4,7 @@ import com.ruanyun.australianews.base.PageInfoBase;
 import com.ruanyun.australianews.base.ResultBase;
 import com.ruanyun.australianews.model.ActivitysInfo;
 import com.ruanyun.australianews.model.AdvertInfoBase;
+import com.ruanyun.australianews.model.AppVipInfo;
 import com.ruanyun.australianews.model.ChannelInfo;
 import com.ruanyun.australianews.model.ChannelResult;
 import com.ruanyun.australianews.model.CityInfo;
@@ -12,6 +13,8 @@ import com.ruanyun.australianews.model.ClassifyInfo;
 import com.ruanyun.australianews.model.CollectionBrowseNewsInfo;
 import com.ruanyun.australianews.model.ColumnDetailsInfo;
 import com.ruanyun.australianews.model.CommentInfo;
+import com.ruanyun.australianews.model.DingYueKeCheng;
+import com.ruanyun.australianews.model.DingYueZhuanLan;
 import com.ruanyun.australianews.model.Evaluation;
 import com.ruanyun.australianews.model.FundInfo;
 import com.ruanyun.australianews.model.GoodsInfo;
@@ -39,6 +42,9 @@ import com.ruanyun.australianews.model.NewsDirectoryDetails;
 import com.ruanyun.australianews.model.NewsInfo;
 import com.ruanyun.australianews.model.NotificationInfo;
 import com.ruanyun.australianews.model.ParentCodeInfo;
+import com.ruanyun.australianews.model.PayInfo;
+import com.ruanyun.australianews.model.PayInfoWx;
+import com.ruanyun.australianews.model.PayPalInfo;
 import com.ruanyun.australianews.model.PushRecordNewsInfo;
 import com.ruanyun.australianews.model.TextNewInfo;
 import com.ruanyun.australianews.model.UserInfo;
@@ -903,5 +909,45 @@ public interface ApiService {
     @POST("app/newsinfo/getNewsInfoByNewsType")
     Call<TextNewInfo> getNewsInfoByNewsType(@Query("city") String city, @Query("userOid") String userOid,@Query("pageSize") int s);
 
+    /**
+     * 购买vip界面
+     **/
+    @POST("app/vipinfo/getAppVipInfo")
+    Call<AppVipInfo> AppVipInfo(@Query("userOid") String userOid);
+
+    /**
+     * 购买付费订阅商品（omipay支付宝支付）
+      */
+    @POST("app/androidpay/afnAppPay")
+    Call<PayInfo> afnAppPay(@Query("productType") int productType, @Query("productOid") String productOid,
+                            @Query("payAmountType") int payAmountType, @Query("payWay") int payWay, @Query("userOid") String userOid);
+
+
+    /**
+     * 购买付费订阅商品（omipay支付微信支付）
+     */
+    @POST("app/androidpay/afnAppPay")
+    Call<PayInfoWx> afnAppPayWx(@Query("productType") int productType, @Query("productOid") String productOid,
+                                @Query("payAmountType") int payAmountType, @Query("payWay") int payWay, @Query("userOid") String userOid);
+
+
+    /**
+     * 购买付费订阅商品（omipay支付微信支付）
+     */
+    @POST("app/androidpay/afnAppPay")
+    Call<PayPalInfo> afnAppPayPayPal(@Query("productType") int productType, @Query("productOid") String productOid,
+                                     @Query("payAmountType") int payAmountType, @Query("payWay") int payWay, @Query("userOid") String userOid);
+
+    /**
+     * 购买vip界面
+     **/
+    @POST("app/afnsubscribeinfo/getAppAfnSubscribeInfoPage")
+    Call<DingYueKeCheng> dingYueKeCehng(@Query("subscriptionType") int subscriptionType,@Query("userOid") String userOid,@Query("pageSize") int pageSize );
+
+    /**
+     * 购买vip界面
+     **/
+    @POST("app/afnsubscribeinfo/getAppAfnSubscribeInfoPage")
+    Call<DingYueZhuanLan> dingYueKeCehngZhuanLan(@Query("subscriptionType") int subscriptionType, @Query("userOid") String userOid, @Query("pageSize") int pageSize );
 
 }

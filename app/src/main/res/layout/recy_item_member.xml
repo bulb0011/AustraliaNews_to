@@ -29,6 +29,7 @@
             />
 
         <TextView
+            android:id="@+id/jin_e"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¥150.00"
@@ -55,6 +56,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_kaishi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2020-05-11  06:12:36"
@@ -65,6 +67,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_daoqi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="到期日期：2021-05-10 "

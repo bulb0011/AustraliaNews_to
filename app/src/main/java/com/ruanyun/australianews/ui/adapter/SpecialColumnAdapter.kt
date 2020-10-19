@@ -7,13 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.ruanyun.australianews.R
+import com.ruanyun.australianews.util.DateUtil
 
-class SpecialColumnAdapter constructor(context : Context, listData:List<String>) : RecyclerView.Adapter<SpecialColumnAdapter.SpecialColumnViewHolder>() {
+class SpecialColumnAdapter constructor(context : Context, listData:List<com.ruanyun.australianews.model.DingYueZhuanLan.DataEntity.DatasEntity>) : RecyclerView.Adapter<SpecialColumnAdapter.SpecialColumnViewHolder>() {
 
 
     lateinit var contet: Context
-    lateinit var listData: List<String>
+    lateinit var listData: List<com.ruanyun.australianews.model.DingYueZhuanLan.DataEntity.DatasEntity>
 
     init {
         this.contet = context
@@ -35,6 +37,22 @@ class SpecialColumnAdapter constructor(context : Context, listData:List<String>)
     @SuppressLint("RecyclerView")
     override fun onBindViewHolder(ViewHolder: SpecialColumnViewHolder, p1: Int) {
 
+        val  info=listData.get(p1)
+
+        if (info.payAmountType=="1"){
+            ViewHolder.jin_e.text ="¥"+info.payAmount
+        }else if (info.payAmountType=="2"){
+            ViewHolder.jin_e.text ="$"+info.payAmount
+        }else{
+            ViewHolder.jin_e.text ="A$"+info.payAmount
+        }
+
+        ViewHolder.title.text=info.afnNewsColumn.title
+
+        ViewHolder.tv_daoqi.text="到期日期："+info.validityEndTime.substring(0,11)
+
+        ViewHolder.tv_kaishi.text=info.validityStartTime
+
         ViewHolder.ll_item.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 onCliskListener?.onClisk(v, p1)
@@ -45,9 +63,17 @@ class SpecialColumnAdapter constructor(context : Context, listData:List<String>)
 
     class SpecialColumnViewHolder : RecyclerView.ViewHolder {
         var ll_item: LinearLayout
+        var jin_e: TextView
+        var tv_kaishi: TextView
+        var tv_daoqi: TextView
+        var title: TextView
 
         constructor(itemView: View) : super(itemView) {
             ll_item = itemView.findViewById<LinearLayout>(R.id.ll_item)
+            jin_e = itemView.findViewById<TextView>(R.id.jin_e)
+            tv_kaishi = itemView.findViewById<TextView>(R.id.tv_kaishi)
+            tv_daoqi = itemView.findViewById<TextView>(R.id.tv_daoqi)
+            title = itemView.findViewById<TextView>(R.id.title)
 
         }
 
