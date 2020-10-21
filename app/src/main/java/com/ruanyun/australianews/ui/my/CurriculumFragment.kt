@@ -38,8 +38,6 @@ class CurriculumFragment :BaseFragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
     }
 
     private val isVisibleToUser = false
@@ -57,19 +55,25 @@ class CurriculumFragment :BaseFragment(){
 
                         val listData= response.body()!!.data.datas
 
-                        listData[1].afnInfoAll
+                        if (listData!=null&&listData.size>0) {
 
-                        val layoutManager = LinearLayoutManager(context)
+                            tv_meiyoushuju.visibility=View.INVISIBLE
 
-                        layoutManager.orientation = LinearLayoutManager.VERTICAL
+                            val layoutManager = LinearLayoutManager(context)
 
-                        rv_list.layoutManager = layoutManager
+                            layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-                        rv_list.isNestedScrollingEnabled = false
+                            rv_list.layoutManager = layoutManager
 
-                        val adapter = context?.let { CurriculumAdapter(it, listData) }
+                            rv_list.isNestedScrollingEnabled = false
 
-                        rv_list.adapter=adapter
+                            val adapter = context?.let { CurriculumAdapter(it, listData) }
+
+                            rv_list.adapter=adapter
+                        } else {
+                            tv_meiyoushuju.visibility=View.VISIBLE
+                            rv_list.visibility=View.INVISIBLE
+                        }
                     }
                 })
 

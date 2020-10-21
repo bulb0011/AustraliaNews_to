@@ -7,7 +7,7 @@ public class AppVipInfo {
      * access_token :
      * msg : 获取成功
      * code : 0
-     * data : {"priceUsd":48,"userOid":"","effectiveTime":0,"isDelete":0,"flag3":"","flag2":"","timeType":0,"flag1":"","updateTime":null,"oid":"4028818773c82c240173c839117a0000","vipName":"开通澳财经VIP会员","createTime":null,"sysUser":null,"priceCny":330,"remarks":"可随时续费，有效期会在当前有效期后顺延一年","priceAud":66,"status":0}
+     * data : {"priceUsd":0.01,"userOid":"","effectiveTime":1,"isDelete":0,"flag3":"","flag2":"","timeType":3,"flag1":"","updateTime":null,"oid":"4028818773c82c240173c839117a0000","vipName":"开通澳财经VIP会员","createTime":null,"sysUser":null,"priceCny":0.01,"remarks":"可随时续费，有效期会在当前有效期后顺延一年","priceAud":0.02,"status":0}
      */
     private String access_token;
     private String msg;
@@ -48,25 +48,25 @@ public class AppVipInfo {
 
     public class DataEntity {
         /**
-         * priceUsd : 48
+         * priceUsd : 0.01
          * userOid :
-         * effectiveTime : 0
+         * effectiveTime : 1
          * isDelete : 0
          * flag3 :
          * flag2 :
-         * timeType : 0
+         * timeType : 3
          * flag1 :
          * updateTime : null
          * oid : 4028818773c82c240173c839117a0000
          * vipName : 开通澳财经VIP会员
          * createTime : null
          * sysUser : null
-         * priceCny : 330
+         * priceCny : 0.01
          * remarks : 可随时续费，有效期会在当前有效期后顺延一年
-         * priceAud : 66
+         * priceAud : 0.02
          * status : 0
          */
-        private int priceUsd;
+        private double priceUsd;
         private String userOid;
         private int effectiveTime;
         private int isDelete;
@@ -79,12 +79,12 @@ public class AppVipInfo {
         private String vipName;
         private String createTime;
         private String sysUser;
-        private int priceCny;
+        private double priceCny;
         private String remarks;
-        private int priceAud;
+        private double priceAud;
         private int status;
 
-        public void setPriceUsd(int priceUsd) {
+        public void setPriceUsd(double priceUsd) {
             this.priceUsd = priceUsd;
         }
 
@@ -136,7 +136,7 @@ public class AppVipInfo {
             this.sysUser = sysUser;
         }
 
-        public void setPriceCny(int priceCny) {
+        public void setPriceCny(double priceCny) {
             this.priceCny = priceCny;
         }
 
@@ -144,7 +144,7 @@ public class AppVipInfo {
             this.remarks = remarks;
         }
 
-        public void setPriceAud(int priceAud) {
+        public void setPriceAud(double priceAud) {
             this.priceAud = priceAud;
         }
 
@@ -152,7 +152,7 @@ public class AppVipInfo {
             this.status = status;
         }
 
-        public int getPriceUsd() {
+        public double getPriceUsd() {
             return priceUsd;
         }
 
@@ -204,7 +204,7 @@ public class AppVipInfo {
             return sysUser;
         }
 
-        public int getPriceCny() {
+        public double getPriceCny() {
             return priceCny;
         }
 
@@ -212,7 +212,7 @@ public class AppVipInfo {
             return remarks;
         }
 
-        public int getPriceAud() {
+        public double getPriceAud() {
             return priceAud;
         }
 

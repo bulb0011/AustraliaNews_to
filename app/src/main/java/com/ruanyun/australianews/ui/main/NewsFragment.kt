@@ -422,7 +422,7 @@ class NewsFragment : BaseFragment() {
                 updateMinimumHeight()
             }else if(app.user==null){
                 rl_tip_login.visibility = View.VISIBLE
-                rl_tip_login_to.visibility = View.VISIBLE
+//                rl_tip_login_to.visibility = View.VISIBLE
                 updateMinimumHeight()
             }
         }

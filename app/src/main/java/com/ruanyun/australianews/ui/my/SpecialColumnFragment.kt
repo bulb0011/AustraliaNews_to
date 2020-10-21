@@ -59,17 +59,22 @@ class SpecialColumnFragment :BaseFragment(){
 
                     val listData= response.body()!!.data.datas
 
-                    val layoutManager = LinearLayoutManager(context)
+                    if (listData!=null&&listData.size>0) {
+                        val layoutManager = LinearLayoutManager(context)
 
-                    layoutManager.orientation = LinearLayoutManager.VERTICAL
+                        layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-                    rv_list_specialcolumn.layoutManager = layoutManager
+                        rv_list_specialcolumn.layoutManager = layoutManager
 
-                    rv_list_specialcolumn.isNestedScrollingEnabled = false
+                        rv_list_specialcolumn.isNestedScrollingEnabled = false
 
-                    val adapter = context?.let { SpecialColumnAdapter(it, listData) }
+                        val adapter = context?.let { SpecialColumnAdapter(it, listData) }
 
-                    rv_list_specialcolumn.adapter=adapter
+                        rv_list_specialcolumn.adapter=adapter
+                    } else {
+                        tv_meiyoushuju.visibility=View.VISIBLE
+                        rv_list_specialcolumn.visibility=View.INVISIBLE
+                    }
 
                 }
             })

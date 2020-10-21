@@ -98,6 +98,7 @@ import com.ruanyun.australianews.ui.vip.MoreCourseFragment;
 import com.ruanyun.australianews.ui.vip.MoreSpecialColumnFragment;
 import com.ruanyun.australianews.ui.vip.PDFActivity;
 import com.ruanyun.australianews.ui.vip.SelectPayActivity;
+import com.ruanyun.australianews.ui.vip.ShouSuoActivity;
 import com.ruanyun.australianews.ui.vip.SpecialColumnActivity;
 import com.ruanyun.australianews.ui.vip.VideoActivity;
 import com.ruanyun.australianews.ui.vip.VipDetailsActivity;
@@ -619,7 +620,9 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract VipNewsDetailsActivity vipNewsDetailsActivity();
 
-
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract ShouSuoActivity shouSuoActivity();
 
 
 }

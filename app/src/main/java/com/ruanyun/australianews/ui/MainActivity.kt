@@ -126,7 +126,7 @@ class MainActivity : BaseActivity() {
         }
 
         //需要这里添加底部的文字
-        val mTitles = arrayOf(getResources().getString(R.string.xinwen),getResources().getString(R.string.caifu),"VIP",getResources().getString(R.string.gerenzxin))
+        val mTitles = arrayOf(getResources().getString(R.string.xinwen),getResources().getString(R.string.caifu),"AFN会员",getResources().getString(R.string.gerenzxin))
 
         //注册sdk的event用于接收各种event事件
         JMessageClient.registerEventReceiver(this)

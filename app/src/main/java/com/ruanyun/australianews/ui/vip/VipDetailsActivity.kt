@@ -99,6 +99,7 @@ class VipDetailsActivity :BaseActivity(){
         tv_zhedieshouqi.visibility=View.INVISIBLE
 
         bt_add_vip.clickWithTrigger{
+            if(isLoginToActivity)
             AddVipActivity.start(this)
         }
 
@@ -205,6 +206,7 @@ class VipDetailsActivity :BaseActivity(){
         }
 
         fenxiang.clickWithTrigger {
+            if(isLoginToActivity)
             sharePopWindow.show(fenxiang)
         }
 
@@ -225,6 +227,7 @@ class VipDetailsActivity :BaseActivity(){
         }
 
         tv_goumai.clickWithTrigger {
+            if(isLoginToActivity)
             SelectPayActivity.start(this,1,id,
                 inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
         }
@@ -404,14 +407,16 @@ class VipDetailsActivity :BaseActivity(){
 
                 InfoId=id
 
-                if(C.IntentKey.VIP_TYPE_VIDEO.equals(type)){
-                    VideoActivity.start(this@VipDetailsActivity,InfoId)
+                if(isLoginToActivity){
+                    if(C.IntentKey.VIP_TYPE_VIDEO.equals(type)){
+                        VideoActivity.start(this@VipDetailsActivity,InfoId)
 
-                }else if (C.IntentKey.VIP_TYPE_PDF.equals(type)){
-                    PDFActivity.start(this@VipDetailsActivity,InfoId)
+                    }else if (C.IntentKey.VIP_TYPE_PDF.equals(type)){
+                        PDFActivity.start(this@VipDetailsActivity,InfoId)
 
-                }else if (C.IntentKey.VIP_TYPE_MP3.equals(type)){
-                    FrequencyPlayActivity.start(this@VipDetailsActivity,InfoId)
+                    }else if (C.IntentKey.VIP_TYPE_MP3.equals(type)){
+                        FrequencyPlayActivity.start(this@VipDetailsActivity,InfoId)
+                    }
                 }
             }
         })

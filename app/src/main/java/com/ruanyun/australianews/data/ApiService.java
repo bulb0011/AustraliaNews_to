@@ -868,7 +868,7 @@ public interface ApiService {
      * FN会员专栏信息
      **/
     @POST("app/afnnewsinfo/getAppAfnNewsColumnList")
-    Call<ResponseBody> getVipNewColumnList(@Query("dataNumber")int dataNumber);
+    Call<ResponseBody> getVipNewColumnList(@Query("dataNumber")int dataNumber,@Query("pageSize")int pageSize);
 
     /**
      * FN会员专栏信息
@@ -949,5 +949,14 @@ public interface ApiService {
      **/
     @POST("app/afnsubscribeinfo/getAppAfnSubscribeInfoPage")
     Call<DingYueZhuanLan> dingYueKeCehngZhuanLan(@Query("subscriptionType") int subscriptionType, @Query("userOid") String userOid, @Query("pageSize") int pageSize );
+
+
+
+    /**
+     * VIP搜索
+     **/
+    @POST("app/afnpayinfoall/getSearchAfnPayInfo")
+    Call<ResponseBody> vipSouSuo(@Query("searchTerm") String searchTerm, @Query("pageSize") int pageSize );
+
 
 }

@@ -4,9 +4,7 @@ import android.content.Context
 import android.text.TextUtils
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.model.CivilEstateInfo
-import com.ruanyun.australianews.model.NewsInfo
-import com.ruanyun.australianews.model.ShareJsonInfo
+import com.ruanyun.australianews.model.*
 import com.ruanyun.australianews.model.params.NewsCommentParams
 import com.ruanyun.australianews.model.uimodel.AdvertInfoBaseUiModel
 import com.ruanyun.australianews.model.uimodel.LifeReleaseCommonUiModel

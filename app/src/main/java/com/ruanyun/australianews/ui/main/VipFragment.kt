@@ -4,6 +4,7 @@ import `in`.srain.cube.views.ptr.PtrClassicDefaultHeader
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import `in`.srain.cube.views.ptr.PtrHandler
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.NestedScrollView
@@ -22,19 +23,19 @@ import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.*
+import com.ruanyun.australianews.ui.WebViewActivity
 import com.ruanyun.australianews.ui.adapter.AdverViewHolderTo
 import com.ruanyun.australianews.ui.adapter.VipClassifAdapter
 import com.ruanyun.australianews.ui.adapter.VipReMenAdapter
 import com.ruanyun.australianews.ui.adapter.VipReToAdapter
 import com.ruanyun.australianews.ui.my.MyMessageListActivity
-import com.ruanyun.australianews.ui.vip.MoreActivity
-import com.ruanyun.australianews.ui.vip.SpecialColumnActivity
-import com.ruanyun.australianews.ui.vip.VipDetailsActivity
-import com.ruanyun.australianews.ui.vip.VipListActivity
+import com.ruanyun.australianews.ui.vip.*
 import com.ruanyun.australianews.util.C
 import com.ruanyun.australianews.util.CommonUtil.dp2px
+import com.ruanyun.australianews.util.FileUtil
 import com.ruanyun.australianews.util.RxUtil
 import com.ruanyun.australianews.util.WebViewUrlUtil
+import com.ruanyun.australianews.util.WebViewUrlUtil.Companion.ADVERTISING_DETAILS
 import com.ruanyun.australianews.widget.MyConvenientBanner
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.fragment_vip.*
@@ -95,7 +96,10 @@ class VipFragment :BaseFragment(){
 
         initView()
 
-        ll_soushuo.clickWithTrigger { SearchActivity.start(mContext, SearchActivity.HOME_SEARCH) }
+        ll_soushuo.clickWithTrigger {
+           val init = Intent(mContext, ShouSuoActivity::class.java)
+            startActivity(init)
+        }
 
         img_dinbyue.clickWithTrigger { MyMessageListActivity.start(mContext) }
 
@@ -252,15 +256,11 @@ class VipFragment :BaseFragment(){
 
                     advertList.addAll(result.data as MutableList<VipBannerInfo>)
 
-                   val  vipBannerInfo =  VipBannerInfo()
-
-                    vipBannerInfo.title = "标题"
-                    vipBannerInfo.mainPhoto="20200804120659350.jpg"
-
-                    advertList.add(vipBannerInfo)
-
                     convenientBanner.setPages( { AdverViewHolderTo() } , advertList).setOnItemClickListener{
-                        ToastUtil.shortToast(mContext,"111")
+
+//                        WebViewUrlUtil.showAdvertDetailsWeb(mContext, advertList[it])
+
+                        WebViewActivity.start(context, FileUtil.getWebViewUrl(ADVERTISING_DETAILS, advertList[it].oid))
                     }
 
                     convenientBanner?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -361,12 +361,10 @@ class VipFragment :BaseFragment(){
 
                         adapterVipReTo.setOnCliakListener(object : VipReToAdapter.OnCliskListener{
                             override fun onClisk(view: View?,i:Int) {
-                                ToastUtil.shortToast(mContext,"$"+i)
-
-                                val objInfo= vipColumnInfo[i]
-
-                                WebViewUrlUtil.showVIPNewsWeb(mContext,objInfo.title,objInfo.mainPhoto,objInfo.oid,objInfo.createTime)
-
+                                if(isLoginToActivity){
+                                    val objInfo= vipColumnInfo[i]
+                                    WebViewUrlUtil.showVIPNewsWeb(mContext,objInfo.title,objInfo.mainPhoto,objInfo.oid,objInfo.createTime)
+                                }
                             }
                         })
                     }else{
@@ -391,7 +389,7 @@ class VipFragment :BaseFragment(){
 
     fun zhanlan(){
         //专栏数据
-        ApiManger.getApiService().getVipNewColumnList(2)
+        ApiManger.getApiService().getVipNewColumnList(2,100)
             . enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 

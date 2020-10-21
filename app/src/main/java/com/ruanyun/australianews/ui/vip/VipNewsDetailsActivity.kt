@@ -5,10 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.view.View
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.SeekBar
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.ResultBase
@@ -76,6 +73,7 @@ open class VipNewsDetailsActivity : WebViewActivity() {
 
     var text = ""
 
+    lateinit var LoadDialog : LoadingDialog
 
     override fun initView() {
         super.initView()
@@ -86,6 +84,7 @@ open class VipNewsDetailsActivity : WebViewActivity() {
 
         tv_shijian.text = StringUtil.getLifeTime(commonTime)
 
+        LoadDialog=LoadingDialog(this)
 
 
         webView.webViewClient = object : WebViewClient() {
@@ -232,6 +231,17 @@ open class VipNewsDetailsActivity : WebViewActivity() {
             })
         }
 
+        webView.setWebChromeClient(object : WebChromeClient(){
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                super.onProgressChanged(view, newProgress)
+                if (newProgress==10){
+                    LoadDialog.show()
+                }else if(newProgress==100){
+                    LoadDialog.dismiss()
+                }
+            }
+        })
+
         /**
          *改变文字
          */
@@ -333,6 +343,7 @@ open class VipNewsDetailsActivity : WebViewActivity() {
                     disMissLoading()
                     showToast("收藏成功")
                     iv_collect.isSelected = true
+                    newsCommentCountInfo?.mark = true
                     newsCommentCountInfo?.collectionInfo = result.data.oid
                 }
 
@@ -367,6 +378,7 @@ open class VipNewsDetailsActivity : WebViewActivity() {
                     disMissLoadingView()
                     showToast("取消收藏成功")
                     iv_collect.isSelected = false
+                    newsCommentCountInfo?.mark = false
                     newsCommentCountInfo?.collectionInfo = null
                 }
 

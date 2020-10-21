@@ -38,7 +38,6 @@ import com.ruanyun.australianews.ui.news.NewsDetailsActivity
 import com.ruanyun.australianews.ui.news.SecondaryCommentActivity
 import com.ruanyun.australianews.util.*
 import com.ruanyun.australianews.widget.RYSelectPopWindow
-import com.ruanyun.australianews.widget.ReWebChromeClient
 import com.ruanyun.imagepicker.AndroidImagePicker
 import com.ruanyun.imagepicker.bean.ImageItem
 import com.ruanyun.imagepicker.compressimage.CompressImageProxy
@@ -50,7 +49,6 @@ import com.ruanyun.imagepicker.imagelist.ImageListUtil
 import com.ruanyun.imagepicker.permissions.PermissionsManager
 import com.ruanyun.imagepicker.permissions.PermissionsResultAction
 import com.ruanyun.imagepicker.ui.ImagesGridActivity
-import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_web_view.*
 import me.jessyan.autosize.internal.CancelAdapt
 import org.greenrobot.eventbus.Subscribe

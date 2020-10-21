@@ -102,8 +102,8 @@ class MyFragment : BaseFragment() {
 
         tv_user_name.clickWithTrigger { isLoginToActivity}
 
-        tv_message.clickWithTrigger { MyMessageListActivity.start(mContext) }
-        tv_dingyue.clickWithTrigger { MySubscibeActivity.start(mContext) }
+        tv_message.clickWithTrigger { if(isLoginToActivity)MyMessageListActivity.start(mContext) }
+        tv_dingyue.clickWithTrigger {  MySubscibeActivity.start(mContext) }
 
         tv_comment.clickWithTrigger { if(isLoginToActivity) MyEvaluationListActivity.start(mContext) }
         tv_collection.clickWithTrigger { if(isLoginToActivity) MyCollectionActivity.start(mContext) }

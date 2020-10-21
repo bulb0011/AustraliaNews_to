@@ -51,17 +51,22 @@ class MemberFragment :BaseFragment(){
                 override fun onResponse(call: Call<DingYueKeCheng>, response: Response<DingYueKeCheng>) {
                     val listData= response.body()!!.data.datas
 
-                    val layoutManager = LinearLayoutManager(context)
+                    if (listData!=null&&listData.size>0) {
+                        val layoutManager = LinearLayoutManager(context)
 
-                    layoutManager.orientation = LinearLayoutManager.VERTICAL
+                        layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-                    rv_list_member.layoutManager = layoutManager
+                        rv_list_member.layoutManager = layoutManager
 
-                    rv_list_member.isNestedScrollingEnabled = false
+                        rv_list_member.isNestedScrollingEnabled = false
 
-                    val adapter = context?.let { MenberAdapter(it, listData) }
+                        val adapter = context?.let { MenberAdapter(it, listData) }
 
-                    rv_list_member.adapter=adapter
+                        rv_list_member.adapter=adapter
+                    } else {
+                        tv_meiyoushuju.visibility=View.VISIBLE
+                        rv_list_member.visibility=View.INVISIBLE
+                    }
                 }
             })
     }

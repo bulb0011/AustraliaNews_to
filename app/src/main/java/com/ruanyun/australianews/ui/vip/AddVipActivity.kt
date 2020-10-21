@@ -9,6 +9,7 @@ import com.ruanyun.australianews.base.BaseActivity
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.model.AppVipInfo
+import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_add_vip.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,6 +51,10 @@ class AddVipActivity :BaseActivity() {
                     val iso=App.app.iso
 
                     val data=response.body()!!.getData()
+                    if(data==null){
+                        ToastUtil.shortToast(this@AddVipActivity,"数据错误！")
+                        return
+                    }
                     id=data.oid
 
                     //国内

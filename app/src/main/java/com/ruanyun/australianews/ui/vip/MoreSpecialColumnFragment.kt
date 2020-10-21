@@ -65,7 +65,7 @@ class MoreSpecialColumnFragment :BaseFragment() {
 
 
 ///专栏数据
-        ApiManger.getApiService().getVipNewColumnList(2)
+        ApiManger.getApiService().getVipNewColumnList(2,100)
             . enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 

@@ -140,7 +140,6 @@ public class CurriculumAdapter extends RecyclerView.Adapter {
 
                 }
 
-                Glide.with(this.context).load(afnInfoAllEntity.getMainPhoto()).into(viewHolderOne.iv_pic);
                 viewHolderOne.rl_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
