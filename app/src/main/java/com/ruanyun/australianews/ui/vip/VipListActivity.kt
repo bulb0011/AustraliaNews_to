@@ -92,7 +92,6 @@ class VipListActivity : BaseActivity() {
 
         adapterVipReListOne?.setOnItemClickListener(object :VipColumnAdapter.OnRecyclerViewItemClickListener {
             override fun onClisk(view: View?, i: Int,id:String) {
-                ToastUtil.shortToast(this@VipListActivity,"#"+i+"&"+id)
 
                val objInfo = dataList[i]
 

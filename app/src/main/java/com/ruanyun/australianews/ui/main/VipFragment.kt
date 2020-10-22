@@ -85,9 +85,6 @@ class VipFragment :BaseFragment(){
 
         context?.let { initData(it) }
 
-        Log.e("dengpao","App.app.userOid"+App.app.userOid)
-        Log.e("dengpao","App.app.cityName"+App.app.cityName)
-
         convenientBanner = getView(R.id.banner)
         convenientBanner.setPageIndicator(MyConvenientBanner.indicators)
         convenientBanner.setPageIndicatorAlign(MyConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)

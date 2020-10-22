@@ -36,7 +36,9 @@ class VideoNewsDetailsActivity : NewsDetailsActivity(){
     companion object {
         fun start(context: Context, info: NewsInfo) {
             val starter = Intent(context, VideoNewsDetailsActivity::class.java)
-            starter.putExtra(C.IntentKey.WEB_VIEW_URL, FileUtil.getWebViewUrl(WebViewUrlUtil.NEWS_DETAILS, App.getInstance().cityName, info.oid, App.getInstance().userOid))
+           var url=FileUtil.getWebViewUrl(WebViewUrlUtil.NEWS_DETAILS, App.getInstance().cityName, info.oid, App.getInstance().userOid)
+            url=url+"&language=zh"+"&fa=android"
+            starter.putExtra(C.IntentKey.WEB_VIEW_URL, url)
             starter.putExtra(C.IntentKey.NEWS_INFO_OID, info.oid)
             starter.putExtra(C.IntentKey.NEWS_IMAGE_COVER, info.mainPhoto.toImgUrl())
             starter.putExtra(C.IntentKey.NEWS_VIDEO_PATH, info.videoUrl.toImgUrl())
@@ -51,7 +53,9 @@ class VideoNewsDetailsActivity : NewsDetailsActivity(){
         }
         fun startNewTask(context: Context, info: NewsInfo) {
             val starter = Intent(context, VideoNewsDetailsActivity::class.java)
-            starter.putExtra(C.IntentKey.WEB_VIEW_URL, FileUtil.getWebViewUrl(WebViewUrlUtil.NEWS_DETAILS, App.getInstance().cityName, info.oid, App.getInstance().userOid))
+            var url=FileUtil.getWebViewUrl(WebViewUrlUtil.NEWS_DETAILS, App.getInstance().cityName, info.oid, App.getInstance().userOid)
+            url=url+"&language=zh"+"&fa=android"
+            starter.putExtra(C.IntentKey.WEB_VIEW_URL,url )
             starter.putExtra(C.IntentKey.NEWS_INFO_OID, info.oid)
             starter.putExtra(C.IntentKey.NEWS_IMAGE_COVER, info.mainPhoto.toImgUrl())
             starter.putExtra(C.IntentKey.NEWS_VIDEO_PATH, info.videoUrl.toImgUrl())
@@ -97,7 +101,7 @@ class VideoNewsDetailsActivity : NewsDetailsActivity(){
         if (intent.getStringExtra(C.IntentKey.NEWS_IMAGE_COVER)!=null && intent.getStringExtra(C.IntentKey.NEWS_IMAGE_COVER)!=""){
             imageCover =intent.getStringExtra(C.IntentKey.NEWS_IMAGE_COVER)
         }else{
-            imageCover = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1601056215235&di=2e81461d7887fcc06684d82e4f220d7f&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F08f790529822720efd479a2f7acb0a46f31fab5e.jpg"
+            imageCover = "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1500733393,3649866878&fm=26&gp=0.jpg"
             ToastUtil.shortToast(mContext,"没有图片地址")
 
         }

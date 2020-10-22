@@ -110,7 +110,7 @@ public class VIPSouSuoInfo {
         private String outUrl;
         private String videoUrl;
         private String linkUrl;
-        private int normalPriceusd;
+        private double normalPriceusd;
         private int contentType;
         private double specialOffercny;
         private int priceUsd;
@@ -288,7 +288,7 @@ public class VIPSouSuoInfo {
             return linkUrl;
         }
 
-        public int getNormalPriceusd() {
+        public double getNormalPriceusd() {
             return normalPriceusd;
         }
 

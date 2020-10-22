@@ -35,24 +35,24 @@
             android:text="详情"
             />
 
-        <ImageView
-            android:id="@+id/fenxiang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btn_share"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            />
+<!--        <ImageView-->
+<!--            android:id="@+id/fenxiang"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/btn_share"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginRight="16dp"-->
+<!--            />-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/kefu"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@id/fenxiang"
-            />
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/kefu"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_toLeftOf="@id/fenxiang"-->
+<!--            />-->
         
     </RelativeLayout>
 

@@ -366,6 +366,9 @@ open class WebViewUrlUtil {
 
             LogX.e("dengpao","$$$$$$$$$$$"+url)
 
+            val url_zh=url+"&language=zh"+"&fa=android"
+            val url_en=url+"&language=en"+"&fa=android"
+
 
             val shareJsonInfo = ShareJsonInfo()
 
@@ -375,7 +378,7 @@ open class WebViewUrlUtil {
             shareJsonInfo.share_url = url
             val json = GsonUtil.toJson(shareJsonInfo)
 
-            VipNewsDetailsActivity.startNewsDetails(context, url, oid, NewsCommentParams.NEWS, json,commonTime)
+            VipNewsDetailsActivity.startNewsDetails(context, url_zh, oid, NewsCommentParams.NEWS, json,commonTime)
         }
 
 

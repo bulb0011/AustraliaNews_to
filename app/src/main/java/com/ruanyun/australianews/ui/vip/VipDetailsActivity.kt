@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Html
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -280,9 +281,11 @@ class VipDetailsActivity :BaseActivity(){
 
         tv_title.text=detailIfo.title
 
-        mingrentuijian.text=detailIfo.recommendation
+        val richText: CharSequence = Html.fromHtml(detailIfo.recommendation)
+        mingrentuijian.text=richText
 
-        tv_neirongianjie.text=detailIfo.content
+        val richTextto: CharSequence = Html.fromHtml(detailIfo.content)
+        tv_neirongianjie.text=richTextto
 
         sharePopWindow = SharePopWindow(mContext)
         sharePopWindow.share_title = detailIfo.title
