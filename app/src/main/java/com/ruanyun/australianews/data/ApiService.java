@@ -11,16 +11,13 @@ import com.ruanyun.australianews.model.CityInfo;
 import com.ruanyun.australianews.model.CivilEstateInfo;
 import com.ruanyun.australianews.model.ClassifyInfo;
 import com.ruanyun.australianews.model.CollectionBrowseNewsInfo;
-import com.ruanyun.australianews.model.ColumnDetailsInfo;
 import com.ruanyun.australianews.model.CommentInfo;
 import com.ruanyun.australianews.model.DingYueKeCheng;
-import com.ruanyun.australianews.model.DingYueZhuanLan;
 import com.ruanyun.australianews.model.Evaluation;
 import com.ruanyun.australianews.model.FundInfo;
 import com.ruanyun.australianews.model.GoodsInfo;
 import com.ruanyun.australianews.model.HelpInfo;
 import com.ruanyun.australianews.model.HomeResultBase;
-import com.ruanyun.australianews.model.HotInfo;
 import com.ruanyun.australianews.model.HousingMarketInfo;
 import com.ruanyun.australianews.model.IconInfo;
 import com.ruanyun.australianews.model.LifeBrowseCollectionResultInfo;
@@ -38,7 +35,6 @@ import com.ruanyun.australianews.model.LifeTransactionMarketInfo;
 import com.ruanyun.australianews.model.LifeYellowPageInfo;
 import com.ruanyun.australianews.model.NewParticularsBean;
 import com.ruanyun.australianews.model.NewsCommentCountInfo;
-import com.ruanyun.australianews.model.NewsDirectoryDetails;
 import com.ruanyun.australianews.model.NewsInfo;
 import com.ruanyun.australianews.model.NotificationInfo;
 import com.ruanyun.australianews.model.ParentCodeInfo;
@@ -50,9 +46,8 @@ import com.ruanyun.australianews.model.TextNewInfo;
 import com.ruanyun.australianews.model.UserInfo;
 import com.ruanyun.australianews.model.VipBannerInfo;
 import com.ruanyun.australianews.model.VipColumnInfo;
-import com.ruanyun.australianews.model.VipDetailIfo;
-import com.ruanyun.australianews.model.VipNewsType;
 import com.ruanyun.australianews.model.WealthBrowseCollectionResultInfo;
+import com.ruanyun.australianews.model.YaunYiInfo;
 import com.ruanyun.australianews.model.params.AddNewsBrowseTimeStatisticalParams;
 import com.ruanyun.australianews.model.params.BindLinkTelParams;
 import com.ruanyun.australianews.model.params.CollectionBrowseNewsLifeListParams;
@@ -835,7 +830,7 @@ public interface ApiService {
      * 获取AFN会员信息页面信息（最热产品）
      **/
     @POST("app/afnnewsinfo/getAppAfnNewsInfoPage")
-    Observable<ResultBase<HotInfo>> getHotInfoList(@Query("userOid") String userOid);
+    Call<ResponseBody> getHotInfoList(@Query("userOid") String userOid);
 
     /**
      * 获取AFN信息（分类产品，行业，投资，）
@@ -854,14 +849,14 @@ public interface ApiService {
      * 获取AFNk课程的详情
      **/
     @POST("app/afnnewsinfo/getAppAfnNewsInfoDetails")
-    Call<VipDetailIfo> getVipNewInfo(@Query("afnNewsInfoOid") String afnNewsInfoOid, @Query("userOid") String userOid);
+    Call<ResponseBody> getVipNewInfo(@Query("afnNewsInfoOid") String afnNewsInfoOid, @Query("userOid") String userOid);
 
 
     /**
      * 获取AFNk获取目录信息详情(具体的界面)
      **/
     @POST("app/afnnewsinfo/getAppAfnNewsDirectoryDetails")
-    Call<NewsDirectoryDetails> getVipNewInfoDirectoryDetails(@Query("afnNewsDirectoryoid") String afnNewsInfoOid, @Query("userOid") String userOid);
+    Call<ResponseBody> getVipNewInfoDirectoryDetails(@Query("afnNewsDirectoryoid") String afnNewsInfoOid, @Query("userOid") String userOid);
 
 
     /**
@@ -887,14 +882,14 @@ public interface ApiService {
      * 根据专栏Id获取专栏的详细信息
      **/
     @POST("app/afnnewsinfo/getAppAfnNewsColumnDetails")
-    Observable<ResultBase<ColumnDetailsInfo>> getColumnDetails(@Query("columnOid") String columnOid, @Query("userOid") String userOid);
+    Call<ResponseBody> getColumnDetails(@Query("columnOid") String columnOid, @Query("userOid") String userOid);
 
 
     /**
      * 根据行业报告的详细信息ID获取所属的课程信息
      **/
     @POST("app/afnnewstype/getAppAfnNewsInfoPageByNewsType")
-    Observable<ResultBase<VipNewsType>> getNewsType(@Query("newsTypeOid") String newsTypeOid, @Query("userOid") String userOid);
+    Call<ResponseBody> getNewsType(@Query("newsTypeOid") String newsTypeOid, @Query("userOid") String userOid);
 
 
 //    /**
@@ -948,7 +943,7 @@ public interface ApiService {
      * 购买vip界面
      **/
     @POST("app/afnsubscribeinfo/getAppAfnSubscribeInfoPage")
-    Call<DingYueZhuanLan> dingYueKeCehngZhuanLan(@Query("subscriptionType") int subscriptionType, @Query("userOid") String userOid, @Query("pageSize") int pageSize );
+    Call<ResponseBody> dingYueKeCehngZhuanLan(@Query("subscriptionType") int subscriptionType, @Query("userOid") String userOid, @Query("pageSize") int pageSize );
 
 
 
@@ -957,6 +952,14 @@ public interface ApiService {
      **/
     @POST("app/afnpayinfoall/getSearchAfnPayInfo")
     Call<ResponseBody> vipSouSuo(@Query("searchTerm") String searchTerm, @Query("pageSize") int pageSize );
+
+
+    /**
+     * 会员权益
+     **/
+    @POST("app/vipinfo/getAppVipEquityList")
+    Call<YaunYiInfo> getAppVipEquityList(@Query("userOid") String userOid);
+
 
 
 }

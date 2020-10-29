@@ -8,6 +8,8 @@ import android.util.Log
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener
 import com.github.barteksc.pdfviewer.listener.OnRenderListener
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
@@ -15,6 +17,7 @@ import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.model.NewsDirectoryDetails
 import com.ruanyun.australianews.util.C
 import kotlinx.android.synthetic.main.activity_pdf.*
+import okhttp3.ResponseBody
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -53,14 +56,24 @@ class PDFActivity :BaseActivity() {
         showLoading()
 
         ApiManger.getApiService().getVipNewInfoDirectoryDetails(infoId, App.getInstance().userOid)
-            .enqueue(object : Callback<NewsDirectoryDetails> {
-                override fun onFailure(call: Call<NewsDirectoryDetails>, t: Throwable) {
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
                 }
 
-                override fun onResponse(call: Call<NewsDirectoryDetails>, response: Response<NewsDirectoryDetails>) {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
-                    val detailIfo=response!!.body()!!.data
+                    val json = response.body()!!.string()
+
+                    val je = JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+
+                    val gson = Gson()
+
+                    val detailIfo= gson.fromJson<NewsDirectoryDetails>(data,NewsDirectoryDetails::class.java)
+
+//                    val detailIfo=response!!.body()!!.data
 
 //                    setViewData(detailIfo)
 

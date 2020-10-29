@@ -7,16 +7,20 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import com.paypal.android.sdk.payments.PayPalService
+import com.paypal.android.sdk.payments.PaymentConfirmation
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
+import com.ruanyun.australianews.model.BuyInfo
 import com.ruanyun.australianews.model.PayInfo
 import com.ruanyun.australianews.model.PayInfoWx
 import com.ruanyun.australianews.model.PayPalInfo
+import com.ruanyun.australianews.util.C
 import com.ruanyun.australianews.util.PayPalHelper
+import com.ruanyun.australianews.util.PayPalUtils
 import com.ruanyun.australianews.util.ThirdPayMgr
 import com.ruanyun.australianews.widget.CommonDialog
 import com.ruanyun.australianews.wxapi.WXPayEntryActivity
@@ -25,9 +29,11 @@ import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_select_pay.*
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.math.BigDecimal
 
 class SelectPayActivity :BaseActivity() {
 
@@ -76,6 +82,8 @@ class SelectPayActivity :BaseActivity() {
     private var mWeChatApi: IWXAPI? = null
     var jiage=""
 
+   var currentcy="AUD"
+
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
         setContentView(R.layout.activity_select_pay)
@@ -85,20 +93,25 @@ class SelectPayActivity :BaseActivity() {
 
         payAmountType = 1;
         val iso=App.app.iso
+
+        initPayPal()
         //国内
         if(iso=="cn"||iso=="CN"){
             payAmountType=1
             jiage="¥"
+            currentcy="CNY"
         }
         //澳洲
         else if(iso=="au"|| iso=="AU") {
             payAmountType=3
             jiage="A$"
+            currentcy="AUD"
         }
         //其他地区
         else{
             payAmountType=1
             jiage="A$"
+            currentcy="USD"
         }
 
         if (productType == 4){
@@ -187,11 +200,62 @@ class SelectPayActivity :BaseActivity() {
             }else if (payWay==2){
                 alipayPay()
             }else if (payWay==3){
-                afnAppPayPayPal()
+//                afnAppPayPayPal()
+                if (payPalUtils==null)
+                    initPayPal()
+
+                payPal()
             }
 
 
         }
+
+    }
+  lateinit var  payPalUtils: PayPalUtils
+
+    fun payPal(){
+        ApiManger.getApiService().afnAppPayPayPal(tv_jine.text.toString().toInt(), productOid,payAmountType,payWay,App.getInstance().userOid)
+            .enqueue(object : Callback<PayPalInfo> {
+                override fun onFailure(call: Call<PayPalInfo>, t: Throwable) {
+                }
+                override fun onResponse(
+                    call: Call<PayPalInfo>,
+                    response: Response<PayPalInfo>
+                ) {
+                    val data=response.body()!!.data
+
+                    val purchaseUnitsEntity= data.Purchase_unitsEntity()
+
+                    payPalUtils.startPay(BigDecimal(Integer.parseInt(tv_jiage_to.text as String)), currentcy, purchaseUnitsEntity.soft_descriptor,purchaseUnitsEntity.reference_id)
+                }
+            })
+    }
+
+    fun initPayPal(){
+        payPalUtils= PayPalUtils.newInstance(this
+            , C.CONFIG_CLIENT_ID//此处为paypalclientid
+            , object : PayPalUtils.Back {
+                override fun onResult(paymentResult: PaymentConfirmation?, errorMsg: String?) {
+                    if (errorMsg != null) {
+                        ToastUtil.shortToast(this@SelectPayActivity,"支付失败")
+                    } else if (paymentResult != null && paymentResult.proofOfPayment != null && paymentResult.proofOfPayment.paymentId != null
+                    ) {
+                        //订单号，上传至服务器校验
+                        val paymentId =
+                            paymentResult.proofOfPayment.paymentId
+                        val buyInfo = BuyInfo()
+                        buyInfo.isBuy = 1
+                        EventBus.getDefault().post(buyInfo)
+                        ToastUtil.shortToast(this@SelectPayActivity,"支付成功")
+                        this@SelectPayActivity.finish()
+
+                    } else {
+
+                        ToastUtil.shortToast(this@SelectPayActivity,"支付取消")
+                    }
+                }
+
+            })
 
     }
 
@@ -206,7 +270,7 @@ class SelectPayActivity :BaseActivity() {
                ) {
                    PayPalHelper.getInstance().doPayPalPay(mContext);
                }
-    })
+            })
     }
     fun alipayPay(){
         ApiManger.getApiService().afnAppPay(productType, productOid,payAmountType,payWay,App.getInstance().userOid)
@@ -230,7 +294,11 @@ class SelectPayActivity :BaseActivity() {
 
                     thirdPayMgr!!.alipay(this@SelectPayActivity, data, object : ThirdPayMgr.payCallback {
                         override fun onPaySuccess() {
+                            val buyInfo = BuyInfo()
+                            buyInfo.isBuy = 1
+                            EventBus.getDefault().post(buyInfo)
                             ToastUtil.shortToast(this@SelectPayActivity,"支付成功")
+                            this@SelectPayActivity.finish()
                         }
 
                         override fun onPayCancel() {
@@ -316,32 +384,33 @@ class SelectPayActivity :BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        PayPalHelper.getInstance().confirmPayResult(mContext, requestCode, resultCode, data,object:PayPalHelper.DoResult{
-            override fun invalidPaymentConfiguration() {
+        payPalUtils.onActivityResult(requestCode, resultCode, data);
 
-            }
-
-            override fun confirmSuccess(id: String?) {
-                ToastUtil.shortToast(this@SelectPayActivity,"支付成功" + id);
-            }
-
-            override fun confirmFuturePayment() {
-
-            }
-
-            override fun confirmNetWorkError() {
-                ToastUtil.shortToast(this@SelectPayActivity,"支付失败");
-            }
-
-            override fun customerCanceled() {
-                ToastUtil.shortToast(this@SelectPayActivity,"支付取消");
-            }
-
-        })
+//        PayPalHelper.getInstance().confirmPayResult(mContext, requestCode, resultCode, data,object:PayPalHelper.DoResult{
+//            override fun invalidPaymentConfiguration() {
+//            }
+//
+//            override fun confirmSuccess(id: String?) {
+//                ToastUtil.shortToast(this@SelectPayActivity,"支付成功" + id);
+//            }
+//            override fun confirmFuturePayment() {
+//            }
+//
+//            override fun confirmNetWorkError() {
+//                ToastUtil.shortToast(this@SelectPayActivity,"支付失败");
+//            }
+//
+//            override fun customerCanceled() {
+//                ToastUtil.shortToast(this@SelectPayActivity,"支付取消");
+//            }
+//
+//        })
     }
 
     override fun onDestroy() {
         stopService(Intent(this, PayPalService::class.java))
+        if(payPalUtils!=null)
+            payPalUtils.onDestroy()
         super.onDestroy()
 
     }

@@ -30,6 +30,8 @@ public class DefaultModel2ViewControler<Data> implements IDataDelegate {
 
     private IDataSource dataSource;
 
+    List <CollectionBrowseNewsInfo>  collectionBrowseNewsInfos= new ArrayList<>();
+
     // private IRefreshListLoadViewFactory.IRefreshView refreshView;
 
     // private IRefreshListLoadViewFactory.ILoadMoreView loadMoreView;
@@ -99,7 +101,7 @@ public class DefaultModel2ViewControler<Data> implements IDataDelegate {
 
                                     if (result.datas.get(0) instanceof CollectionBrowseNewsInfo){
 
-                                       List <CollectionBrowseNewsInfo>  collectionBrowseNewsInfos= new ArrayList<>();
+
                                         List <CollectionBrowseNewsInfo>  collectionBrowseNewsInfoList= result.datas;
 
                                         for (int i = 0; i < collectionBrowseNewsInfoList.size(); i++) {
@@ -108,8 +110,12 @@ public class DefaultModel2ViewControler<Data> implements IDataDelegate {
                                             }
                                         }
 
-                                        getDataAdapter().refresh(collectionBrowseNewsInfos);
-                                     }else {
+                                        if (collectionBrowseNewsInfos.size()>0) {
+                                            getDataAdapter().refresh(collectionBrowseNewsInfos);
+                                        }else {
+                                            getDataAdapter().refresh(null);
+                                        }
+                                    }else {
                                         getDataAdapter().refresh(result.datas);
                                     }
 

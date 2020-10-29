@@ -6,19 +6,21 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
-import com.ruanyun.australianews.base.ResultBase
-import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.model.HotInfo
 import com.ruanyun.australianews.ui.adapter.MoreCourseAdapter
 import com.ruanyun.australianews.util.C
-import com.ruanyun.australianews.util.RxUtil
 import kotlinx.android.synthetic.main.fragment_more_course.*
-
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MoreCourseFragment @SuppressLint constructor():BaseFragment(){
 
@@ -43,10 +45,16 @@ class MoreCourseFragment @SuppressLint constructor():BaseFragment(){
         super.onActivityCreated(savedInstanceState)
 
         //        //最热产品
-        ApiManger.getApiService().getHotInfoList(App.app.userOid).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<HotInfo>>() {
-                override fun onSuccess(result: ResultBase<HotInfo>) {
-//                        mDataListCurriculum.addAll(result.data.datas)
+        //最热产品
+        ApiManger.getApiService().getHotInfoList(App.app.userOid)
+            . enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
 
                     val layoutManager = LinearLayoutManager(context)
 
@@ -56,14 +64,26 @@ class MoreCourseFragment @SuppressLint constructor():BaseFragment(){
 
                     rv_more_course_list.isNestedScrollingEnabled = false
 
-                    val adapter = context?.let { MoreCourseAdapter(it,result.data.datas) }
+                    val json = response.body()!!.string()
+
+                    val je = JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+
+                    val gson = Gson()
+
+                    val hotinfo= gson.fromJson<HotInfo>(data,HotInfo::class.java)
+
+                    val listDatasEntity = hotinfo.datas
+
+                    val adapter = context?.let { MoreCourseAdapter(it,listDatasEntity) }
 
                     rv_more_course_list.adapter=adapter
 
                     adapter?.setOnCliakListener(object :MoreCourseAdapter.OnCliskListener{
                         override fun onClisk(view: View?, po: Int) {
 
-                            val type= result.data.datas[po].contentType
+                            val type= listDatasEntity[po].contentType
 
                             var s=""
                             if (type==1){
@@ -81,21 +101,14 @@ class MoreCourseFragment @SuppressLint constructor():BaseFragment(){
                                 VipDetailsActivity.start(
                                     it,
                                     s,
-                                    result.data.datas[po].oid
+                                    listDatasEntity[po].oid
                                 )
                             }
                         }
                     })
+
                 }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-//                disMissLoading()
-                    showToast(msg)
-                }
+
             })
 
 

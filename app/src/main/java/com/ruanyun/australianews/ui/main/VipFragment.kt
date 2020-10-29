@@ -13,6 +13,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
+import com.google.gson.jpush.JsonParser
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
@@ -159,9 +161,15 @@ class VipFragment :BaseFragment(){
     fun initData(context :Context){
 
         //最热产品
-        ApiManger.getApiService().getHotInfoList(App.app.userOid).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<HotInfo>>() {
-                override fun onSuccess(result: ResultBase<HotInfo>) {
+        ApiManger.getApiService().getHotInfoList(App.app.userOid)
+            . enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
 //                   val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
                     val layoutManager = LinearLayoutManager(context)
 
@@ -169,7 +177,19 @@ class VipFragment :BaseFragment(){
                     rv_remincanpin.layoutManager = layoutManager
                     rv_remincanpin.isNestedScrollingEnabled = false
 
-                    adapterVipReMen = VipReMenAdapter(context, result.data.datas)
+                    val json = response.body()!!.string()
+
+                    val je = JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+
+                    val gson = Gson()
+
+                    val hotinfo= gson.fromJson<HotInfo>(data,HotInfo::class.java)
+
+                    val listDatasEntity = hotinfo.datas
+
+                    adapterVipReMen = VipReMenAdapter(context, listDatasEntity)
 
                     rv_remincanpin.adapter = adapterVipReMen
 
@@ -199,16 +219,9 @@ class VipFragment :BaseFragment(){
                     })
 
                 }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                showToast(erroMsg)
-            }
-        }, object : ApiFailAction() {
-            override fun onFail(msg: String) {
-//                disMissLoading()
-                showToast(msg)
-            }
-        })
+
+            })
+
 
 
         //分类
@@ -257,7 +270,30 @@ class VipFragment :BaseFragment(){
 
 //                        WebViewUrlUtil.showAdvertDetailsWeb(mContext, advertList[it])
 
-                        WebViewActivity.start(context, FileUtil.getWebViewUrl(ADVERTISING_DETAILS, advertList[it].oid))
+                        val info= advertList[it]
+
+                        if (info.type==1) {
+                            var s=""
+                            if (info.contentType==1){
+                                s=C.IntentKey.VIP_TYPE_PDF
+                            }else if (info.contentType==2){
+                                s=C.IntentKey.VIP_TYPE_VIDEO
+                            }else if (info.contentType==3){
+                                s=C.IntentKey.VIP_TYPE_MP3
+                            }
+                            context?.let {
+                                VipDetailsActivity.start(
+                                    it,
+                                    s,
+                                    info.commonOid
+                                )
+                            }
+                        }else if (info.type==2){
+                            SpecialColumnActivity.start(mContext,info.commonOid)
+                        }else{
+                            WebViewActivity.start(context, FileUtil.getWebViewUrl(ADVERTISING_DETAILS, advertList[it].commonOid))
+                        }
+
                     }
 
                     convenientBanner?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -427,7 +463,7 @@ class VipFragment :BaseFragment(){
                             ListBean.title= afnInfoAllList.getJSONObject(j).getString("title")
 
                             ListBean.mainPhoto=afnInfoAllList.getJSONObject(j).getString("mainPhoto")
-                            ListBean.columnOid = afnInfoAllList.getJSONObject(j).getString("mainPhoto")
+                            ListBean.columnOid = afnInfoAllList.getJSONObject(j).getString("columnOid")
                             dataBean.add(ListBean)
 
                         }

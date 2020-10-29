@@ -78,7 +78,7 @@ public class VipColumnAdapter extends RecyclerView.Adapter {
                     }
                     //其他地区
                     else{
-                        viewHolderOne.jiage.setText("A$"+objinfo.getNormalPriceusd());
+                        viewHolderOne.jiage.setText("$"+objinfo.getNormalPriceusd());
                     }
 
                 }

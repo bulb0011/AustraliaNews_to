@@ -107,6 +107,7 @@ class MyBrowseRecordNewListFragment : BaseFragment(){
         list.layoutManager = LinearLayoutManager(mContext)
         params.userOid = App.getInstance().userOid
         params.model = 1//新闻
+        params.pageSize=100
         dataSource.setParams(params)
         delegate = iRefreshViewHolder
                 .setLoadMoreEnable(true)

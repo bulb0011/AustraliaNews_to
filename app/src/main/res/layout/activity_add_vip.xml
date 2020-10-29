@@ -20,7 +20,7 @@
 
         <LinearLayout
             android:layout_width="380dp"
-            android:layout_height="315dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_white_corners_3"
@@ -61,115 +61,17 @@
                     />
             </RelativeLayout>
 
-            <RelativeLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_remincanpin"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
                 >
-
-                <ImageView
-                    android:id="@+id/img_yuan"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@drawable/shape_round"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/img_yuan"
-                    android:text="免费阅读"
-                    android:textColor="#ff000000"
-                    android:textSize="17sp"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/img_yuan"
-                    android:layout_below="@id/tv_1"
-                    android:text="所有频道下海量产品免费阅读"
-                    android:textColor="#ff666666"
-                    android:textSize="12sp"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="30dp"
-                >
-
-                <ImageView
-                    android:id="@+id/img_yuan2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@drawable/shape_round"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/img_yuan2"
-                    android:text="优质资源"
-                    android:textColor="#ff000000"
-                    android:textSize="17sp"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/img_yuan2"
-                    android:layout_below="@id/tv_12"
-                    android:text="所有频道下资源丰富，沪港通大收到免费阅读"
-                    android:textColor="#ff666666"
-                    android:textSize="12sp"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="30dp"
-                >
-
-                <ImageView
-                    android:id="@+id/img_yuan1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@drawable/shape_round"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/img_yuan1"
-                    android:text="会员畅读、畅听、畅看"
-                    android:textColor="#ff000000"
-                    android:textSize="17sp"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/img_yuan1"
-                    android:layout_below="@id/tv_11"
-                    android:text="所有频道下海量产品"
-                    android:textColor="#ff666666"
-                    android:textSize="12sp"
-                    />
-            </RelativeLayout>
+            </android.support.v7.widget.RecyclerView>
 
             <TextView
+                android:id="@+id/tv_quanyi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

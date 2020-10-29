@@ -47,7 +47,8 @@ class MenberAdapter constructor(context : Context, listData:List<com.ruanyun.aus
         }
 
 
-        ViewHolder.tv_daoqi.text="到期日期："+info.validityEndTime.substring(0,11)
+//        ViewHolder.tv_daoqi.text="到期日期："+info.validityEndTime.substring(0,11)
+        ViewHolder.tv_daoqi.text=info.validityEndTime
 
         ViewHolder.tv_kaishi.text=info.validityStartTime
 

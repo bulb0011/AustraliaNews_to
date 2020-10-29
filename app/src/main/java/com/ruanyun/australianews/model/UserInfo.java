@@ -25,6 +25,7 @@ public class UserInfo implements Parcelable {
     public String isLiveService;//用户是否允许发布生活服务   1是  2否
     public String isComment;//用户是否评价   1是  2否
     public String signature;//签名
+    public int isVip;
 
     public String getUserPhoto() {
         return FileUtil.getImageUrl(headImageAttaOid);

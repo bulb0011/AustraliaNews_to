@@ -16,6 +16,15 @@ public class VipBannerInfo {
     private String title;
     private int type;
     private String commonOid;
+    private int contentType;
+
+    public int getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(int contentType) {
+        this.contentType = contentType;
+    }
 
     public String getMainPhoto() {
         return mainPhoto;

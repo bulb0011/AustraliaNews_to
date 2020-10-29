@@ -73,6 +73,7 @@ class MyPushRecordNewListActivity : BaseActivity(){
         list.adapter = headerAdapter
         list.layoutManager = LinearLayoutManager(mContext)
 //        params.userOid = App.getInstance().userOid
+//        params.pageSize=100
         dataSource.setParams(params)
         delegate = iRefreshViewHolder
                 .setLoadMoreEnable(true)

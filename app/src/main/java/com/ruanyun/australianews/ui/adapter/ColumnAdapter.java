@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.ruanyun.australianews.App;
 import com.ruanyun.australianews.R;
 import com.ruanyun.australianews.data.ApiManger;
-import com.ruanyun.australianews.model.ZhuanLanListInfo;
 
 import java.util.List;
 
@@ -24,9 +23,9 @@ public class ColumnAdapter extends RecyclerView.Adapter {
 
      Context context;
 
-     List<ZhuanLanListInfo> listData;
+     List<com.ruanyun.australianews.model.ZhuanLanInfo.DatasEntity> listData;
 
-    public ColumnAdapter(Context context, List<ZhuanLanListInfo> textInfos) {
+    public ColumnAdapter(Context context, List<com.ruanyun.australianews.model.ZhuanLanInfo.DatasEntity> textInfos) {
         this.context = context;
         this.listData = textInfos;
     }
@@ -47,7 +46,7 @@ public class ColumnAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, @SuppressLint("RecyclerView") int i) {
-        ZhuanLanListInfo objinfo= listData.get(i);
+        com.ruanyun.australianews.model.ZhuanLanInfo.DatasEntity objinfo= listData.get(i);
         String iso= App.app.iso;
 
         switch (objinfo.getDataType()){
@@ -78,7 +77,7 @@ public class ColumnAdapter extends RecyclerView.Adapter {
                     }
                     //其他地区
                     else{
-                        viewHolderOne.jiage.setText("A$"+objinfo.getNormalPriceusd());
+                        viewHolderOne.jiage.setText("$"+objinfo.getNormalPriceusd());
                     }
 
                 }

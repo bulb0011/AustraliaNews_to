@@ -4,13 +4,14 @@ import java.util.List;
 
 public class HotInfo {
 
+
     /**
      * pageTotalCount : true
      * pageNumber : 1
-     * datas : [{"columnOid":"","totalPagenum":133,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20200907140257881.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":28,"isColumn":0,"oid":"4028818773b394260173b3a0e99d0026","citys":null,"title":"欧盟对中111pdf","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":30,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":0.01,"specialOfferaud":0.01,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"bran","normalPriceaud":0.01,"beginDate":null,"normalPricecny":0.01,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","totalPagenum":0,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20200731124746871.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":28,"isColumn":0,"oid":"4028818773a32d410173a332d75d0000","citys":null,"title":"欧盟对中1234pdf","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":30,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":0.01,"specialOfferaud":0.01,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":2,"updateTime":null,"commentCount":0,"keyWord":"bran","normalPriceaud":0.01,"beginDate":null,"normalPricecny":0.01,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0}]
-     * maxPageNumber : 10
-     * pageSize : 2
-     * totalRows : 19
+     * datas : [{"columnOid":"","isBuy":0,"totalPagenum":1,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201022171346108.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":0,"isColumn":0,"oid":"ff808081754e74cc01754ef11f5d0014","citys":null,"title":"如果现在我是刚需","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":0.01,"sysUser":null,"afnNewsColumn":null,"contentType":2,"createTimeStr":"","uv":0,"specialOffercny":0,"specialOfferaud":0,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"如果现在我是刚需","normalPriceaud":0.01,"beginDate":null,"normalPricecny":0.01,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":2,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201021145133066.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":0,"isColumn":0,"oid":"ff8080817548cceb017549488e910074","citys":null,"title":"贷款前的自我评估","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":0,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":0,"specialOfferaud":0,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":3,"updateTime":null,"commentCount":0,"keyWord":"贷款前的自我评估","normalPriceaud":0,"beginDate":null,"normalPricecny":0,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":4,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201019184540373.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":1,"isColumn":0,"oid":"ff808081753f018801753fd22ec7002e","citys":null,"title":"高房价下的首次置业者","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":1,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":1,"specialOfferaud":1,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"高房价","normalPriceaud":1,"beginDate":null,"normalPricecny":1,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":1,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201019143026526.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":1,"isColumn":0,"oid":"ff808081752b9a8501753ee884e40384","citys":null,"title":"昆士兰州置业合同中的重点条款","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":1,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":1,"specialOfferaud":1,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"冷静期","normalPriceaud":1,"beginDate":null,"normalPricecny":1,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":11,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201021175954165.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":0,"isColumn":0,"oid":"ff8080817549e409017549f50034000e","citys":null,"title":"浮动利息与固定利息的选择","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":1,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":0,"specialOfferaud":0,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"浮动利息与固定利息的选择","normalPriceaud":1,"beginDate":null,"normalPricecny":1,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":1,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201021145408069.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":0,"isColumn":0,"oid":"ff8080817548cceb0175494aebe90076","citys":null,"title":"\u201c本息同还\u201d还是\u201c只还利息\u201d","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":1,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":0,"specialOfferaud":0,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"\u201c本息同还\u201d还是\u201c只还利息\u201d","normalPriceaud":1,"beginDate":null,"normalPricecny":1,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":2,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201021131422432.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":0,"isColumn":0,"oid":"ff8080817548cceb017548ef96a90033","citys":null,"title":"公寓VS独立屋VS联排别墅","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":0,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":0,"specialOfferaud":0,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":3,"updateTime":null,"commentCount":0,"keyWord":"公寓VS独立屋VS联排别墅","normalPriceaud":0,"beginDate":null,"normalPricecny":0,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":3,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201020130304542.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":11,"isColumn":0,"oid":"ff808081753f0188017543bee28400d4","citys":null,"title":"买房是谈判","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":1,"sysUser":null,"afnNewsColumn":null,"contentType":2,"createTimeStr":"","uv":0,"specialOffercny":12,"specialOfferaud":11,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":3,"updateTime":null,"commentCount":0,"keyWord":"买房是谈判","normalPriceaud":1,"beginDate":null,"normalPricecny":1,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":1,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20201020140141033.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":1,"isColumn":0,"oid":"ff808081753f0188017543f48adb00f9","citys":null,"title":"经济复苏","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":11,"sysUser":null,"afnNewsColumn":null,"contentType":3,"createTimeStr":"","uv":0,"specialOffercny":1,"specialOfferaud":1,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":2,"updateTime":null,"commentCount":0,"keyWord":"经济复苏","normalPriceaud":11,"beginDate":null,"normalPricecny":11,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},{"columnOid":"","isBuy":0,"totalPagenum":2,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20200914115942574.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":28,"isColumn":0,"oid":"4028818773a3fba50173a3fd6bc50007","citys":null,"title":"欧盟对中视频","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":30,"sysUser":null,"afnNewsColumn":null,"contentType":2,"createTimeStr":"","uv":0,"specialOffercny":0.01,"specialOfferaud":48,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":2,"updateTime":null,"commentCount":0,"keyWord":"bran","normalPriceaud":50,"beginDate":null,"normalPricecny":0.01,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0}]
+     * maxPageNumber : 2
+     * pageSize : 10
+     * totalRows : 13
      */
     private boolean pageTotalCount;
     private int pageNumber;
@@ -70,33 +71,34 @@ public class HotInfo {
     public class DatasEntity {
         /**
          * columnOid :
-         * totalPagenum : 133
+         * isBuy : 0
+         * totalPagenum : 1
          * city :
          * endDate : null
          * userOid :
          * flag3 :
          * flag2 :
-         * mainPhoto : 20200907140257881.jpg
+         * mainPhoto : 20201022171346108.jpg
          * recommendation :
          * flag1 :
          * limitedtimeFreeId :
-         * specialOfferusd : 28
+         * specialOfferusd : 0
          * isColumn : 0
-         * oid : 4028818773b394260173b3a0e99d0026
+         * oid : ff808081754e74cc01754ef11f5d0014
          * citys : null
-         * title : 欧盟对中111pdf
+         * title : 如果现在我是刚需
          * content :
          * afnFreeTime : null
          * afnNewsDirectoryList : []
          * afnnewsDirectoryOid :
-         * normalPriceusd : 30
+         * normalPriceusd : 0.01
          * sysUser : null
          * afnNewsColumn : null
-         * contentType : 1
+         * contentType : 2
          * createTimeStr :
          * uv : 0
-         * specialOffercny : 0.01
-         * specialOfferaud : 0.01
+         * specialOffercny : 0
+         * specialOfferaud : 0
          * afnNewsType : null
          * commentInfoPagination : null
          * isDelete : 0
@@ -104,7 +106,7 @@ public class HotInfo {
          * priceType : 1
          * updateTime : null
          * commentCount : 0
-         * keyWord : bran
+         * keyWord : 如果现在我是刚需
          * normalPriceaud : 0.01
          * beginDate : null
          * normalPricecny : 0.01
@@ -115,6 +117,7 @@ public class HotInfo {
          * watchCount : 0
          */
         private String columnOid;
+        private int isBuy;
         private int totalPagenum;
         private String city;
         private String endDate;
@@ -125,7 +128,7 @@ public class HotInfo {
         private String recommendation;
         private String flag1;
         private String limitedtimeFreeId;
-        private int specialOfferusd;
+        private float specialOfferusd;
         private int isColumn;
         private String oid;
         private String citys;
@@ -134,14 +137,14 @@ public class HotInfo {
         private String afnFreeTime;
         private List<?> afnNewsDirectoryList;
         private String afnnewsDirectoryOid;
-        private int normalPriceusd;
+        private float normalPriceusd;
         private String sysUser;
         private String afnNewsColumn;
         private int contentType;
         private String createTimeStr;
         private int uv;
-        private double specialOffercny;
-        private double specialOfferaud;
+        private float specialOffercny;
+        private float specialOfferaud;
         private String afnNewsType;
         private String commentInfoPagination;
         private int isDelete;
@@ -150,9 +153,9 @@ public class HotInfo {
         private String updateTime;
         private int commentCount;
         private String keyWord;
-        private double normalPriceaud;
+        private float normalPriceaud;
         private String beginDate;
-        private double normalPricecny;
+        private float normalPricecny;
         private String createTime;
         private int isTop;
         private int isHot;
@@ -161,6 +164,10 @@ public class HotInfo {
 
         public void setColumnOid(String columnOid) {
             this.columnOid = columnOid;
+        }
+
+        public void setIsBuy(int isBuy) {
+            this.isBuy = isBuy;
         }
 
         public void setTotalPagenum(int totalPagenum) {
@@ -203,7 +210,7 @@ public class HotInfo {
             this.limitedtimeFreeId = limitedtimeFreeId;
         }
 
-        public void setSpecialOfferusd(int specialOfferusd) {
+        public void setSpecialOfferusd(float specialOfferusd) {
             this.specialOfferusd = specialOfferusd;
         }
 
@@ -239,7 +246,7 @@ public class HotInfo {
             this.afnnewsDirectoryOid = afnnewsDirectoryOid;
         }
 
-        public void setNormalPriceusd(int normalPriceusd) {
+        public void setNormalPriceusd(float normalPriceusd) {
             this.normalPriceusd = normalPriceusd;
         }
 
@@ -263,11 +270,11 @@ public class HotInfo {
             this.uv = uv;
         }
 
-        public void setSpecialOffercny(double specialOffercny) {
+        public void setSpecialOffercny(int specialOffercny) {
             this.specialOffercny = specialOffercny;
         }
 
-        public void setSpecialOfferaud(double specialOfferaud) {
+        public void setSpecialOfferaud(float specialOfferaud) {
             this.specialOfferaud = specialOfferaud;
         }
 
@@ -303,7 +310,7 @@ public class HotInfo {
             this.keyWord = keyWord;
         }
 
-        public void setNormalPriceaud(double normalPriceaud) {
+        public void setNormalPriceaud(float normalPriceaud) {
             this.normalPriceaud = normalPriceaud;
         }
 
@@ -311,7 +318,7 @@ public class HotInfo {
             this.beginDate = beginDate;
         }
 
-        public void setNormalPricecny(double normalPricecny) {
+        public void setNormalPricecny(float normalPricecny) {
             this.normalPricecny = normalPricecny;
         }
 
@@ -337,6 +344,10 @@ public class HotInfo {
 
         public String getColumnOid() {
             return columnOid;
+        }
+
+        public int getIsBuy() {
+            return isBuy;
         }
 
         public int getTotalPagenum() {
@@ -379,7 +390,7 @@ public class HotInfo {
             return limitedtimeFreeId;
         }
 
-        public int getSpecialOfferusd() {
+        public float getSpecialOfferusd() {
             return specialOfferusd;
         }
 
@@ -415,7 +426,7 @@ public class HotInfo {
             return afnnewsDirectoryOid;
         }
 
-        public int getNormalPriceusd() {
+        public float getNormalPriceusd() {
             return normalPriceusd;
         }
 
@@ -439,11 +450,11 @@ public class HotInfo {
             return uv;
         }
 
-        public double getSpecialOffercny() {
+        public float getSpecialOffercny() {
             return specialOffercny;
         }
 
-        public double getSpecialOfferaud() {
+        public float getSpecialOfferaud() {
             return specialOfferaud;
         }
 
@@ -479,7 +490,7 @@ public class HotInfo {
             return keyWord;
         }
 
-        public double getNormalPriceaud() {
+        public float getNormalPriceaud() {
             return normalPriceaud;
         }
 
@@ -487,7 +498,7 @@ public class HotInfo {
             return beginDate;
         }
 
-        public double getNormalPricecny() {
+        public float getNormalPricecny() {
             return normalPricecny;
         }
 

@@ -3,52 +3,6 @@ package com.ruanyun.australianews.model;
 import java.util.List;
 
 public class NewsDirectoryDetails {
-
-
-    /**
-     * access_token :
-     * msg : 获取成功
-     * code : 0
-     * data : {"afnNewsInfo":{"columnOid":"","totalPagenum":0,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20200907140257881.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":28,"isColumn":0,"oid":"4028818773b394260173b3a0e99d0026","citys":null,"title":"欧盟对中111pdf","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":30,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":0.01,"specialOfferaud":0.01,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"bran","normalPriceaud":0.01,"beginDate":null,"normalPricecny":0.01,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0},"uv":0,"userOid":"","afnNewsinfoOid":"","isDelete":0,"flag3":"","flag2":"","flag1":"","updateTime":null,"oid":"4028818773b8357c0173b8376a6b0000","sort":1,"title":"欧盟对中111","pdfPagenum":0,"content":"","commentCount":0,"keyWord":"bran","duration":0,"createTime":null,"fileUrl":"20200804144402933.pdf","sysUser":null,"mark":false,"watchCount":0}
-     */
-    private String access_token;
-    private String msg;
-    private int code;
-    private DataEntity data;
-
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public void setData(DataEntity data) {
-        this.data = data;
-    }
-
-    public String getAccess_token() {
-        return access_token;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public DataEntity getData() {
-        return data;
-    }
-
-    public class DataEntity {
         /**
          * afnNewsInfo : {"columnOid":"","totalPagenum":0,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20200907140257881.jpg","recommendation":"","flag1":"","limitedtimeFreeId":"","specialOfferusd":28,"isColumn":0,"oid":"4028818773b394260173b3a0e99d0026","citys":null,"title":"欧盟对中111pdf","content":"","afnFreeTime":null,"afnNewsDirectoryList":[],"afnnewsDirectoryOid":"","normalPriceusd":30,"sysUser":null,"afnNewsColumn":null,"contentType":1,"createTimeStr":"","uv":0,"specialOffercny":0.01,"specialOfferaud":0.01,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"bran","normalPriceaud":0.01,"beginDate":null,"normalPricecny":0.01,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0}
          * uv : 0
@@ -330,7 +284,7 @@ public class NewsDirectoryDetails {
             private String recommendation;
             private String flag1;
             private String limitedtimeFreeId;
-            private int specialOfferusd;
+            private float specialOfferusd;
             private int isColumn;
             private String oid;
             private String citys;
@@ -408,7 +362,7 @@ public class NewsDirectoryDetails {
                 this.limitedtimeFreeId = limitedtimeFreeId;
             }
 
-            public void setSpecialOfferusd(int specialOfferusd) {
+            public void setSpecialOfferusd(float specialOfferusd) {
                 this.specialOfferusd = specialOfferusd;
             }
 
@@ -584,7 +538,7 @@ public class NewsDirectoryDetails {
                 return limitedtimeFreeId;
             }
 
-            public int getSpecialOfferusd() {
+            public float getSpecialOfferusd() {
                 return specialOfferusd;
             }
 
@@ -716,5 +670,4 @@ public class NewsDirectoryDetails {
                 return watchCount;
             }
         }
-    }
 }

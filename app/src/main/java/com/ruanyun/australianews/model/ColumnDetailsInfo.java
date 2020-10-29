@@ -46,7 +46,7 @@ public class ColumnDetailsInfo {
     private Object sysUser;
     private String createTimeStr;
     private int uv;
-    private int priceUsd;
+    private float priceUsd;
     private Object commentInfoPagination;
     private int isDelete;
     private Object updateTime;
@@ -54,13 +54,25 @@ public class ColumnDetailsInfo {
     private Object beginDate;
     private Object createTime;
     private int isTop;
-    private int priceCny;
+    private float priceCny;
     private int isHot;
     private boolean mark;
-    private int priceAud;
+    private float priceAud;
     private int status;
     private int watchCount;
     private List<?> afnInfoAllList;
+
+    private int isBuy;
+
+    public int getIsBuy() {
+        return isBuy;
+    }
+
+    public void setIsBuy(int isBuy) {
+        this.isBuy = isBuy;
+    }
+
+
 
     public Object getEndDate() {
         return endDate;
@@ -158,7 +170,7 @@ public class ColumnDetailsInfo {
         this.uv = uv;
     }
 
-    public int getPriceUsd() {
+    public float getPriceUsd() {
         return priceUsd;
     }
 
@@ -222,7 +234,7 @@ public class ColumnDetailsInfo {
         this.isTop = isTop;
     }
 
-    public int getPriceCny() {
+    public float getPriceCny() {
         return priceCny;
     }
 
@@ -246,7 +258,7 @@ public class ColumnDetailsInfo {
         this.mark = mark;
     }
 
-    public int getPriceAud() {
+    public float getPriceAud() {
         return priceAud;
     }
 

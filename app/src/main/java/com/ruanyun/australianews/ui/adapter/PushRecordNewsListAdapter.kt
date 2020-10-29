@@ -170,25 +170,29 @@ class PushRecordNewsListAdapter(context: Context, datas: List<LifeReleaseCommonU
             when(it.itemType){
                 LifeReleaseCommonUiModel.NEWS_INFO -> {
                     val newsInfo = GsonUtil.parseJson(it.getNewsCommonInfo()?.content, NewsInfo::class.java)
-                    if (newsInfo.type == 1) {//图文新闻
-                        if (TextUtils.isEmpty(newsInfo.mainPhoto)) {
-                            newsInfo.pushShowType = NewsInfo.TYPE_MANY_PICTURE
-                        } else {
-                            val str = newsInfo.mainPhoto?.split(",")?: arrayListOf()
-                            if (str.size > 1) {
+
+                    if (newsInfo!=null) {
+
+                        if (newsInfo.type == 1) {//图文新闻
+                            if (TextUtils.isEmpty(newsInfo.mainPhoto)) {
                                 newsInfo.pushShowType = NewsInfo.TYPE_MANY_PICTURE
-                                newsInfo.mainPhotoList = str
                             } else {
-                                newsInfo.pushShowType = NewsInfo.TYPE_SINGLE_PICTURE
+                                val str = newsInfo.mainPhoto?.split(",")?: arrayListOf()
+                                if (str.size > 1) {
+                                    newsInfo.pushShowType = NewsInfo.TYPE_MANY_PICTURE
+                                    newsInfo.mainPhotoList = str
+                                } else {
+                                    newsInfo.pushShowType = NewsInfo.TYPE_SINGLE_PICTURE
+                                }
                             }
+                        } else if (newsInfo.type == 2) {//视频新闻
+                            newsInfo.pushShowType = NewsInfo.TYPE_VIDEO
+                        } else {
+                            newsInfo.pushShowType = NewsInfo.TYPE_SINGLE_PICTURE
                         }
-                    } else if (newsInfo.type == 2) {//视频新闻
-                        newsInfo.pushShowType = NewsInfo.TYPE_VIDEO
-                    } else {
-                        newsInfo.pushShowType = NewsInfo.TYPE_SINGLE_PICTURE
+                        newsInfo.setNewsCommonInfo(it as PushRecordNewsInfo)
+                        infoList.add(newsInfo)
                     }
-                    newsInfo.setNewsCommonInfo(it as PushRecordNewsInfo)
-                    infoList.add(newsInfo)
                 }
                 0->{
                     val advertInfo = GsonUtil.parseJson(it.getNewsCommonInfo()?.content, AdvertInfoBase::class.java)

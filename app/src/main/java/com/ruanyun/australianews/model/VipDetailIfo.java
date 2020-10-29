@@ -4,50 +4,6 @@ import java.util.List;
 
 public class VipDetailIfo {
 
-    /**
-     * access_token :
-     * msg : 获取成功
-     * code : 0
-     * data : {"columnOid":"","totalPagenum":0,"city":"","endDate":null,"userOid":"","flag3":"","flag2":"","mainPhoto":"20200730173206000.jpg","recommendation":"<p>2345YTR345THGRF<\/p>","flag1":"","limitedtimeFreeId":"","specialOfferusd":28,"isColumn":0,"oid":"40288187739f0f7b01739f10a9790000","citys":null,"title":"欧盟对中音频","content":"<p>AERHWEJYJHTGR<\/p>","afnFreeTime":null,"afnNewsDirectoryList":[{"afnNewsInfo":null,"uv":0,"userOid":"","afnNewsinfoOid":"","isDelete":0,"flag3":"","flag2":"","flag1":"","updateTime":null,"oid":"4028818773b8213e0173b832137b0000","sort":1,"title":"欧盟对中","pdfPagenum":0,"content":"","commentCount":0,"keyWord":"bran","duration":0,"createTime":null,"fileUrl":"","sysUser":null,"mark":false,"watchCount":0},{"afnNewsInfo":null,"uv":0,"userOid":"","afnNewsinfoOid":"","isDelete":0,"flag3":"","flag2":"","flag1":"","updateTime":null,"oid":"4028818a73ea8ece0173ea9301440000","sort":2,"title":"欧盟对中222","pdfPagenum":0,"content":"","commentCount":0,"keyWord":"bran","duration":0,"createTime":null,"fileUrl":"","sysUser":null,"mark":false,"watchCount":0}],"afnnewsDirectoryOid":"","normalPriceusd":30,"sysUser":null,"afnNewsColumn":null,"contentType":3,"createTimeStr":"","uv":0,"specialOffercny":0.01,"specialOfferaud":0.01,"afnNewsType":null,"commentInfoPagination":null,"isDelete":0,"newstypeOid":"","priceType":1,"updateTime":null,"commentCount":0,"keyWord":"bran","normalPriceaud":0.01,"beginDate":null,"normalPricecny":0.01,"createTime":null,"isTop":0,"isHot":0,"mark":false,"watchCount":0}
-     */
-    private String access_token;
-    private String msg;
-    private int code;
-    private DataEntity data;
-
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public void setData(DataEntity data) {
-        this.data = data;
-    }
-
-    public String getAccess_token() {
-        return access_token;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public DataEntity getData() {
-        return data;
-    }
-
-    public class DataEntity {
         /**
          * columnOid :
          * totalPagenum : 0
@@ -105,7 +61,7 @@ public class VipDetailIfo {
         private String recommendation;
         private String flag1;
         private String limitedtimeFreeId;
-        private int specialOfferusd;
+        private float specialOfferusd;
         private int isColumn;
         private String oid;
         private String citys;
@@ -114,7 +70,7 @@ public class VipDetailIfo {
         private String afnFreeTime;
         private List<AfnNewsDirectoryListEntity> afnNewsDirectoryList;
         private String afnnewsDirectoryOid;
-        private int normalPriceusd;
+        private float normalPriceusd;
         private String sysUser;
         private String afnNewsColumn;
         private int contentType;
@@ -192,7 +148,7 @@ public class VipDetailIfo {
             this.limitedtimeFreeId = limitedtimeFreeId;
         }
 
-        public void setSpecialOfferusd(int specialOfferusd) {
+        public void setSpecialOfferusd(float specialOfferusd) {
             this.specialOfferusd = specialOfferusd;
         }
 
@@ -228,7 +184,7 @@ public class VipDetailIfo {
             this.afnnewsDirectoryOid = afnnewsDirectoryOid;
         }
 
-        public void setNormalPriceusd(int normalPriceusd) {
+        public void setNormalPriceusd(float normalPriceusd) {
             this.normalPriceusd = normalPriceusd;
         }
 
@@ -368,7 +324,7 @@ public class VipDetailIfo {
             return limitedtimeFreeId;
         }
 
-        public int getSpecialOfferusd() {
+        public float getSpecialOfferusd() {
             return specialOfferusd;
         }
 
@@ -404,7 +360,7 @@ public class VipDetailIfo {
             return afnnewsDirectoryOid;
         }
 
-        public int getNormalPriceusd() {
+        public float getNormalPriceusd() {
             return normalPriceusd;
         }
 
@@ -724,5 +680,4 @@ public class VipDetailIfo {
                 return watchCount;
             }
         }
-    }
 }

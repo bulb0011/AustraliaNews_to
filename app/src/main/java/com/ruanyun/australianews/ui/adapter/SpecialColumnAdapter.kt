@@ -11,11 +11,11 @@ import android.widget.TextView
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.util.DateUtil
 
-class SpecialColumnAdapter constructor(context : Context, listData:List<com.ruanyun.australianews.model.DingYueZhuanLan.DataEntity.DatasEntity>) : RecyclerView.Adapter<SpecialColumnAdapter.SpecialColumnViewHolder>() {
+class SpecialColumnAdapter constructor(context : Context, listData:List<com.ruanyun.australianews.model.DingYueZhuanLan.DatasEntity>) : RecyclerView.Adapter<SpecialColumnAdapter.SpecialColumnViewHolder>() {
 
 
     lateinit var contet: Context
-    lateinit var listData: List<com.ruanyun.australianews.model.DingYueZhuanLan.DataEntity.DatasEntity>
+    lateinit var listData: List<com.ruanyun.australianews.model.DingYueZhuanLan.DatasEntity>
 
     init {
         this.contet = context
@@ -49,7 +49,7 @@ class SpecialColumnAdapter constructor(context : Context, listData:List<com.ruan
 
         ViewHolder.title.text=info.afnNewsColumn.title
 
-        ViewHolder.tv_daoqi.text="到期日期："+info.validityEndTime.substring(0,11)
+        ViewHolder.tv_daoqi.text=info.validityEndTime
 
         ViewHolder.tv_kaishi.text=info.validityStartTime
 

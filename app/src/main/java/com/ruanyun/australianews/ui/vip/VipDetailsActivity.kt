@@ -9,6 +9,8 @@ import android.text.Html
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.meiqia.meiqiasdk.util.MQIntentBuilder
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
@@ -24,6 +26,7 @@ import com.ruanyun.australianews.util.FileUtil
 import com.ruanyun.australianews.widget.SharePopWindow
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_vip_details.*
+import okhttp3.ResponseBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -234,22 +237,33 @@ class VipDetailsActivity :BaseActivity(){
         }
     }
 
+
     fun initData(){
 
         ApiManger.getApiService().getVipNewInfo(id, App.getInstance().userOid)
-            .enqueue(object : Callback<VipDetailIfo> {
-                override fun onFailure(call: Call<VipDetailIfo>, t: Throwable) {
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
                 }
 
-                override fun onResponse(call: Call<VipDetailIfo>, response: Response<VipDetailIfo>) {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                    val json = response.body()!!.string()
+
+                    val je = JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+
+                    val gson = Gson()
+
+                    val detailIfo= gson.fromJson<VipDetailIfo>(data,VipDetailIfo::class.java)
 
 //                    val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
-                    val detailIfo=response.body()!!.data
-
-                    App.getInstance().cityName
-
-                    App.getInstance().userOid
+//                    val detailIfo=response.body()!!.data
+//
+//                    App.getInstance().cityName
+//
+//                    App.getInstance().userOid
 
                     if(detailIfo.afnNewsDirectoryList!=null && detailIfo.afnNewsDirectoryList.size>0){
                         InfoId=detailIfo.afnNewsDirectoryList[0].oid
@@ -271,7 +285,7 @@ class VipDetailsActivity :BaseActivity(){
     var jige=""
     var zhiqianjiage=""
 
-    fun setViewData(detailIfo: com.ruanyun.australianews.model.VipDetailIfo.DataEntity){
+    fun setViewData(detailIfo: com.ruanyun.australianews.model.VipDetailIfo){
 
         val iso=App.app.iso
 
@@ -281,11 +295,19 @@ class VipDetailsActivity :BaseActivity(){
 
         tv_title.text=detailIfo.title
 
-        val richText: CharSequence = Html.fromHtml(detailIfo.recommendation)
-        mingrentuijian.text=richText
+//        val richText: CharSequence = Html.fromHtml(detailIfo.recommendation)
+//
+//        mingrentuijian.text=richText
 
-        val richTextto: CharSequence = Html.fromHtml(detailIfo.content)
-        tv_neirongianjie.text=richTextto
+        mingrentuijian.getSettings().setJavaScriptEnabled(true);
+
+        mingrentuijian.loadDataWithBaseURL(null,C.varjs+detailIfo.recommendation,"text/html","UTF-8",null);
+
+//        val richTextto: CharSequence = Html.fromHtml(detailIfo.content)
+//        tv_neirongianjie.text=richTextto
+
+        tv_neirongianjie.loadDataWithBaseURL(null,C.varjs+detailIfo.content,"text/html","UTF-8",null);
+
 
         sharePopWindow = SharePopWindow(mContext)
         sharePopWindow.share_title = detailIfo.title
@@ -392,6 +414,7 @@ class VipDetailsActivity :BaseActivity(){
         }
 
         tv_goumaijiage.text=tv_jiage.text
+        tv_goumaijiage.visibility=View.GONE
 
         val layoutManager = LinearLayoutManager(context)
 

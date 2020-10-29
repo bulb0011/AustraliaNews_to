@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
@@ -21,6 +23,10 @@ import com.ruanyun.australianews.util.WebViewUrlUtil
 import jiguang.chat.utils.ToastUtil
 import jiguang.chat.utils.imagepicker.ImagePickerAdapter
 import kotlinx.android.synthetic.main.activity_vip_list.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class VipListActivity : BaseActivity() {
 
@@ -50,10 +56,26 @@ class VipListActivity : BaseActivity() {
     }
 
     fun initData(newsTypeOid: String){
-        ApiManger.getApiService().getNewsType(newsTypeOid,App.app.userOid).compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<VipNewsType>>() {
-                override fun onSuccess(result: ResultBase<VipNewsType>) {
-                    val dataInfo=result.data
+        ApiManger.getApiService().getNewsType(newsTypeOid,App.app.userOid)
+            . enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+//                    val dataInfo=result.data
+
+                    val json = response.body()!!.string()
+
+                    val je = JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+
+                    val gson = Gson()
+
+                    val dataInfo= gson.fromJson<VipNewsType>(data,VipNewsType::class.java)
 
                     val layoutManager = LinearLayoutManager(context)
 
@@ -73,15 +95,6 @@ class VipListActivity : BaseActivity() {
 
                     initEvent(adapterVipReListOne,dataList)
 
-                }
-                override fun onError(erroCode: Int, erroMsg: String) {
-//                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-//                disMissLoading()
-                    showToast(msg)
                 }
             })
     }

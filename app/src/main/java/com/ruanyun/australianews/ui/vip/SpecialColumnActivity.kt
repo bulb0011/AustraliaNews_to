@@ -2,32 +2,34 @@ package com.ruanyun.australianews.ui.vip
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
+import com.google.gson.Gson
+import com.google.gson.jpush.JsonParser
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
-import com.ruanyun.australianews.base.ResultBase
-import com.ruanyun.australianews.data.ApiFailAction
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.data.ApiSuccessAction
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
+import com.ruanyun.australianews.model.BuyInfo
 import com.ruanyun.australianews.model.ColumnDetailsInfo
+import com.ruanyun.australianews.model.ZhuanLanInfo
 import com.ruanyun.australianews.model.ZhuanLanListInfo
 import com.ruanyun.australianews.ui.adapter.ColumnAdapter
 import com.ruanyun.australianews.util.C
-import com.ruanyun.australianews.util.RxUtil
 import com.ruanyun.australianews.util.WebViewUrlUtil
+import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_special_column.*
 import okhttp3.ResponseBody
-import org.json.JSONObject
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+import java.util.*
 
 
 class SpecialColumnActivity :BaseActivity(){
@@ -67,72 +69,89 @@ class SpecialColumnActivity :BaseActivity(){
 
     }
 
+    var isBuy=0
+    var isClick=false
+
+    var id=""
+    var inamge_url=""
+
+   lateinit var item:ZhuanLanInfo.DatasEntity
+
     private fun initData(columnOid: String?) {
         ApiManger.getApiService().ColumnInternalData(columnOid)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
                 }
-
                 override fun onResponse(
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
                 ) {
 
-                    response.body().toString()
+                    val json: String = response.body()!!.string()
 
-                    val jsonStr = String(response.body()!!.bytes()) //把原始数据转为字符串
+                    val je =JsonParser().parse(json)
 
+                    val data = je.asJsonObject["data"].toString()
 
-                    Log.e("dengpao", "" + jsonStr)
+                    val gson = Gson()
 
-                    //再使用Retrofit自带的JSON解析（或者别的什么）
-                    //再使用Retrofit自带的JSON解析（或者别的什么）
-    //                    val coupon = Gson().fromJson(response.body().toString(), ZhuanLanListInfo::class.java)
+                    val zhuanLanInfo= gson.fromJson(data, ZhuanLanInfo::class.java)
 
-                    val JSONObject = JSONObject(jsonStr)
+                    val zhuanLanListInfo=zhuanLanInfo.datas
 
-                    val datajson = JSONObject.getJSONObject("data")
+                    item =  zhuanLanListInfo[0]
 
-                    val dataArr = datajson.getJSONArray("datas")
-
-                    for (i in 0 until dataArr.length()) {
-                        val zhuanLanListInfo = ZhuanLanListInfo()
-                        zhuanLanListInfo.oid = dataArr.getJSONObject(i).getString("oid")
-                        zhuanLanListInfo.columnOid = dataArr.getJSONObject(i).getString("columnOid")
-                        zhuanLanListInfo.totalPagenum =
-                            dataArr.getJSONObject(i).getInt("totalPagenum")
-                        zhuanLanListInfo.mainPhoto = dataArr.getJSONObject(i).getString("mainPhoto")
-                        zhuanLanListInfo.specialOfferusd =
-                            dataArr.getJSONObject(i).getInt("specialOfferusd")
-                        zhuanLanListInfo.isColumn = dataArr.getJSONObject(i).getInt("isColumn")
-                        zhuanLanListInfo.oid = dataArr.getJSONObject(i).getString("oid")
-                        zhuanLanListInfo.title = dataArr.getJSONObject(i).getString("title")
-                        zhuanLanListInfo.normalPriceusd =
-                            dataArr.getJSONObject(i).getInt("normalPriceusd")
-                        zhuanLanListInfo.contentType =
-                            dataArr.getJSONObject(i).getInt("contentType")
-                        zhuanLanListInfo.specialOffercny =
-                            dataArr.getJSONObject(i).getInt("specialOffercny")
-                        zhuanLanListInfo.specialOfferaud =
-                            dataArr.getJSONObject(i).getInt("specialOfferaud")
-                        zhuanLanListInfo.isDelete = dataArr.getJSONObject(i).getInt("isDelete")
-                        zhuanLanListInfo.newstypeOid =
-                            dataArr.getJSONObject(i).getString("newstypeOid")
-                        zhuanLanListInfo.dataType = dataArr.getJSONObject(i).getInt("dataType")
-                        zhuanLanListInfo.priceType = dataArr.getJSONObject(i).getInt("priceType")
-                        zhuanLanListInfo.updateTime =
-                            dataArr.getJSONObject(i).getString("updateTime")
-                        zhuanLanListInfo.keyWord = dataArr.getJSONObject(i).getString("keyWord")
-                        zhuanLanListInfo.normalPriceaud =
-                            dataArr.getJSONObject(i).getInt("normalPriceaud")
-                        zhuanLanListInfo.normalPricecny =
-                            dataArr.getJSONObject(i).getInt("normalPricecny")
-                        zhuanLanListInfo.createTime =
-                            dataArr.getJSONObject(i).getString("createTime")
-                        zhuanLanListInfo.isMark = dataArr.getJSONObject(i).getBoolean("mark")
-                        dataList.add(zhuanLanListInfo)
-                    }
+//                    val jsonStr = String(response.body()!!.bytes()) //把原始数据转为字符串
+//
+//                    Log.e("dengpao", "" + jsonStr)
+//
+//                    //再使用Retrofit自带的JSON解析（或者别的什么）
+//                    //再使用Retrofit自带的JSON解析（或者别的什么）
+//    //                    val coupon = Gson().fromJson(response.body().toString(), ZhuanLanListInfo::class.java)
+//
+//                    val JSONObject = JSONObject(jsonStr)
+//
+//                    val datajson = JSONObject.getJSONObject("data")
+//
+//                    val dataArr = datajson.getJSONArray("datas")
+//
+//                    for (i in 0 until dataArr.length()) {
+//                        val zhuanLanListInfo = ZhuanLanListInfo()
+//                        zhuanLanListInfo.oid = dataArr.getJSONObject(i).getString("oid")
+//                        zhuanLanListInfo.columnOid = dataArr.getJSONObject(i).getString("columnOid")
+//                        zhuanLanListInfo.totalPagenum =
+//                            dataArr.getJSONObject(i).getInt("totalPagenum")
+//                        zhuanLanListInfo.mainPhoto = dataArr.getJSONObject(i).getString("mainPhoto")
+//                        zhuanLanListInfo.specialOfferusd =
+//                            dataArr.getJSONObject(i).getInt("specialOfferusd")
+//                        zhuanLanListInfo.isColumn = dataArr.getJSONObject(i).getInt("isColumn")
+//                        zhuanLanListInfo.oid = dataArr.getJSONObject(i).getString("oid")
+//                        zhuanLanListInfo.title = dataArr.getJSONObject(i).getString("title")
+//                        zhuanLanListInfo.normalPriceusd =
+//                            dataArr.getJSONObject(i).getInt("normalPriceusd")
+//                        zhuanLanListInfo.contentType =
+//                            dataArr.getJSONObject(i).getInt("contentType")
+//                        zhuanLanListInfo.specialOffercny =
+//                            dataArr.getJSONObject(i).getInt("specialOffercny")
+//                        zhuanLanListInfo.specialOfferaud =
+//                            dataArr.getJSONObject(i).getInt("specialOfferaud")
+//                        zhuanLanListInfo.isDelete = dataArr.getJSONObject(i).getInt("isDelete")
+//                        zhuanLanListInfo.newstypeOid =
+//                            dataArr.getJSONObject(i).getString("newstypeOid")
+//                        zhuanLanListInfo.dataType = dataArr.getJSONObject(i).getInt("dataType")
+//                        zhuanLanListInfo.priceType = dataArr.getJSONObject(i).getInt("priceType")
+//                        zhuanLanListInfo.updateTime =
+//                            dataArr.getJSONObject(i).getString("updateTime")
+//                        zhuanLanListInfo.keyWord = dataArr.getJSONObject(i).getString("keyWord")
+//                        zhuanLanListInfo.normalPriceaud =
+//                            dataArr.getJSONObject(i).getInt("normalPriceaud")
+//                        zhuanLanListInfo.normalPricecny =
+//                            dataArr.getJSONObject(i).getInt("normalPricecny")
+//                        zhuanLanListInfo.createTime =
+//                            dataArr.getJSONObject(i).getString("createTime")
+//                        zhuanLanListInfo.isMark = dataArr.getJSONObject(i).getBoolean("mark")
+//                        dataList.add(zhuanLanListInfo)
+//                    }
 
                     val layoutManager = LinearLayoutManager(context)
                     layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -141,12 +160,12 @@ class SpecialColumnActivity :BaseActivity(){
 
                     rv_one.isNestedScrollingEnabled = false
 
-                    val adapter = context?.let { ColumnAdapter(it, dataList) }
+                    val adapter = context?.let { ColumnAdapter(it, zhuanLanListInfo) }
 
                     rv_one.adapter = adapter
 
                     if (adapter != null) {
-                        initEvet(adapter,dataList)
+                        initEvet(adapter,zhuanLanListInfo)
                     }
 
                 }
@@ -154,40 +173,138 @@ class SpecialColumnActivity :BaseActivity(){
 
         //头部请求
         ApiManger.getApiService().getColumnDetails(columnOid, App.app.userOid)
-            .compose(RxUtil.normalSchedulers())
-            .subscribe(object : ApiSuccessAction<ResultBase<ColumnDetailsInfo>>() {
-                override fun onSuccess(result: ResultBase<ColumnDetailsInfo>) {
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    val json: String = response.body()!!.string()
 
-                    val vipColumnInfo = result.data
+                    val je =JsonParser().parse(json)
 
-                    imge_zhuanlan.loadImage(ApiManger.IMG_URL + vipColumnInfo.mainPhoto)
+                    val data = je.asJsonObject["data"].toString()
 
-                    tv_title.text = vipColumnInfo.title
+                    val gson = Gson()
 
-                    if (vipColumnInfo.status == 1) {
+                    val columnDetailsInfo= gson.fromJson(data, ColumnDetailsInfo::class.java)
+
+                    imge_zhuanlan.loadImage(ApiManger.IMG_URL + columnDetailsInfo.mainPhoto)
+
+                    id=columnDetailsInfo.oid
+                    inamge_url=ApiManger.IMG_URL + columnDetailsInfo.mainPhoto
+
+                    tv_title.text = columnDetailsInfo.title
+
+                    if (columnDetailsInfo.status == 1) {
                         bt_tv.setText("更新中")
                     } else {
                         bt_tv.setText("已完结")
                     }
 
-                    tv_context.text = vipColumnInfo.content
+//                    tv_context.Html.fromHtml(columnDetailsInfo.content)
+                    val varjs =
+                        "<script type='text/javascript'> \nwindow.onload = function()\n{var \$img = document.getElementsByTagName('img');for(var p in  \$img){\$img[p].style.width = '100%'; \$img[p].style.height ='auto'}}</script>"
 
+                    tv_context.loadDataWithBaseURL(null,varjs+columnDetailsInfo.content,"text/html","UTF-8",null);
+
+
+                    val iso= App.app.iso
+
+                    if(!isLoginToActivity || columnDetailsInfo.isBuy!=1){//少一个专栏的或者
+
+                        bt_add_vip.text="订阅"
+                        ll_mianfei.visibility=View.INVISIBLE
+                        ll_jiage.visibility=View.VISIBLE
+
+                        //国内
+                        if(iso=="cn"||iso=="CN"){
+                            tv_goumaijiage.text = "¥"+columnDetailsInfo.priceCny.toString()
+                        }
+                        //澳洲
+                        else if(iso=="au"|| iso=="AU") {
+                            tv_goumaijiage.text = "A$"+columnDetailsInfo.priceAud.toString()
+                        }
+                        //其他地区
+                        else{
+                            tv_goumaijiage.text = "$"+columnDetailsInfo.priceUsd.toString()
+                        }
+                        isClick=false
+                    }else{
+
+                        if (app.user.isVip==1 || columnDetailsInfo.isBuy!=1){//少一个专栏的或者
+
+                            isClick=true
+
+                            tv_mianfeiuedu.paint.isAntiAlias=true
+                            tv_mianfeiuedu.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
+
+                            ll_mianfei.visibility=View.VISIBLE
+                            ll_jiage.visibility=View.INVISIBLE
+
+                            bt_add_vip.text="免费订阅"
+                            //国内
+                            if(iso=="cn"||iso=="CN"){
+                                tv_mianfeiuedu.text = "¥"+columnDetailsInfo.priceCny.toString()
+                            }
+                            //澳洲
+                            else if(iso=="au"|| iso=="AU") {
+                                tv_mianfeiuedu.text = "A$"+columnDetailsInfo.priceAud.toString()
+                            }
+                            //其他地区
+                            else{
+                                tv_mianfeiuedu.text = "$"+columnDetailsInfo.priceUsd.toString()
+                            }
+                        }
+                    }
 
                 }
 
-                override fun onError(erroCode: Int, erroMsg: String) {
-    //                disMissLoading()
-                    showToast(erroMsg)
-                }
-            }, object : ApiFailAction() {
-                override fun onFail(msg: String) {
-    //                disMissLoading()
-                    showToast(msg)
-                }
             })
+
     }
 
-    fun initEvet(adapter:ColumnAdapter,dataList :ArrayList<ZhuanLanListInfo>){
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updateBuy( buyinfo: BuyInfo){
+        if(buyinfo.isBuy==1){
+            isClick=true
+            rl_goumai.visibility=View.GONE
+        }
+    }
+
+
+
+    fun initEvet(adapter:ColumnAdapter,dataList :List<ZhuanLanInfo.DatasEntity>){
+
+        bt_add_vip.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+                if (isClick){
+                    var s=""
+
+                    if (item.contentType==1){
+
+                        s= C.IntentKey.VIP_TYPE_PDF
+                    }else if (item.contentType==2){
+
+                        s=C.IntentKey.VIP_TYPE_VIDEO
+                    }else if (item.contentType==3){
+
+                        s=C.IntentKey.VIP_TYPE_MP3
+                    }
+                    VipDetailsActivity.start(
+                        mContext,
+                        s,
+                        item.oid
+                    )
+                }else{
+                    SelectPayActivity.start(this@SpecialColumnActivity,3,id,
+                        inamge_url,1,
+                        tv_goumaijiage.text as String,"0.00","专栏",tv_title.text.toString())
+                }
+            }
+
+        })
 
         adapter.setOnItemClickListener(object :ColumnAdapter.OnRecyclerViewItemClickListener{
             override fun onClisk(view: View?, i: Int) {
@@ -210,17 +327,27 @@ class SpecialColumnActivity :BaseActivity(){
                     }
 
                     context?.let {
-                        VipDetailsActivity.start(
-                            it,
-                            s,
-                            objInfo.oid
-                        )
+
+                        if (isClick){
+                            VipDetailsActivity.start(
+                                it,
+                                s,
+                                objInfo.oid
+                            )
+                        }else{
+                            ToastUtil.shortToast(mContext,"请购买此专栏！")
+                        }
+
                     }
 
                 }else{
+                    if (isClick){
+                        WebViewUrlUtil.showVIPNewsWeb(this@SpecialColumnActivity,objInfo.title,
+                            objInfo.mainPhoto,objInfo.oid,objInfo.createTime)
+                    }else{
+                        ToastUtil.shortToast(mContext,"请购买此专栏！")
+                    }
 
-                    WebViewUrlUtil.showVIPNewsWeb(this@SpecialColumnActivity,objInfo.title,
-                        objInfo.mainPhoto,objInfo.oid,objInfo.createTime)
                 }
 
             }

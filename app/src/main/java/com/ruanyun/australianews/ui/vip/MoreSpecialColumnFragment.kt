@@ -106,7 +106,7 @@ class MoreSpecialColumnFragment :BaseFragment() {
                             ListBean.title= afnInfoAllList.getJSONObject(j).getString("title")
 
                             ListBean.mainPhoto=afnInfoAllList.getJSONObject(j).getString("mainPhoto")
-                            ListBean.columnOid = afnInfoAllList.getJSONObject(j).getString("mainPhoto")
+                            ListBean.columnOid = afnInfoAllList.getJSONObject(j).getString("columnOid")
                             dataBean.add(ListBean)
 
                         }

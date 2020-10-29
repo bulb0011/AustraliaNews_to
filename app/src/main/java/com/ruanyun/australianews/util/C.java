@@ -276,4 +276,7 @@ public final class C {
     public static final String SECRET_KEY = "3f29f2b7f9a84c3cba2d16491627238c";
 
     public static final String TANK_ELDER_SISTER = "TKJ0000000000001";
+
+    public static final String CONFIG_CLIENT_ID = "AVgiB3LrSa9RnPyPeYfStF9dW0lTPkDOkfbmqZAi_5PH7L7iAnXT5gHHE7ho5xCe2NjmkhJ9Ym_Dj8dg";
+    public static final String varjs = "<script type='text/javascript'> \nwindow.onload = function()\n{var $img = document.getElementsByTagName('img');for(var p in  $img){$img[p].style.width = '100%'; $img[p].style.height ='auto'}}</script>";
 }

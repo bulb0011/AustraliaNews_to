@@ -14,6 +14,7 @@ import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.ext.loadImage
+import java.text.DecimalFormat
 
 class VipReMenAdapter(
     context: Context,
@@ -60,6 +61,7 @@ class VipReMenAdapter(
             ViewHolder.tvlabel.text ="音频"
         }
 
+        val df = DecimalFormat("#0.00")
 
         //价格正常
         if (objinfo.priceType==1){
@@ -67,17 +69,17 @@ class VipReMenAdapter(
             //国内
             if(iso=="cn"||iso=="CN"){
                 ViewHolder.tvupdatetime.visibility= View.GONE
-                ViewHolder.jiage.text = "¥"+objinfo.normalPricecny.toString()
+                ViewHolder.jiage.text = "¥"+df.format(objinfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 ViewHolder.tvupdatetime.visibility= View.GONE
-                ViewHolder.jiage.text = "A$"+objinfo.normalPriceaud.toString()
+                ViewHolder.jiage.text = "A$"+df.format(objinfo.normalPriceaud)
             }
             //其他地区
             else{
                 ViewHolder.tvupdatetime.visibility= View.GONE
-                ViewHolder.jiage.text = "$"+objinfo.normalPriceusd.toString()
+                ViewHolder.jiage.text = "$"+df.format(objinfo.normalPriceusd)
             }
 
         }
@@ -90,18 +92,18 @@ class VipReMenAdapter(
 
             //国内
             if(iso=="cn"||iso=="CN"){
-                ViewHolder.tvupdatetime.text= "¥"+objinfo.specialOffercny.toString()
-                ViewHolder.jiage.text = "¥"+objinfo.normalPricecny.toString()
+                ViewHolder.tvupdatetime.text= "¥"+df.format(objinfo.specialOffercny)
+                ViewHolder.jiage.text = "¥"+df.format(objinfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
-                ViewHolder.tvupdatetime.text= "A$"+objinfo.specialOfferaud.toString()
-                ViewHolder.jiage.text = "A$"+objinfo.normalPriceaud.toString()
+                ViewHolder.tvupdatetime.text= "A$"+df.format(objinfo.specialOfferaud)
+                ViewHolder.jiage.text = "A$"+df.format(objinfo.normalPriceaud)
             }
             //其他地区
             else{
-                ViewHolder.tvupdatetime.text= "$"+objinfo.specialOfferusd.toString()
-                ViewHolder.jiage.text = "$"+objinfo.normalPriceusd.toString()
+                ViewHolder.tvupdatetime.text= "$"+df.format(objinfo.specialOfferusd)
+                ViewHolder.jiage.text = "$"+df.format(objinfo.normalPriceusd)
             }
 
         }
@@ -115,17 +117,17 @@ class VipReMenAdapter(
             //国内
             if(iso=="cn"||iso=="CN"){
                 ViewHolder.tvupdatetime.text= "限时免费"
-                ViewHolder.jiage.text = "¥"+objinfo.normalPricecny.toString()
+                ViewHolder.jiage.text = "¥"+df.format(objinfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 ViewHolder.tvupdatetime.text= "限时免费"
-                ViewHolder.jiage.text = "A$"+objinfo.normalPriceaud.toString()
+                ViewHolder.jiage.text = "A$"+df.format(objinfo.normalPriceaud)
             }
             //其他地区
             else{
                 ViewHolder.tvupdatetime.text= "限时免费"
-                ViewHolder.jiage.text = "$"+objinfo.normalPriceusd.toString()
+                ViewHolder.jiage.text = "$"+df.format(objinfo.normalPriceusd)
             }
 
         }

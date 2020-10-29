@@ -43,7 +43,7 @@ class MoreSpecialColumnAdapter constructor(context : Context, listData:List<VipC
             ViewHolder.image_one.loadImage(listData.get(i))
             ViewHolder.iamge_to.loadImage(listData.get(i))
 
-            val info=listData[0].afnInfoAllList
+            val info=listData[i].afnInfoAllList
 
             ViewHolder.image_one.loadImage(ApiManger.IMG_URL+info[0].mainPhoto)
             ViewHolder.iamge_to.loadImage(ApiManger.IMG_URL+info[1].mainPhoto)
@@ -56,7 +56,7 @@ class MoreSpecialColumnAdapter constructor(context : Context, listData:List<VipC
             ViewHolder.item_ll.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     if (onCliskListener!=null){
-                        onCliskListener?.onClisk(v,i,listData[0].oid)
+                        onCliskListener?.onClisk(v,i,listData[i].oid)
                     }
                 }
 

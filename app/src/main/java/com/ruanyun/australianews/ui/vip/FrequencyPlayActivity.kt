@@ -5,7 +5,10 @@ import android.content.Intent
 import android.graphics.Paint
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.text.Html
 import android.view.View
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
@@ -16,6 +19,7 @@ import com.ruanyun.australianews.model.NewsDirectoryDetails
 import com.ruanyun.australianews.util.C
 import com.ruanyun.australianews.util.getTime
 import kotlinx.android.synthetic.main.activity_frequency_play.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,16 +70,26 @@ class FrequencyPlayActivity :BaseActivity() {
 
     fun initDta(infoId:String){
         ApiManger.getApiService().getVipNewInfoDirectoryDetails(infoId, App.getInstance().userOid)
-            .enqueue(object : Callback<NewsDirectoryDetails> {
-                override fun onFailure(call: Call<NewsDirectoryDetails>, t: Throwable) {
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
                 }
 
-                override fun onResponse(call: Call<NewsDirectoryDetails>, response: Response<NewsDirectoryDetails>) {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 //                    val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
 
-                    val detailIfo=response!!.body()!!.data
+                    val json = response.body()!!.string()
 
+                    val je = JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+
+                    val gson = Gson()
+
+                    val detailIfo= gson.fromJson<NewsDirectoryDetails>(data,NewsDirectoryDetails::class.java)
+
+//                    val detailIfo=response!!.body()!!.data
+                    if (detailIfo.afnNewsInfo!=null)
                     tupian.loadImage(ApiManger.IMG_URL+detailIfo.afnNewsInfo.mainPhoto)
 
                     tv_title.text=detailIfo.title
@@ -84,7 +98,7 @@ class FrequencyPlayActivity :BaseActivity() {
 
                     tv_name.text=detailIfo.afnNewsInfo.title
 
-                    tv_context.text=detailIfo.content
+                    tv_context.text= Html.fromHtml(detailIfo.content)
 
                     tv_shijian.text= getTime.stM((detailIfo.afnNewsInfo.normalPricecny).toInt())
 
@@ -115,7 +129,7 @@ class FrequencyPlayActivity :BaseActivity() {
         }
     }
 
-    fun initjiage(detailIfo: NewsDirectoryDetails.DataEntity.AfnNewsInfoEntity){
+    fun initjiage(detailIfo: NewsDirectoryDetails.AfnNewsInfoEntity){
 
         val iso=App.app.iso
 

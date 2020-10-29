@@ -2,21 +2,24 @@ package com.ruanyun.australianews.ui.my
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
+import com.google.gson.jpush.JsonParser
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
 import com.ruanyun.australianews.data.ApiManger
-import com.ruanyun.australianews.model.DingYueKeCheng
 import com.ruanyun.australianews.model.DingYueZhuanLan
+import com.ruanyun.australianews.model.VIPSouSuoInfo
 import com.ruanyun.australianews.ui.adapter.SpecialColumnAdapter
 import kotlinx.android.synthetic.main.fragment_special_column.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 /**
  * 专栏
  */
@@ -50,14 +53,22 @@ class SpecialColumnFragment :BaseFragment(){
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         ApiManger.getApiService().dingYueKeCehngZhuanLan(3, App.getInstance().userOid,100)
-            .enqueue(object : Callback<DingYueZhuanLan> {
-                override fun onFailure(call: Call<DingYueZhuanLan>, t: Throwable) {
-
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 }
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
-                override fun onResponse(call: Call<DingYueZhuanLan>, response: Response<DingYueZhuanLan>) {
+                    val json = response.body()!!.string()
 
-                    val listData= response.body()!!.data.datas
+                    val je =JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+
+                    val gson = Gson()
+
+                    val dingYueZhuanLan = gson.fromJson(data, DingYueZhuanLan::class.java)
+
+                    val listData= dingYueZhuanLan.datas
 
                     if (listData!=null&&listData.size>0) {
                         val layoutManager = LinearLayoutManager(context)

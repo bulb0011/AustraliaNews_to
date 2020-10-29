@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -100,7 +101,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:minLines="1"
-                    android:text="三室一厅三室一厅三室一厅三室一厅三室一厅三室一厅"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_sp_17"
                     android:layout_marginLeft="16dp"
@@ -169,7 +170,7 @@
                 android:id="@+id/ll_gaodu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
+                <WebView
                     android:id="@+id/mingrentuijian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -178,7 +179,7 @@
                     android:textSize="14sp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    />
+                    tools:ignore="WebViewLayout" />
 
             </LinearLayout>
 
@@ -287,14 +288,14 @@
                 android:orientation="vertical"
 
                 >
-                <TextView
+                <WebView
                     android:id="@+id/tv_neirongianjie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    />
+                    tools:ignore="WebViewLayout" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_mulv"
@@ -405,7 +406,7 @@
             android:drawableLeft="@drawable/goumai"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/view_fenge"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="70dp"
             android:text="购买"
             android:drawablePadding="10dp"
             android:textColor="@color/black"
@@ -421,6 +422,7 @@
             android:layout_toRightOf="@id/tv_goumai"
             android:layout_marginLeft="10dp"
             android:text="¥112.00"
+            android:visibility="gone"
             />
 
         <Button

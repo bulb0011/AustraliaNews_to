@@ -100,15 +100,15 @@ public class VipNewsType  {
         private int totalPagenum;
         private String endDate;
         private String mainPhoto;
-        private int specialOfferusd;
+        private float specialOfferusd;
         private int isColumn;
         private String oid;
         private String title;
-        private int normalPriceusd;
+        private float normalPriceusd;
         private int contentType;
         private String createTimeStr;
-        private double specialOffercny;
-        private double specialOfferaud;
+        private float specialOffercny;
+        private float specialOfferaud;
         private String commentInfoPagination;
         private int isDelete;
         private String newstypeOid;
@@ -116,9 +116,9 @@ public class VipNewsType  {
         private int priceType;
         private String updateTime;
         private String keyWord;
-        private double normalPriceaud;
+        private float normalPriceaud;
         private String beginDate;
-        private double normalPricecny;
+        private float normalPricecny;
         private String createTime;
         private boolean mark;
 
@@ -138,7 +138,7 @@ public class VipNewsType  {
             this.mainPhoto = mainPhoto;
         }
 
-        public void setSpecialOfferusd(int specialOfferusd) {
+        public void setSpecialOfferusd(float specialOfferusd) {
             this.specialOfferusd = specialOfferusd;
         }
 
@@ -154,7 +154,7 @@ public class VipNewsType  {
             this.title = title;
         }
 
-        public void setNormalPriceusd(int normalPriceusd) {
+        public void setNormalPriceusd(float normalPriceusd) {
             this.normalPriceusd = normalPriceusd;
         }
 
@@ -166,11 +166,11 @@ public class VipNewsType  {
             this.createTimeStr = createTimeStr;
         }
 
-        public void setSpecialOffercny(double specialOffercny) {
+        public void setSpecialOffercny(float specialOffercny) {
             this.specialOffercny = specialOffercny;
         }
 
-        public void setSpecialOfferaud(double specialOfferaud) {
+        public void setSpecialOfferaud(float specialOfferaud) {
             this.specialOfferaud = specialOfferaud;
         }
 
@@ -202,7 +202,7 @@ public class VipNewsType  {
             this.keyWord = keyWord;
         }
 
-        public void setNormalPriceaud(double normalPriceaud) {
+        public void setNormalPriceaud(float normalPriceaud) {
             this.normalPriceaud = normalPriceaud;
         }
 
@@ -210,7 +210,7 @@ public class VipNewsType  {
             this.beginDate = beginDate;
         }
 
-        public void setNormalPricecny(double normalPricecny) {
+        public void setNormalPricecny(float normalPricecny) {
             this.normalPricecny = normalPricecny;
         }
 
@@ -238,7 +238,7 @@ public class VipNewsType  {
             return mainPhoto;
         }
 
-        public int getSpecialOfferusd() {
+        public float getSpecialOfferusd() {
             return specialOfferusd;
         }
 
@@ -254,7 +254,7 @@ public class VipNewsType  {
             return title;
         }
 
-        public int getNormalPriceusd() {
+        public float getNormalPriceusd() {
             return normalPriceusd;
         }
 
@@ -302,7 +302,7 @@ public class VipNewsType  {
             return keyWord;
         }
 
-        public double getNormalPriceaud() {
+        public float getNormalPriceaud() {
             return normalPriceaud;
         }
 
@@ -310,7 +310,7 @@ public class VipNewsType  {
             return beginDate;
         }
 
-        public double getNormalPricecny() {
+        public float getNormalPricecny() {
             return normalPricecny;
         }
 
