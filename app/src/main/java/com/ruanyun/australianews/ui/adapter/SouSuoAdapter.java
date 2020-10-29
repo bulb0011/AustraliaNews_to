@@ -19,6 +19,7 @@ import com.ruanyun.australianews.R;
 import com.ruanyun.australianews.data.ApiManger;
 import com.ruanyun.australianews.model.VIPSouSuoInfo;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import cn.addapp.pickers.util.DateUtils;
@@ -70,24 +71,26 @@ public class SouSuoAdapter extends RecyclerView.Adapter  {
                 Glide.with(this.context).load(ApiManger.IMG_URL+datasEntity.getMainPhoto()).into(viewHolderOne.iv_pic);
                 viewHolderOne.tv_jianjie.setText(datasEntity.getKeyWord());
                 String iso= App.app.iso;
-
+                DecimalFormat df =new DecimalFormat("#0.00");
                 //价格正常
                 if (datasEntity.getPriceType()==1){
 
                     viewHolderOne.tv_jianjie.getPaint().setAntiAlias(false);
                     viewHolderOne.tv_jianjie.setVisibility(View.GONE);
 
+
+
                     //国内
                     if(iso=="cn"||iso=="CN"){
-                        viewHolderOne.tv_jianjie.setText("¥"+datasEntity.getNormalPricecny());
+                        viewHolderOne.tv_jianjie.setText("¥"+df.format(datasEntity.getNormalPricecny()));
                     }
                     //澳洲
                     else if(iso=="au"|| iso=="AU") {
-                        viewHolderOne.tv_jianjie.setText("A$"+datasEntity.getNormalPriceaud());
+                        viewHolderOne.tv_jianjie.setText("A$"+df.format(datasEntity.getNormalPriceaud()));
                     }
                     //其他地区
                     else{
-                        viewHolderOne.tv_jianjie.setText("A$"+datasEntity.getNormalPriceusd());
+                        viewHolderOne.tv_jianjie.setText("$"+df.format(datasEntity.getNormalPriceusd()));
                     }
 
                 }
@@ -101,19 +104,19 @@ public class SouSuoAdapter extends RecyclerView.Adapter  {
 
                     //国内
                     if(iso=="cn"||iso=="CN"){
-                        viewHolderOne.tv_jianjie.setText("¥"+datasEntity.getSpecialOffercny());
-                        viewHolderOne.zhiqianjiege.setText("¥"+datasEntity.getNormalPricecny());
+                        viewHolderOne.tv_jianjie.setText("¥"+df.format(datasEntity.getSpecialOffercny()));
+                        viewHolderOne.zhiqianjiege.setText("¥"+df.format(datasEntity.getNormalPricecny()));
                     }
                     //澳洲
                     else if(iso=="au"|| iso=="AU") {
-                        viewHolderOne.tv_jianjie.setText( "A$"+datasEntity.getSpecialOfferaud());
-                        viewHolderOne.zhiqianjiege.setText( "A$"+datasEntity.getNormalPriceaud());
+                        viewHolderOne.tv_jianjie.setText( "A$"+df.format(datasEntity.getSpecialOfferaud()));
+                        viewHolderOne.zhiqianjiege.setText( "A$"+df.format(datasEntity.getNormalPriceaud()));
 
                     }
                     //其他地区
                     else{
-                        viewHolderOne.tv_jianjie.setText( "$"+datasEntity.getSpecialOfferusd());
-                        viewHolderOne.zhiqianjiege.setText("$"+datasEntity.getNormalPriceusd());
+                        viewHolderOne.tv_jianjie.setText( "$"+df.format(datasEntity.getSpecialOfferusd()));
+                        viewHolderOne.zhiqianjiege.setText("$"+df.format(datasEntity.getNormalPriceusd()));
                     }
 
                 }
@@ -127,17 +130,17 @@ public class SouSuoAdapter extends RecyclerView.Adapter  {
                     //国内
                     if(iso=="cn"||iso=="CN"){
                         viewHolderOne.tv_jianjie.setText("限时免费");
-                        viewHolderOne.zhiqianjiege.setText( "¥"+datasEntity.getNormalPricecny());
+                        viewHolderOne.zhiqianjiege.setText( "¥"+df.format(datasEntity.getNormalPricecny()));
                     }
                     //澳洲
                     else if(iso=="au"|| iso=="AU") {
                         viewHolderOne.tv_jianjie.setText("限时免费");
-                        viewHolderOne.zhiqianjiege.setText( "¥"+datasEntity.getNormalPriceaud());
+                        viewHolderOne.zhiqianjiege.setText( "A$"+df.format(datasEntity.getNormalPriceaud()));
                     }
                     //其他地区
                     else{
                         viewHolderOne.tv_jianjie.setText("限时免费");
-                        viewHolderOne.zhiqianjiege.setText( "¥"+datasEntity.getNormalPriceusd());
+                        viewHolderOne.zhiqianjiege.setText( "¥"+df.format(datasEntity.getNormalPriceusd()));
                     }
                 }
 

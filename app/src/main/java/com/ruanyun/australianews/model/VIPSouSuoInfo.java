@@ -110,19 +110,19 @@ public class VIPSouSuoInfo {
         private String outUrl;
         private String videoUrl;
         private String linkUrl;
-        private double normalPriceusd;
+        private float normalPriceusd;
         private int contentType;
-        private double specialOffercny;
+        private float specialOffercny;
         private int priceUsd;
-        private double specialOfferaud;
+        private float specialOfferaud;
         private int dataType;
         private int priceType;
         private String baseWebsite;
         private int commentCount;
         private String keyWord;
-        private double normalPriceaud;
+        private float normalPriceaud;
         private String baseUrl;
-        private double normalPricecny;
+        private float normalPricecny;
         private String createTime;
         private List<AfnInfoAllListEntity> afnInfoAllList;
         private int priceCny;
@@ -168,7 +168,7 @@ public class VIPSouSuoInfo {
             this.linkUrl = linkUrl;
         }
 
-        public void setNormalPriceusd(int normalPriceusd) {
+        public void setNormalPriceusd(float normalPriceusd) {
             this.normalPriceusd = normalPriceusd;
         }
 
@@ -176,7 +176,7 @@ public class VIPSouSuoInfo {
             this.contentType = contentType;
         }
 
-        public void setSpecialOffercny(double specialOffercny) {
+        public void setSpecialOffercny(float specialOffercny) {
             this.specialOffercny = specialOffercny;
         }
 
@@ -184,7 +184,7 @@ public class VIPSouSuoInfo {
             this.priceUsd = priceUsd;
         }
 
-        public void setSpecialOfferaud(double specialOfferaud) {
+        public void setSpecialOfferaud(float specialOfferaud) {
             this.specialOfferaud = specialOfferaud;
         }
 
@@ -208,7 +208,7 @@ public class VIPSouSuoInfo {
             this.keyWord = keyWord;
         }
 
-        public void setNormalPriceaud(double normalPriceaud) {
+        public void setNormalPriceaud(float normalPriceaud) {
             this.normalPriceaud = normalPriceaud;
         }
 
@@ -216,7 +216,7 @@ public class VIPSouSuoInfo {
             this.baseUrl = baseUrl;
         }
 
-        public void setNormalPricecny(double normalPricecny) {
+        public void setNormalPricecny(float normalPricecny) {
             this.normalPricecny = normalPricecny;
         }
 
@@ -288,7 +288,7 @@ public class VIPSouSuoInfo {
             return linkUrl;
         }
 
-        public double getNormalPriceusd() {
+        public float getNormalPriceusd() {
             return normalPriceusd;
         }
 
@@ -296,7 +296,7 @@ public class VIPSouSuoInfo {
             return contentType;
         }
 
-        public double getSpecialOffercny() {
+        public float getSpecialOffercny() {
             return specialOffercny;
         }
 
@@ -304,7 +304,7 @@ public class VIPSouSuoInfo {
             return priceUsd;
         }
 
-        public double getSpecialOfferaud() {
+        public float getSpecialOfferaud() {
             return specialOfferaud;
         }
 
@@ -328,7 +328,7 @@ public class VIPSouSuoInfo {
             return keyWord;
         }
 
-        public double getNormalPriceaud() {
+        public float getNormalPriceaud() {
             return normalPriceaud;
         }
 
@@ -336,7 +336,7 @@ public class VIPSouSuoInfo {
             return baseUrl;
         }
 
-        public double getNormalPricecny() {
+        public float getNormalPricecny() {
             return normalPricecny;
         }
 
@@ -420,7 +420,7 @@ public class VIPSouSuoInfo {
             private int priceType;
             private String updateTime;
             private String keyWord;
-            private int normalPriceaud;
+            private float normalPriceaud;
             private String beginDate;
             private float normalPricecny;
             private String createTime;
@@ -606,7 +606,7 @@ public class VIPSouSuoInfo {
                 return keyWord;
             }
 
-            public int getNormalPriceaud() {
+            public float getNormalPriceaud() {
                 return normalPriceaud;
             }
 

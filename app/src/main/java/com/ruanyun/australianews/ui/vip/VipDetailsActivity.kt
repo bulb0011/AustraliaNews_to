@@ -33,6 +33,7 @@ import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
 
 class VipDetailsActivity :BaseActivity(){
@@ -252,13 +253,13 @@ class VipDetailsActivity :BaseActivity(){
 
                     val je = JsonParser().parse(json)
 
-                    val data = je.asJsonObject["data"].toString()
+                    val data = je.asJsonObject["data"]
 
                     val gson = Gson()
 
                     val detailIfo= gson.fromJson<VipDetailIfo>(data,VipDetailIfo::class.java)
 
-//                    val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
+//                    val  hotinfo=GsonUtil.parseJson(result.data,HotInfo::class.java)
 //                    val detailIfo=response.body()!!.data
 //
 //                    App.getInstance().cityName
@@ -321,7 +322,7 @@ class VipDetailsActivity :BaseActivity(){
 
         price_Type=detailIfo.priceType
 
-
+        val df = DecimalFormat("#0.00")
         //价格正常
         if (detailIfo.priceType==1){
             zhiqianjiege.paint.isAntiAlias=false
@@ -329,18 +330,18 @@ class VipDetailsActivity :BaseActivity(){
 
             //国内
             if(iso=="cn"||iso=="CN"){
-                tv_jiage.text = "¥"+detailIfo.normalPricecny.toString()
-                jige="¥"+detailIfo.normalPricecny.toString()
+                tv_jiage.text = "¥"+df.format(detailIfo.normalPricecny)
+                jige="¥"+df.format(detailIfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
-                tv_jiage.text = "A$"+detailIfo.normalPriceaud.toString()
-                jige = "A$"+detailIfo.normalPriceaud.toString()
+                tv_jiage.text = "A$"+df.format(detailIfo.normalPriceaud)
+                jige = "A$"+df.format(detailIfo.normalPriceaud)
             }
             //其他地区
             else{
-                tv_jiage.text  = "$"+detailIfo.normalPriceusd.toString()
-                jige = "$"+detailIfo.normalPriceusd.toString()
+                tv_jiage.text  = "$"+df.format(detailIfo.normalPriceusd)
+                jige = "$"+df.format(detailIfo.normalPriceusd)
             }
 
         }
@@ -354,27 +355,27 @@ class VipDetailsActivity :BaseActivity(){
 
             //国内
             if(iso=="cn"||iso=="CN"){
-                tv_jiage.text= "¥"+detailIfo.specialOffercny.toString()
-                zhiqianjiege.text = "¥"+detailIfo.normalPricecny.toString()
+                tv_jiage.text= "¥"+df.format(detailIfo.specialOffercny)
+                zhiqianjiege.text = "¥"+df.format(detailIfo.normalPricecny)
 
-                jige="¥"+detailIfo.normalPricecny.toString()
-                zhiqianjiage="¥"+detailIfo.normalPricecny.toString()
+                jige="¥"+df.format(detailIfo.normalPricecny)
+                zhiqianjiage="¥"+df.format(detailIfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
-                tv_jiage.text= "A$"+detailIfo.specialOfferaud.toString()
-                zhiqianjiege.text = "A$"+detailIfo.normalPriceaud.toString()
+                tv_jiage.text= "A$"+df.format(detailIfo.specialOfferaud)
+                zhiqianjiege.text = "A$"+df.format(detailIfo.normalPriceaud)
 
-                jige="A$"+detailIfo.specialOfferaud.toString()
-                zhiqianjiage="A$"+detailIfo.normalPriceaud.toString()
+                jige="A$"+df.format(detailIfo.specialOfferaud)
+                zhiqianjiage="A$"+df.format(detailIfo.normalPriceaud)
             }
             //其他地区
             else{
-                tv_jiage.text= "$"+detailIfo.specialOfferusd.toString()
-                zhiqianjiege.text = "$"+detailIfo.normalPriceusd.toString()
+                tv_jiage.text= "$"+df.format(detailIfo.specialOfferusd)
+                zhiqianjiege.text = "$"+df.format(detailIfo.normalPriceusd)
 
-                jige="$"+detailIfo.specialOfferusd.toString()
-                zhiqianjiage="$"+detailIfo.normalPriceusd.toString()
+                jige="$"+df.format(detailIfo.specialOfferusd)
+                zhiqianjiage="$"+df.format(detailIfo.normalPriceusd)
             }
 
         }
@@ -390,25 +391,25 @@ class VipDetailsActivity :BaseActivity(){
             //国内
             if(iso=="cn"||iso=="CN"){
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "¥"+detailIfo.normalPricecny.toString()
+                zhiqianjiege.text = "¥"+df.format(detailIfo.normalPricecny)
 
                 jige="限时免费"
-                zhiqianjiage="¥"+detailIfo.normalPricecny.toString()
+                zhiqianjiage="¥"+df.format(detailIfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "A$"+detailIfo.normalPriceaud.toString()
+                zhiqianjiege.text = "A$"+df.format(detailIfo.normalPriceaud)
                 jige="限时免费"
-                zhiqianjiage="A$"+detailIfo.normalPriceaud.toString()
+                zhiqianjiage="A$"+df.format(detailIfo.normalPriceaud)
             }
             //其他地区
             else{
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "$"+detailIfo.normalPriceusd.toString()
+                zhiqianjiege.text = "$"+df.format(detailIfo.normalPriceusd)
 
                 jige="限时免费"
-                zhiqianjiage="$"+detailIfo.normalPriceusd.toString()
+                zhiqianjiage="$"+df.format(detailIfo.normalPriceusd)
             }
 
         }

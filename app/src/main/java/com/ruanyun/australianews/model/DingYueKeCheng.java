@@ -155,7 +155,7 @@ public class DingYueKeCheng {
             private String oid;
             private String generateTime;
             private int payPriceType;
-            private double payAmount;
+            private float payAmount;
             private String validityEndTime;
             private String sysUser;
             private String afnNewsColumn;
@@ -214,7 +214,7 @@ public class DingYueKeCheng {
                 this.payPriceType = payPriceType;
             }
 
-            public void setPayAmount(double payAmount) {
+            public void setPayAmount(float payAmount) {
                 this.payAmount = payAmount;
             }
 
@@ -338,7 +338,7 @@ public class DingYueKeCheng {
                 return payPriceType;
             }
 
-            public double getPayAmount() {
+            public float getPayAmount() {
                 return payAmount;
             }
 
@@ -465,8 +465,8 @@ public class DingYueKeCheng {
                 private int normalPriceusd;
                 private int contentType;
                 private String createTimeStr;
-                private double specialOffercny;
-                private double specialOfferaud;
+                private float specialOffercny;
+                private float specialOfferaud;
                 private String commentInfoPagination;
                 private int isDelete;
                 private String newstypeOid;
@@ -474,9 +474,9 @@ public class DingYueKeCheng {
                 private int priceType;
                 private String updateTime;
                 private String keyWord;
-                private double normalPriceaud;
+                private float normalPriceaud;
                 private String beginDate;
-                private double normalPricecny;
+                private float normalPricecny;
                 private String createTime;
                 private boolean mark;
 
@@ -524,11 +524,11 @@ public class DingYueKeCheng {
                     this.createTimeStr = createTimeStr;
                 }
 
-                public void setSpecialOffercny(double specialOffercny) {
+                public void setSpecialOffercny(float specialOffercny) {
                     this.specialOffercny = specialOffercny;
                 }
 
-                public void setSpecialOfferaud(double specialOfferaud) {
+                public void setSpecialOfferaud(float specialOfferaud) {
                     this.specialOfferaud = specialOfferaud;
                 }
 
@@ -560,7 +560,7 @@ public class DingYueKeCheng {
                     this.keyWord = keyWord;
                 }
 
-                public void setNormalPriceaud(double normalPriceaud) {
+                public void setNormalPriceaud(float normalPriceaud) {
                     this.normalPriceaud = normalPriceaud;
                 }
 
@@ -568,7 +568,7 @@ public class DingYueKeCheng {
                     this.beginDate = beginDate;
                 }
 
-                public void setNormalPricecny(double normalPricecny) {
+                public void setNormalPricecny(float normalPricecny) {
                     this.normalPricecny = normalPricecny;
                 }
 
@@ -624,11 +624,11 @@ public class DingYueKeCheng {
                     return createTimeStr;
                 }
 
-                public double getSpecialOffercny() {
+                public float getSpecialOffercny() {
                     return specialOffercny;
                 }
 
-                public double getSpecialOfferaud() {
+                public float getSpecialOfferaud() {
                     return specialOfferaud;
                 }
 
@@ -660,7 +660,7 @@ public class DingYueKeCheng {
                     return keyWord;
                 }
 
-                public double getNormalPriceaud() {
+                public float getNormalPriceaud() {
                     return normalPriceaud;
                 }
 
@@ -668,7 +668,7 @@ public class DingYueKeCheng {
                     return beginDate;
                 }
 
-                public double getNormalPricecny() {
+                public float getNormalPricecny() {
                     return normalPricecny;
                 }
 

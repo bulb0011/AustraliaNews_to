@@ -23,6 +23,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
 class FrequencyPlayActivity :BaseActivity() {
 
@@ -76,13 +77,13 @@ class FrequencyPlayActivity :BaseActivity() {
                 }
 
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                    val  hotinfo=GsonUtil.parseJson(result.data.toString(),HotInfo::class.java)
+//                    val  hotinfo=GsonUtil.parseJson(result.data,HotInfo::class.java)
 
                     val json = response.body()!!.string()
 
                     val je = JsonParser().parse(json)
 
-                    val data = je.asJsonObject["data"].toString()
+                    val data = je.asJsonObject["data"]
 
                     val gson = Gson()
 
@@ -132,7 +133,7 @@ class FrequencyPlayActivity :BaseActivity() {
     fun initjiage(detailIfo: NewsDirectoryDetails.AfnNewsInfoEntity){
 
         val iso=App.app.iso
-
+        val df = DecimalFormat("#0.00")
         //价格正常
         if (detailIfo.priceType==1){
             zhiqianjiege.paint.isAntiAlias=false
@@ -141,15 +142,15 @@ class FrequencyPlayActivity :BaseActivity() {
             //国内
             if(iso=="cn"||iso=="CN"){
 
-                tv_jiage.text = "¥"+detailIfo.normalPricecny.toString()
+                tv_jiage.text = "¥"+df.format(detailIfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
-                tv_jiage.text = "A$"+detailIfo.normalPriceaud.toString()
+                tv_jiage.text = "A$"+df.format(detailIfo.normalPriceaud)
             }
             //其他地区
             else{
-                tv_jiage.text  = "$"+detailIfo.normalPriceusd.toString()
+                tv_jiage.text  = "$"+df.format(detailIfo.normalPriceusd)
             }
 
         }
@@ -163,18 +164,18 @@ class FrequencyPlayActivity :BaseActivity() {
 
             //国内
             if(iso=="cn"||iso=="CN"){
-                tv_jiage.text= "¥"+detailIfo.specialOffercny.toString()
-                zhiqianjiege.text = "¥"+detailIfo.normalPricecny.toString()
+                tv_jiage.text= "¥"+df.format(detailIfo.specialOffercny)
+                zhiqianjiege.text = "¥"+df.format(detailIfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
-                tv_jiage.text= "A$"+detailIfo.specialOfferaud.toString()
-                zhiqianjiege.text = "A$"+detailIfo.normalPriceaud.toString()
+                tv_jiage.text= "A$"+df.format(detailIfo.specialOfferaud)
+                zhiqianjiege.text = "A$"+df.format(detailIfo.normalPriceaud)
             }
             //其他地区
             else{
-                tv_jiage.text= "$"+detailIfo.specialOfferusd.toString()
-                zhiqianjiege.text = "$"+detailIfo.normalPriceusd.toString()
+                tv_jiage.text= "$"+df.format(detailIfo.specialOfferusd)
+                zhiqianjiege.text = "$"+df.format(detailIfo.normalPriceusd)
             }
 
         }
@@ -188,17 +189,17 @@ class FrequencyPlayActivity :BaseActivity() {
             //国内
             if(iso=="cn"||iso=="CN"){
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "¥"+detailIfo.normalPricecny.toString()
+                zhiqianjiege.text = "¥"+df.format(detailIfo.normalPricecny)
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "A$"+detailIfo.normalPriceaud.toString()
+                zhiqianjiege.text = "A$"+df.format(detailIfo.normalPriceaud)
             }
             //其他地区
             else{
                 tv_jiage.text= "限时免费"
-                zhiqianjiege.text = "$"+detailIfo.normalPriceusd.toString()
+                zhiqianjiege.text = "$"+df.format(detailIfo.normalPriceusd)
             }
 
         }

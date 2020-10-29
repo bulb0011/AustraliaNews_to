@@ -293,14 +293,14 @@ public class NewsDirectoryDetails {
             private String afnFreeTime;
             private List<?> afnNewsDirectoryList;
             private String afnnewsDirectoryOid;
-            private int normalPriceusd;
+            private float normalPriceusd;
             private String sysUser;
             private String afnNewsColumn;
             private int contentType;
             private String createTimeStr;
             private int uv;
-            private double specialOffercny;
-            private double specialOfferaud;
+            private float specialOffercny;
+            private float specialOfferaud;
             private String afnNewsType;
             private String commentInfoPagination;
             private int isDelete;
@@ -309,9 +309,9 @@ public class NewsDirectoryDetails {
             private String updateTime;
             private int commentCount;
             private String keyWord;
-            private double normalPriceaud;
+            private float normalPriceaud;
             private String beginDate;
-            private double normalPricecny;
+            private float normalPricecny;
             private String createTime;
             private int isTop;
             private int isHot;
@@ -422,11 +422,11 @@ public class NewsDirectoryDetails {
                 this.uv = uv;
             }
 
-            public void setSpecialOffercny(double specialOffercny) {
+            public void setSpecialOffercny(float specialOffercny) {
                 this.specialOffercny = specialOffercny;
             }
 
-            public void setSpecialOfferaud(double specialOfferaud) {
+            public void setSpecialOfferaud(float specialOfferaud) {
                 this.specialOfferaud = specialOfferaud;
             }
 
@@ -462,7 +462,7 @@ public class NewsDirectoryDetails {
                 this.keyWord = keyWord;
             }
 
-            public void setNormalPriceaud(double normalPriceaud) {
+            public void setNormalPriceaud(float normalPriceaud) {
                 this.normalPriceaud = normalPriceaud;
             }
 
@@ -470,7 +470,7 @@ public class NewsDirectoryDetails {
                 this.beginDate = beginDate;
             }
 
-            public void setNormalPricecny(double normalPricecny) {
+            public void setNormalPricecny(float normalPricecny) {
                 this.normalPricecny = normalPricecny;
             }
 
@@ -574,7 +574,7 @@ public class NewsDirectoryDetails {
                 return afnnewsDirectoryOid;
             }
 
-            public int getNormalPriceusd() {
+            public float getNormalPriceusd() {
                 return normalPriceusd;
             }
 
@@ -598,11 +598,11 @@ public class NewsDirectoryDetails {
                 return uv;
             }
 
-            public double getSpecialOffercny() {
+            public float getSpecialOffercny() {
                 return specialOffercny;
             }
 
-            public double getSpecialOfferaud() {
+            public float getSpecialOfferaud() {
                 return specialOfferaud;
             }
 
@@ -638,7 +638,7 @@ public class NewsDirectoryDetails {
                 return keyWord;
             }
 
-            public double getNormalPriceaud() {
+            public float getNormalPriceaud() {
                 return normalPriceaud;
             }
 
@@ -646,7 +646,7 @@ public class NewsDirectoryDetails {
                 return beginDate;
             }
 
-            public double getNormalPricecny() {
+            public float getNormalPricecny() {
                 return normalPricecny;
             }
 

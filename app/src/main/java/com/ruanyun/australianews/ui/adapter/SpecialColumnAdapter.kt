@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.util.DateUtil
+import java.text.DecimalFormat
 
 class SpecialColumnAdapter constructor(context : Context, listData:List<com.ruanyun.australianews.model.DingYueZhuanLan.DatasEntity>) : RecyclerView.Adapter<SpecialColumnAdapter.SpecialColumnViewHolder>() {
 
@@ -38,13 +39,13 @@ class SpecialColumnAdapter constructor(context : Context, listData:List<com.ruan
     override fun onBindViewHolder(ViewHolder: SpecialColumnViewHolder, p1: Int) {
 
         val  info=listData.get(p1)
-
+        val df = DecimalFormat("#0.00")
         if (info.payAmountType=="1"){
-            ViewHolder.jin_e.text ="¥"+info.payAmount
+            ViewHolder.jin_e.text ="¥"+df.format(info.payAmount)
         }else if (info.payAmountType=="2"){
-            ViewHolder.jin_e.text ="$"+info.payAmount
+            ViewHolder.jin_e.text ="$"+df.format(info.payAmount)
         }else{
-            ViewHolder.jin_e.text ="A$"+info.payAmount
+            ViewHolder.jin_e.text ="A$"+df.format(info.payAmount)
         }
 
         ViewHolder.title.text=info.afnNewsColumn.title

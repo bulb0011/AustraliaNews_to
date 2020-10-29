@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 import java.util.*
 
 
@@ -211,7 +212,7 @@ class SpecialColumnActivity :BaseActivity(){
 
 
                     val iso= App.app.iso
-
+                    val df = DecimalFormat("#0.00")
                     if(!isLoginToActivity || columnDetailsInfo.isBuy!=1){//少一个专栏的或者
 
                         bt_add_vip.text="订阅"
@@ -220,15 +221,15 @@ class SpecialColumnActivity :BaseActivity(){
 
                         //国内
                         if(iso=="cn"||iso=="CN"){
-                            tv_goumaijiage.text = "¥"+columnDetailsInfo.priceCny.toString()
+                            tv_goumaijiage.text = "¥"+df.format(columnDetailsInfo.priceCny)
                         }
                         //澳洲
                         else if(iso=="au"|| iso=="AU") {
-                            tv_goumaijiage.text = "A$"+columnDetailsInfo.priceAud.toString()
+                            tv_goumaijiage.text = "A$"+df.format(columnDetailsInfo.priceAud)
                         }
                         //其他地区
                         else{
-                            tv_goumaijiage.text = "$"+columnDetailsInfo.priceUsd.toString()
+                            tv_goumaijiage.text = "$"+df.format(columnDetailsInfo.priceUsd)
                         }
                         isClick=false
                     }else{
@@ -246,15 +247,15 @@ class SpecialColumnActivity :BaseActivity(){
                             bt_add_vip.text="免费订阅"
                             //国内
                             if(iso=="cn"||iso=="CN"){
-                                tv_mianfeiuedu.text = "¥"+columnDetailsInfo.priceCny.toString()
+                                tv_mianfeiuedu.text = "¥"+df.format(columnDetailsInfo.priceCny)
                             }
                             //澳洲
                             else if(iso=="au"|| iso=="AU") {
-                                tv_mianfeiuedu.text = "A$"+columnDetailsInfo.priceAud.toString()
+                                tv_mianfeiuedu.text = "A$"+df.format(columnDetailsInfo.priceAud)
                             }
                             //其他地区
                             else{
-                                tv_mianfeiuedu.text = "$"+columnDetailsInfo.priceUsd.toString()
+                                tv_mianfeiuedu.text = "$"+df.format(columnDetailsInfo.priceUsd).toString()
                             }
                         }
                     }

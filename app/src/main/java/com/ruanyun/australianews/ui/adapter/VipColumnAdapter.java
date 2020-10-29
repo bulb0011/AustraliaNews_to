@@ -17,6 +17,7 @@ import com.ruanyun.australianews.model.VipNewsType;
 import com.ruanyun.australianews.ui.ViewHolderColumnOne;
 import com.ruanyun.australianews.ui.ViewHolderColumnTow;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class VipColumnAdapter extends RecyclerView.Adapter {
@@ -63,22 +64,22 @@ public class VipColumnAdapter extends RecyclerView.Adapter {
                 }else{
                     viewHolderOne.tv_label.setText("音频");
                 }
-
+                DecimalFormat df =new DecimalFormat("#0.00");
                 //价格正常
                 if (objinfo.getPriceType()==1){
                     viewHolderOne.jiage.getPaint().setAntiAlias(false);
                     viewHolderOne.tvupdatetime.setVisibility(View.GONE);
                     //国内
                     if(iso=="cn"||iso=="CN"){
-                        viewHolderOne.jiage.setText("¥"+objinfo.getNormalPricecny());
+                        viewHolderOne.jiage.setText("¥"+df.format(objinfo.getNormalPricecny()));
                     }
                     //澳洲
                     else if(iso=="au"|| iso=="AU") {
-                        viewHolderOne.jiage.setText("A$"+objinfo.getNormalPriceaud());
+                        viewHolderOne.jiage.setText("A$"+df.format(objinfo.getNormalPriceaud()));
                     }
                     //其他地区
                     else{
-                        viewHolderOne.jiage.setText("$"+objinfo.getNormalPriceusd());
+                        viewHolderOne.jiage.setText("$"+df.format(objinfo.getNormalPriceusd()));
                     }
 
                 }
@@ -92,18 +93,18 @@ public class VipColumnAdapter extends RecyclerView.Adapter {
 
                     //国内
                     if(iso=="cn"||iso=="CN"){
-                        viewHolderOne.tvupdatetime.setText("¥"+objinfo.getSpecialOffercny());
-                        viewHolderOne.jiage.setText("¥"+objinfo.getNormalPricecny());
+                        viewHolderOne.tvupdatetime.setText("¥"+df.format(objinfo.getSpecialOffercny()));
+                        viewHolderOne.jiage.setText("¥"+df.format(objinfo.getNormalPricecny()));
                     }
                     //澳洲
                     else if(iso=="au"|| iso=="AU") {
-                        viewHolderOne.tvupdatetime.setText("A$"+objinfo.getSpecialOfferaud());
-                        viewHolderOne.jiage.setText("A$"+objinfo.getNormalPriceaud());
+                        viewHolderOne.tvupdatetime.setText("A$"+df.format(objinfo.getSpecialOfferaud()));
+                        viewHolderOne.jiage.setText("A$"+df.format(objinfo.getNormalPriceaud()));
                     }
                     //其他地区
                     else{
-                        viewHolderOne.tvupdatetime.setText("$"+objinfo.getSpecialOfferusd());
-                        viewHolderOne.jiage.setText("$"+objinfo.getNormalPriceusd());
+                        viewHolderOne.tvupdatetime.setText("$"+df.format(objinfo.getSpecialOfferusd()));
+                        viewHolderOne.jiage.setText("$"+df.format(objinfo.getNormalPriceusd()));
                     }
 
                 }
@@ -118,15 +119,15 @@ public class VipColumnAdapter extends RecyclerView.Adapter {
                     //国内
                     if(iso=="cn"||iso=="CN"){
 
-                        viewHolderOne.jiage.setText("¥"+objinfo.getNormalPricecny());
+                        viewHolderOne.jiage.setText("¥"+df.format(objinfo.getNormalPricecny()));
                     }
                     //澳洲
                     else if(iso=="au"|| iso=="AU") {
-                        viewHolderOne.jiage.setText("A$"+objinfo.getNormalPriceaud());
+                        viewHolderOne.jiage.setText("A$"+df.format(objinfo.getNormalPriceaud()));
                     }
                     //其他地区
                     else{
-                        viewHolderOne.jiage.setText("$"+objinfo.getNormalPriceusd());
+                        viewHolderOne.jiage.setText("$"+df.format(objinfo.getNormalPriceusd()));
                     }
 
                 }
