@@ -103,7 +103,7 @@ public class VIPSouSuoInfo {
          */
         private int jumpType;
         private String mainPhoto;
-        private int specialOfferusd;
+        private float specialOfferusd;
         private String oid;
         private String title;
         private int type;
@@ -140,7 +140,7 @@ public class VIPSouSuoInfo {
             this.mainPhoto = mainPhoto;
         }
 
-        public void setSpecialOfferusd(int specialOfferusd) {
+        public void setSpecialOfferusd(float specialOfferusd) {
             this.specialOfferusd = specialOfferusd;
         }
 
@@ -260,7 +260,7 @@ public class VIPSouSuoInfo {
             return mainPhoto;
         }
 
-        public int getSpecialOfferusd() {
+        public float getSpecialOfferusd() {
             return specialOfferusd;
         }
 
@@ -404,7 +404,7 @@ public class VIPSouSuoInfo {
             private int totalPagenum;
             private String endDate;
             private String mainPhoto;
-            private int specialOfferusd;
+            private float specialOfferusd;
             private int isColumn;
             private String oid;
             private String title;
@@ -412,7 +412,7 @@ public class VIPSouSuoInfo {
             private int contentType;
             private String createTimeStr;
             private float specialOffercny;
-            private int specialOfferaud;
+            private float specialOfferaud;
             private String commentInfoPagination;
             private int isDelete;
             private String newstypeOid;
@@ -442,7 +442,7 @@ public class VIPSouSuoInfo {
                 this.mainPhoto = mainPhoto;
             }
 
-            public void setSpecialOfferusd(int specialOfferusd) {
+            public void setSpecialOfferusd(float specialOfferusd) {
                 this.specialOfferusd = specialOfferusd;
             }
 
@@ -474,7 +474,7 @@ public class VIPSouSuoInfo {
                 this.specialOffercny = specialOffercny;
             }
 
-            public void setSpecialOfferaud(int specialOfferaud) {
+            public void setSpecialOfferaud(float specialOfferaud) {
                 this.specialOfferaud = specialOfferaud;
             }
 
@@ -542,7 +542,7 @@ public class VIPSouSuoInfo {
                 return mainPhoto;
             }
 
-            public int getSpecialOfferusd() {
+            public float getSpecialOfferusd() {
                 return specialOfferusd;
             }
 
@@ -574,7 +574,7 @@ public class VIPSouSuoInfo {
                 return specialOffercny;
             }
 
-            public int getSpecialOfferaud() {
+            public float getSpecialOfferaud() {
                 return specialOfferaud;
             }
 
