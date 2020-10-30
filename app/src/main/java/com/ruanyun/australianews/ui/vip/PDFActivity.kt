@@ -105,6 +105,11 @@ class PDFActivity :BaseActivity() {
 
                     initPTF(ApiManger.IMG_URL+detailIfo.fileUrl)
 
+                    if(detailIfo.isBuy==1||app.user.isVip==1 || price_Type==3){
+                        topbar.setRightTitleText("")
+                    }
+
+
                 }
             })
     }
