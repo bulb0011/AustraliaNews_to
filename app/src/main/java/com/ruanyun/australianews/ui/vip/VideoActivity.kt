@@ -30,9 +30,18 @@ import retrofit2.Response
 class VideoActivity :BaseActivity() {
 
     companion object{
-        fun start(context: Context,infoId:String) {
+        fun start(context: Context,infoId:String, productType:Int, productOid:String,
+                  inamge_url:String,price_Type:Int, jige:String,zhiqianjiage:String, tv_label:String, tv_title:String) {
             val starter = Intent(context, VideoActivity::class.java)
             starter.putExtra("infoId",infoId)
+            starter.putExtra("productType",productType)
+            starter.putExtra("productOid",productOid)
+            starter.putExtra("inamge_url",inamge_url)
+            starter.putExtra("price_Type",price_Type)
+            starter.putExtra("jige",jige)
+            starter.putExtra("zhiqianjiage",zhiqianjiage)
+            starter.putExtra("tv_label",tv_label)
+            starter.putExtra("tv_title",tv_title)
             context.startActivity(starter)
         }
     }
@@ -42,6 +51,14 @@ class VideoActivity :BaseActivity() {
 
     //增加封面
     lateinit var  imageView : ImageView
+
+    var inamge_url=""
+    var tv_titl=""
+    var price_Type=1
+    var jige=""
+    var zhiqianjiage=""
+    var tvlabel=""
+    var productOid=""
 
     private var orientationUtils: OrientationUtils? = null
     override fun onCreate(bundle: Bundle?) {
@@ -71,6 +88,14 @@ class VideoActivity :BaseActivity() {
 
         initEvent()
 
+        inamge_url= intent.getStringExtra("inamge_url")
+        tv_titl= intent.getStringExtra("tv_title")
+        price_Type=intent.getIntExtra("price_Type",1)
+        jige= intent.getStringExtra("jige")
+        zhiqianjiage =intent.getStringExtra("zhiqianjiage")
+        tvlabel= intent.getStringExtra("tv_label")
+        productOid=intent.getStringExtra("productOid")
+
     }
 
     fun initEvent(){
@@ -79,11 +104,12 @@ class VideoActivity :BaseActivity() {
 
         bu_lijigoumai.clickWithTrigger{
 
-            SelectPayActivity.start(this, C.IntentKey.VIP_TYPE_VIDEO)
+            SelectPayActivity.start(this,1,productOid,
+                inamge_url,price_Type,jige,zhiqianjiage,tvlabel,tv_titl)
         }
         rb_jiaruhiyuan.clickWithTrigger{
 
-            SelectPayActivity.start(this,C.IntentKey.VIP_TYPE_ADD_VIP)
+            AddVipActivity.start(this)
         }
     }
 
@@ -120,8 +146,6 @@ class VideoActivity :BaseActivity() {
                     imageView= ImageView(context)
                     imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                     imageView.loadImage(ApiManger.IMG_URL+detailIfo.afnNewsInfo.mainPhoto)
-
-                    tttt.setText(detailIfo.content)
 
                     vido_title.text=detailIfo.title
 

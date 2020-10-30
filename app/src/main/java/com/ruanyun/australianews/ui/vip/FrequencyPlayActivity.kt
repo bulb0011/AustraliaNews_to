@@ -29,15 +29,32 @@ class FrequencyPlayActivity :BaseActivity() {
 
     companion object{
 
-        fun start(context: Context,infoId:String) {
+        fun start(context: Context,infoId:String, productType:Int, productOid:String,
+                  inamge_url:String,price_Type:Int, jige:String,zhiqianjiage:String, tv_label:String, tv_title:String) {
             val starter = Intent(context, FrequencyPlayActivity::class.java)
             starter.putExtra("infoId",infoId)
+            starter.putExtra("productType",productType)
+            starter.putExtra("productOid",productOid)
+            starter.putExtra("inamge_url",inamge_url)
+            starter.putExtra("price_Type",price_Type)
+            starter.putExtra("jige",jige)
+            starter.putExtra("zhiqianjiage",zhiqianjiage)
+            starter.putExtra("tv_label",tv_label)
+            starter.putExtra("tv_title",tv_title)
             context.startActivity(starter)
         }
 
     }
 
     val mediaPlayer = MediaPlayer()
+
+    var inamge_url=""
+    var tv_titl=""
+    var price_Type=1
+    var jige=""
+    var zhiqianjiage=""
+    var tvlabel=""
+    var productOid=""
 
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
@@ -66,6 +83,14 @@ class FrequencyPlayActivity :BaseActivity() {
         tmg_fanui.clickWithTrigger{
             finish()
         }
+
+        inamge_url= intent.getStringExtra("inamge_url")
+        tv_titl= intent.getStringExtra("tv_title")
+        price_Type=intent.getIntExtra("price_Type",1)
+        jige= intent.getStringExtra("jige")
+        zhiqianjiage =intent.getStringExtra("zhiqianjiage")
+        tvlabel= intent.getStringExtra("tv_label")
+        productOid=intent.getStringExtra("productOid")
 
     }
 
@@ -121,7 +146,8 @@ class FrequencyPlayActivity :BaseActivity() {
                 override fun onCompletion(mp: MediaPlayer?) {
                     head_bofang.visibility=View.VISIBLE
                     head_zanting.visibility=View.GONE
-                    FinishActivity.start(this@FrequencyPlayActivity, C.IntentKey.VIP_TYPE_MP3)
+                    FinishActivity.start(this@FrequencyPlayActivity, C.IntentKey.VIP_TYPE_MP3,1,productOid,
+                        inamge_url,price_Type,jige,zhiqianjiage,tvlabel,tv_titl)
                 }
             })
 

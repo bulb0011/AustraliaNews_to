@@ -49,8 +49,6 @@ class SpecialColumnActivity :BaseActivity(){
         super.onCreate(bundle)
         setContentView(R.layout.activity_special_column)
         val columnOid=intent.getStringExtra("columnOid")
-
-
 //
 //        adapter?.setOnCliakListener(object : ColumnAdapter.OnCliskListener{
 //            override fun onClisk(view: View?, po: Int) {

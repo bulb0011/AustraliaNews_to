@@ -50,6 +50,16 @@ public class NewsDirectoryDetails {
         private boolean mark;
         private int watchCount;
 
+        private int isBuy;
+
+        public int getIsBuy() {
+            return isBuy;
+        }
+
+        public void setIsBuy(int isBuy) {
+            this.isBuy = isBuy;
+        }
+
         public void setAfnNewsInfo(AfnNewsInfoEntity afnNewsInfo) {
             this.afnNewsInfo = afnNewsInfo;
         }
