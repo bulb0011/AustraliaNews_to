@@ -131,7 +131,7 @@ class FrequencyPlayActivity :BaseActivity() {
 
                     tv_name.text=detailIfo.afnNewsInfo.title
 
-                    tv_context.text= Html.fromHtml(detailIfo.content)
+                    tv_context.loadDataWithBaseURL(null,C.varjs+detailIfo.content,"text/html","UTF-8",null);
 
                     tv_shijian.text= getTime.stM((detailIfo.afnNewsInfo.normalPricecny).toInt())
 

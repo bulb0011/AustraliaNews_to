@@ -147,7 +147,8 @@ class VideoActivity :BaseActivity() {
 
                     val gsyVideoOption = GSYVideoOptionBuilder()
 
-                    tttt.text= Html.fromHtml(detailIfo.content)
+                    tttt.loadDataWithBaseURL(null,C.varjs+detailIfo.content,"text/html","UTF-8",null);
+
 
 //            .setThumbImageView(imageView)
 

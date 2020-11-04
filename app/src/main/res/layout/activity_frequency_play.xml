@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -233,7 +234,7 @@
                     android:textSize="17sp"
                     />
 
-                <TextView
+                <WebView
                     android:id="@+id/tv_context"
                     android:layout_marginTop="16dp"
                     android:layout_width="wrap_content"
@@ -241,9 +242,7 @@
                     android:textSize="16dp"
                     android:textColor="#666666"
                     android:layout_marginRight="16dp"
-                    android:text="现在和未来很长一段时间内房地产行业都将是我国的支柱产业，这也是现如今政府与百姓关注的热点话题。房地产行业发展带动社会经济发展，同时有效解决区域就业问题。
-                    \n但随着房地产行业肆无忌惮地扩张，地产泡沫经济越来越严重。高房价给经济带来严重影响，本文中笔者分析高房价形成原因，并详细阐述其对我国经济的影响。企业家彭博当选纽约市长后,使市政府变成了开放的空间,官员不再一人一间办公室,而是环坐在蓝色隔屏里,迅速交换意见与信息."
-                    />
+                    tools:ignore="WebViewLayout" />
             </LinearLayout>
 
         </LinearLayout>

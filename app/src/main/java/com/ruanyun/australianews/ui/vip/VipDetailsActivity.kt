@@ -187,15 +187,15 @@ class VipDetailsActivity :BaseActivity(){
             if (InfoId!="") {
                 if(C.IntentKey.VIP_TYPE_VIDEO.equals(type)){
                     VideoActivity.start(this,InfoId,1,id,
-                        inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                        inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
 
                 }else if (C.IntentKey.VIP_TYPE_PDF.equals(type)){
                     PDFActivity.start(this,InfoId,1,id,
-                        inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                        inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
 
                 }else if (C.IntentKey.VIP_TYPE_MP3.equals(type)){
                     FrequencyPlayActivity.start(this,InfoId,1,id,
-                        inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                        inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
                 }
             }else{
                 ToastUtil.shortToast(this,"id为空")
@@ -207,15 +207,15 @@ class VipDetailsActivity :BaseActivity(){
             if (InfoId!="") {
                 if(C.IntentKey.VIP_TYPE_VIDEO.equals(type)){
                     VideoActivity.start(this,InfoId,1,id,
-                        inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                        inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
 
                 }else if (C.IntentKey.VIP_TYPE_PDF.equals(type)){
                     PDFActivity.start(this,InfoId,1,id,
-                        inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                        inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
 
                 }else if (C.IntentKey.VIP_TYPE_MP3.equals(type)){
                     FrequencyPlayActivity.start(this,InfoId,1,id,
-                        inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                        inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
                 }
             }else{
                 ToastUtil.shortToast(this,"id为空")
@@ -244,7 +244,6 @@ class VipDetailsActivity :BaseActivity(){
         }
 
         tv_goumai.clickWithTrigger {
-            jjjj
             if(isLoginToActivity)
             SelectPayActivity.start(this,1,id,
                 inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
@@ -465,16 +464,16 @@ class VipDetailsActivity :BaseActivity(){
                 if(isLoginToActivity){
                     if(C.IntentKey.VIP_TYPE_VIDEO.equals(type)){
                         VideoActivity.start(this@VipDetailsActivity,InfoId,1,id,
-                            inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                            inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
 
                     }else if (C.IntentKey.VIP_TYPE_PDF.equals(type)){
                         PDFActivity.start(this@VipDetailsActivity,InfoId,1,id,
-                            inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                            inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
 
                     }else if (C.IntentKey.VIP_TYPE_MP3.equals(type)){
 
                         FrequencyPlayActivity.start(this@VipDetailsActivity,InfoId,1,id,
-                            inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                            inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
 
                     }
                 }

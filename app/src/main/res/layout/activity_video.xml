@@ -107,23 +107,15 @@
         android:text="内容亮点"
         />
 
-    <TextView
+    <WebView
         android:id="@+id/tttt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/theme_color"
         android:layout_marginTop="17dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="本书从认知科学、
-        神经学、学习理论和行为理论角度，深入探讨了如何才能
-        具备优秀的学习能力和思考能力，阐述了成为一名专家级程序员的关键
-        要素，具体包括：大脑运行机制简介，如何正确使用和调试大脑，
-        改进学习能力的具体技巧，如何通过自我引导积累经验，控制注意力的方法。
-        为了让读者加深印象，作者还特别设立了一个“实践单元”，其中包括具体的练习和实验，
-        旨在让读者真正掌握所学内容。生命中没有什么是一成不变的，人们需要改变自己的习惯和方法。
-        不论你是程序员、软件公司管理者、技术奇人还是思想家，或者你只是想让自己的大脑更聪明一点儿
-        ，所有尝试改变自己的人，请把本书当作改变的开始……"
+
         />
 
 </LinearLayout>

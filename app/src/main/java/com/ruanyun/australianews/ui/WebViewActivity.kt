@@ -22,6 +22,7 @@ import cn.sharesdk.tencent.qq.QQ
 import cn.sharesdk.tencent.qzone.QZone
 import cn.sharesdk.wechat.friends.Wechat
 import cn.sharesdk.wechat.moments.WechatMoments
+import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseActivity
 import com.ruanyun.australianews.data.ApiManger
@@ -458,7 +459,7 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          *Vip支付
          */
         @JavascriptInterface
-        fun addVip(){
+        fun joinMembership(){
             AddVipActivity.start(context)
         }
 
@@ -473,9 +474,55 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
          *
          */
         @JavascriptInterface
-        fun addNewVip(productOid:String,inamge_url:String,price_Type:Int,
-                      jige:String,zhiqianjiage:String, tv_title:String){
-            SelectPayActivity.start(context,2,productOid,inamge_url,price_Type,jige,zhiqianjiage,"新闻",tv_title)
+        fun nowBuy(s: String){
+//            LogX.e("retrofit", "showToast() : s = [$s]")
+            val webPayInfo= GsonUtil.parseJson(s,WebPayInfo::class.java)
+
+            val priceType =webPayInfo.priceType.toInt()
+
+            var jige="0.00"
+            var zhiqianjiage="0.00"
+
+            val iso= App.app.iso
+
+            //国内
+            if(iso=="cn"||iso=="CN"){
+
+                if (priceType==1){
+                    jige=webPayInfo.normalPricecny
+                    zhiqianjiage=webPayInfo.normalPricecny
+                }else if (priceType==2){
+                    jige=webPayInfo.specialOffercny
+                    zhiqianjiage=webPayInfo.normalPricecny
+                }
+            }
+            //澳洲
+            else if(iso=="au"|| iso=="AU") {
+
+                if (priceType==1){
+                    jige=webPayInfo.normalPriceaud
+                    zhiqianjiage=webPayInfo.normalPriceaud
+                }else if (priceType==2){
+                    jige=webPayInfo.specialOfferaud
+                    zhiqianjiage=webPayInfo.normalPricecny
+                }
+            }
+            //其他地区
+            else{
+                if (priceType==1){
+                    jige=webPayInfo.normalPriceusd
+                    zhiqianjiage=webPayInfo.normalPriceusd
+                }else if (priceType==2){
+                    jige=webPayInfo.specialOfferusd
+                    zhiqianjiage=webPayInfo.normalPriceusd
+                }
+            }
+
+
+
+            SelectPayActivity.start(context,2,webPayInfo.newsInfoOid
+                ,ApiManger.IMG_URL+webPayInfo.mainPhoto,priceType
+                ,jige,zhiqianjiage,"新闻",webPayInfo.title)
         }
 
         /**
