@@ -78,19 +78,17 @@ public class SouSuoAdapter extends RecyclerView.Adapter  {
                     viewHolderOne.tv_jianjie.getPaint().setAntiAlias(false);
                     viewHolderOne.tv_jianjie.setVisibility(View.GONE);
 
-
-
                     //国内
                     if(iso=="cn"||iso=="CN"){
-                        viewHolderOne.tv_jianjie.setText("¥"+df.format(datasEntity.getNormalPricecny()));
+                        viewHolderOne.tv_jiage.setText("¥"+df.format(datasEntity.getNormalPricecny()));
                     }
                     //澳洲
                     else if(iso=="au"|| iso=="AU") {
-                        viewHolderOne.tv_jianjie.setText("A$"+df.format(datasEntity.getNormalPriceaud()));
+                        viewHolderOne.tv_jiage.setText("A$"+df.format(datasEntity.getNormalPriceaud()));
                     }
                     //其他地区
                     else{
-                        viewHolderOne.tv_jianjie.setText("$"+df.format(datasEntity.getNormalPriceusd()));
+                        viewHolderOne.tv_jiage.setText("$"+df.format(datasEntity.getNormalPriceusd()));
                     }
 
                 }
@@ -183,11 +181,12 @@ public class SouSuoAdapter extends RecyclerView.Adapter  {
                 viewHolderZhuanLan.tv_title_zhaunlan.setText(datasEntity.getTitle());
 
                 if (datasEntity.getAfnInfoAllList()!=null&&datasEntity.getAfnInfoAllList().size()>2){
+
                     VIPSouSuoInfo.DatasEntity.AfnInfoAllListEntity allListEntity  = datasEntity.getAfnInfoAllList().get(0);
                     Glide.with(this.context).load(ApiManger.IMG_URL+allListEntity.getMainPhoto()).into(viewHolderZhuanLan.image_one);
                     viewHolderZhuanLan.tv_one.setText(allListEntity.getTitle());
 
-                    VIPSouSuoInfo.DatasEntity.AfnInfoAllListEntity allListEntityTo  =datasEntity.getAfnInfoAllList().get(0);
+                    VIPSouSuoInfo.DatasEntity.AfnInfoAllListEntity allListEntityTo  =datasEntity.getAfnInfoAllList().get(1);
                     Glide.with(this.context).load(ApiManger.IMG_URL+allListEntityTo.getMainPhoto()).into(viewHolderZhuanLan.iamge_to);
                     viewHolderZhuanLan.tv_tow.setText(allListEntityTo.getTitle());
                 }

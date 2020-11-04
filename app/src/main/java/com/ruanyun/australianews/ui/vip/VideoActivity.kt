@@ -17,6 +17,7 @@ import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.NewsDirectoryDetails
 import com.ruanyun.australianews.util.C
+import com.ruanyun.australianews.util.DateUtil
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
@@ -60,13 +61,20 @@ class VideoActivity :BaseActivity() {
     var tvlabel=""
     var productOid=""
 
+    var infoId=""
+    var upDate=""
+
     private var orientationUtils: OrientationUtils? = null
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
 
         setContentView(R.layout.activity_video)
 
-        initDta(infoId = intent.getStringExtra("infoId"), context = this@VideoActivity.context)
+        infoId = intent.getStringExtra("infoId")
+
+        upDate=DateUtil.getCurrentTime()
+
+        initDta(infoId, context = this@VideoActivity.context)
 
 //        val url = "http://7xjmzj.com1.z0.glb.clouddn.com/20171026175005_JObCxCE2.mp4"
 //        val url = "https://vdept.bdstatic.com/554c793745487948326e3267757a3831/437a323269356635/0c933d6c77d6077f58164519e2534425b27b9b5466d089ba9c47031d45c021ac67c00bd0b0190f2847ddead05300f6631946de32267c770e2155d6d7c358c47f.mp4?auth_key=1596188012-0-0-8383ba4fbc371a21e70bc4d288baa957"
@@ -248,6 +256,25 @@ class VideoActivity :BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+       val endTime=DateUtil.getCurrentTime()
+        ApiManger.getApiService().saveAfnNewsDirectoryRecord(infoId,App.app.userOid,upDate,
+            endTime)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ){
+                    val json: String = response.body()!!.string()
+
+                    val je =JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+                }
+
+            })
+
         if (isPlay) {
             detail_player!!.currentPlayer.release()
         }

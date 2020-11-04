@@ -119,22 +119,26 @@ class CollectionBrowseNewsListAdapter(context: Context, datas: List<CollectionBr
     private fun dataProcess(datas: MutableList<CollectionBrowseNewsInfo>): List<CollectionBrowseNewsInfo>{
         val listInfo = datas.filter { it.newsInfo!=null }
         listInfo.forEach {
-            if (it.newsInfo!!.type == 1) {//图文新闻
-                if (TextUtils.isEmpty(it.newsInfo!!.mainPhoto)) {
-                    it.newsInfo!!.pushShowType = NewsInfo.TYPE_MANY_PICTURE
-                } else {
-                    val str = it.newsInfo!!.mainPhoto?.split(",")?: arrayListOf()
-                    if (str.size > 1) {
+            if (it.type<12) {
+                if (it.newsInfo!!.type == 1) {//图文新闻
+                    if (TextUtils.isEmpty(it.newsInfo!!.mainPhoto)) {
                         it.newsInfo!!.pushShowType = NewsInfo.TYPE_MANY_PICTURE
-                        it.newsInfo!!.mainPhotoList = str
                     } else {
-                        it.newsInfo!!.pushShowType = NewsInfo.TYPE_SINGLE_PICTURE
+                        val str = it.newsInfo!!.mainPhoto?.split(",")?: arrayListOf()
+                        if (str.size > 1) {
+                            it.newsInfo!!.pushShowType = NewsInfo.TYPE_MANY_PICTURE
+                            it.newsInfo!!.mainPhotoList = str
+                        } else {
+                            it.newsInfo!!.pushShowType = NewsInfo.TYPE_SINGLE_PICTURE
+                        }
                     }
+                } else if (it.newsInfo!!.type == 2) {//视频新闻
+                    it.newsInfo!!.pushShowType = NewsInfo.TYPE_VIDEO
+                } else {
+                    it.newsInfo!!.pushShowType = NewsInfo.TYPE_SINGLE_PICTURE
                 }
-            } else if (it.newsInfo!!.type == 2) {//视频新闻
-                it.newsInfo!!.pushShowType = NewsInfo.TYPE_VIDEO
             } else {
-                it.newsInfo!!.pushShowType = NewsInfo.TYPE_SINGLE_PICTURE
+
             }
         }
         return listInfo

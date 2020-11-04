@@ -20,6 +20,7 @@ import com.ruanyun.australianews.model.ZhuanLanInfo
 import com.ruanyun.australianews.model.ZhuanLanListInfo
 import com.ruanyun.australianews.ui.adapter.ColumnAdapter
 import com.ruanyun.australianews.util.C
+import com.ruanyun.australianews.util.DateUtil
 import com.ruanyun.australianews.util.WebViewUrlUtil
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_special_column.*
@@ -45,10 +46,16 @@ class SpecialColumnActivity :BaseActivity(){
 
     val dataList=ArrayList<ZhuanLanListInfo>()
 
+    var upDate=""
+
+    var columnOid=""
+
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
         setContentView(R.layout.activity_special_column)
-        val columnOid=intent.getStringExtra("columnOid")
+        columnOid=intent.getStringExtra("columnOid")
+
+        upDate=DateUtil.getCurrentTime()
 //
 //        adapter?.setOnCliakListener(object : ColumnAdapter.OnCliskListener{
 //            override fun onClisk(view: View?, po: Int) {
@@ -74,7 +81,11 @@ class SpecialColumnActivity :BaseActivity(){
     var id=""
     var inamge_url=""
 
+    var jiage=""
+
    lateinit var item:ZhuanLanInfo.DatasEntity
+
+    lateinit var columnDetailsInfo : ColumnDetailsInfo
 
     private fun initData(columnOid: String?) {
         ApiManger.getApiService().ColumnInternalData(columnOid)
@@ -187,7 +198,7 @@ class SpecialColumnActivity :BaseActivity(){
 
                     val gson = Gson()
 
-                    val columnDetailsInfo= gson.fromJson(data, ColumnDetailsInfo::class.java)
+                    columnDetailsInfo= gson.fromJson(data, ColumnDetailsInfo::class.java)
 
                     imge_zhuanlan.loadImage(ApiManger.IMG_URL + columnDetailsInfo.mainPhoto)
 
@@ -208,55 +219,101 @@ class SpecialColumnActivity :BaseActivity(){
 
                     tv_context.loadDataWithBaseURL(null,varjs+columnDetailsInfo.content,"text/html","UTF-8",null);
 
-
                     val iso= App.app.iso
                     val df = DecimalFormat("#0.00")
-                    if(!isLoginToActivity || columnDetailsInfo.isBuy!=1){//少一个专栏的或者
 
-                        bt_add_vip.text="订阅"
-                        ll_mianfei.visibility=View.INVISIBLE
-                        ll_jiage.visibility=View.VISIBLE
+                    if(columnDetailsInfo.isBuy!=1){//少一个专栏的或者
 
-                        //国内
-                        if(iso=="cn"||iso=="CN"){
-                            tv_goumaijiage.text = "¥"+df.format(columnDetailsInfo.priceCny)
-                        }
-                        //澳洲
-                        else if(iso=="au"|| iso=="AU") {
-                            tv_goumaijiage.text = "A$"+df.format(columnDetailsInfo.priceAud)
-                        }
-                        //其他地区
-                        else{
-                            tv_goumaijiage.text = "$"+df.format(columnDetailsInfo.priceUsd)
-                        }
-                        isClick=false
-                    }else{
+                        if (columnDetailsInfo.priceType==1){
 
-                        if (app.user.isVip==1 || columnDetailsInfo.isBuy!=1){//少一个专栏的或者
+                            bt_add_vip.text="订阅"
+                            ll_mianfei.visibility=View.INVISIBLE
+                            ll_jiage.visibility=View.VISIBLE
 
-                            isClick=true
+                            //国内
+                            if(iso=="cn"||iso=="CN"){
+                                tv_goumaijiage.text = "¥"+df.format(columnDetailsInfo.normalPricecny)
+                                jiage=columnDetailsInfo.normalPricecny.toString()
+                            }
+                            //澳洲
+                            else if(iso=="au"|| iso=="AU") {
+                                tv_goumaijiage.text = "A$"+df.format(columnDetailsInfo.normalPriceaud)
+                                jiage=columnDetailsInfo.normalPriceaud.toString()
+                            }
+                            //其他地区
+                            else{
+                                tv_goumaijiage.text = "$"+df.format(columnDetailsInfo.normalPriceusd)
+                                jiage=columnDetailsInfo.normalPriceusd.toString()
+                            }
+                            isClick=false
+
+                        }else if(columnDetailsInfo.priceType==2){
+                            bt_add_vip.text="订阅"
+                            tv_tejia.visibility=View.INVISIBLE
 
                             tv_mianfeiuedu.paint.isAntiAlias=true
-                            tv_mianfeiuedu.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
+                            tv_mianfeiuedu.paint.flags=Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
+
+//                            tv_mianfeiuedu.visibility=View.INVISIBLE
+
+                            //国内
+                            if(iso=="cn"||iso=="CN"){
+                                tv_goumaijiage.text = "¥"+df.format(columnDetailsInfo.specialOffercny)
+                                jiage=columnDetailsInfo.specialOffercny.toString()
+                                tv_mianfeiuedu.text = "¥"+df.format(columnDetailsInfo.normalPricecny)
+                            }
+                            //澳洲
+                            else if(iso=="au"|| iso=="AU") {
+                                tv_goumaijiage.text = "A$"+df.format(columnDetailsInfo.specialOfferaud)
+                                jiage=columnDetailsInfo.specialOfferaud.toString()
+                                tv_mianfeiuedu.text = "¥"+df.format(columnDetailsInfo.normalPriceaud)
+                            }
+                            //其他地区
+                            else{
+                                tv_goumaijiage.text = "$"+df.format(columnDetailsInfo.specialOfferusd)
+                                jiage=columnDetailsInfo.specialOfferusd.toString()
+                                tv_mianfeiuedu.text = "¥"+df.format(columnDetailsInfo.normalPriceusd)
+                            }
+
+                            isClick=false
+                        }
+
+                        else if (columnDetailsInfo.priceType==3){
+
+                            tv_mianfeiuedu.visibility=View.INVISIBLE
+
+                            isClick=true
 
                             ll_mianfei.visibility=View.VISIBLE
                             ll_jiage.visibility=View.INVISIBLE
 
                             bt_add_vip.text="免费订阅"
+
                             //国内
                             if(iso=="cn"||iso=="CN"){
-                                tv_mianfeiuedu.text = "¥"+df.format(columnDetailsInfo.priceCny)
+                                tv_mianfeiuedu.text = "¥"+df.format(columnDetailsInfo.specialOffercny)
+                                jiage=columnDetailsInfo.specialOffercny.toString()
                             }
                             //澳洲
                             else if(iso=="au"|| iso=="AU") {
-                                tv_mianfeiuedu.text = "A$"+df.format(columnDetailsInfo.priceAud)
+                                tv_mianfeiuedu.text = "A$"+df.format(columnDetailsInfo.specialOfferaud)
+                                jiage=columnDetailsInfo.specialOfferaud.toString()
                             }
                             //其他地区
                             else{
-                                tv_mianfeiuedu.text = "$"+df.format(columnDetailsInfo.priceUsd).toString()
+                                tv_mianfeiuedu.text = "$"+df.format(columnDetailsInfo.specialOfferusd)
+                                jiage=columnDetailsInfo.specialOfferusd.toString()
                             }
+
+                            tv_mianfeiuedu.visibility=View.VISIBLE
                         }
+
+
+                    }else if(columnDetailsInfo.isBuy==1 ||app.user.isVip==1 ){
+                        rl_goumai.visibility=View.GONE
+                        isClick=true
                     }
+
 
                 }
 
@@ -272,35 +329,14 @@ class SpecialColumnActivity :BaseActivity(){
         }
     }
 
-
-
     fun initEvet(adapter:ColumnAdapter,dataList :List<ZhuanLanInfo.DatasEntity>){
 
         bt_add_vip.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
-                if (isClick){
-                    var s=""
 
-                    if (item.contentType==1){
-
-                        s= C.IntentKey.VIP_TYPE_PDF
-                    }else if (item.contentType==2){
-
-                        s=C.IntentKey.VIP_TYPE_VIDEO
-                    }else if (item.contentType==3){
-
-                        s=C.IntentKey.VIP_TYPE_MP3
-                    }
-                    VipDetailsActivity.start(
-                        mContext,
-                        s,
-                        item.oid
-                    )
-                }else{
-                    SelectPayActivity.start(this@SpecialColumnActivity,3,id,
-                        inamge_url,1,
-                        tv_goumaijiage.text as String,"0.00","专栏",tv_title.text.toString())
-                }
+                SelectPayActivity.start(this@SpecialColumnActivity,3,id,
+                    inamge_url,columnDetailsInfo.priceType,
+                    jiage,"0.00","专栏",tv_title.text.toString())
             }
 
         })
@@ -352,6 +388,26 @@ class SpecialColumnActivity :BaseActivity(){
             }
         })
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ApiManger.getApiService().saveAfnNewsColumnRecord(columnOid,App.app.userOid,upDate,DateUtil.getCurrentTime())
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ){
+                    val json: String = response.body()!!.string()
+
+                    val je =JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+                }
+
+            })
     }
 
 }

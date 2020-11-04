@@ -55,7 +55,7 @@ class SelectPayActivity :BaseActivity() {
             val starter = Intent(context, SelectPayActivity::class.java)
             starter.putExtra("productType",productType)
             starter.putExtra("productOid",productOid)
-            starter.putExtra("jiage",jiage)
+            starter.putExtra("jige",jiage)
             context.startActivity(starter)
         }
 
@@ -83,13 +83,15 @@ class SelectPayActivity :BaseActivity() {
     var jiage=""
 
    var currentcy="AUD"
-
+   var jjj=0.00
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
         setContentView(R.layout.activity_select_pay)
 
         productType=intent.getIntExtra("productType",4)
         productOid=intent.getStringExtra("productOid")
+
+        jjj=intent.getStringExtra("jige").toDouble()
 
         payAmountType = 1;
         val iso=App.app.iso
@@ -110,15 +112,17 @@ class SelectPayActivity :BaseActivity() {
         //其他地区
         else{
             payAmountType=1
-            jiage="A$"
+            jiage="$"
             currentcy="USD"
         }
+
+
 
         if (productType == 4){
             rl_add_vip.visibility=View.VISIBLE
             rl_merchandise.visibility=View.GONE
-            vip_jiguang.text=jiage+intent.getStringExtra("jiage")
-            tv_jine.text=jiage+intent.getStringExtra("jiage")
+            vip_jiguang.text=jiage+intent.getStringExtra("jige")
+            tv_jine.text=jiage+intent.getStringExtra("jige")
         }else{
             rl_add_vip.visibility=View.GONE
             rl_merchandise.visibility=View.VISIBLE
@@ -126,7 +130,7 @@ class SelectPayActivity :BaseActivity() {
             val inamge_url= intent.getStringExtra("inamge_url")
             val tv_titl= intent.getStringExtra("tv_title")
             val  price_Type=intent.getIntExtra("price_Type",1)
-            val jige= intent.getStringExtra("jige")
+            val jige_to= intent.getStringExtra("jige")
             val zhiqianjiage =intent.getStringExtra("zhiqianjiage")
             val tvlabel= intent.getStringExtra("tv_label")
 
@@ -140,8 +144,8 @@ class SelectPayActivity :BaseActivity() {
 
                 zhiqianjiege.paint.isAntiAlias=false
                 zhiqianjiege.visibility= View.GONE
-                tv_jiage_to.text=jige
-                tv_jine.text=jige
+                tv_jiage_to.text=jiage+jige_to
+                tv_jine.text=jiage+jige_to
 
             }else if (price_Type==2){
                 zhiqianjiege.visibility= View.VISIBLE
@@ -149,8 +153,8 @@ class SelectPayActivity :BaseActivity() {
                 zhiqianjiege.paint.flags= Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
 
                 zhiqianjiege.text = zhiqianjiage
-                tv_jiage_to.text = jige
-                tv_jine.text=jige
+                tv_jiage_to.text = jiage+jige_to
+                tv_jine.text=jiage+jige_to
 
             }else{
                 zhiqianjiege.visibility= View.VISIBLE
@@ -158,8 +162,8 @@ class SelectPayActivity :BaseActivity() {
                 zhiqianjiege.paint.flags=Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
 
                 zhiqianjiege.text = zhiqianjiage
-                tv_jiage_to.text = jige
-                tv_jine.text=jige
+                tv_jiage_to.text = jiage+jige_to
+                tv_jine.text=jiage+jige_to
 
             }
 
@@ -214,7 +218,7 @@ class SelectPayActivity :BaseActivity() {
   lateinit var  payPalUtils: PayPalUtils
 
     fun payPal(){
-        ApiManger.getApiService().afnAppPayPayPal(tv_jine.text.toString().toInt(), productOid,payAmountType,payWay,App.getInstance().userOid)
+        ApiManger.getApiService().afnAppPayPayPal(productType, productOid,payAmountType,payWay,App.getInstance().userOid)
             .enqueue(object : Callback<PayPalInfo> {
                 override fun onFailure(call: Call<PayPalInfo>, t: Throwable) {
                 }
@@ -226,7 +230,7 @@ class SelectPayActivity :BaseActivity() {
 
                     val purchaseUnitsEntity= data.Purchase_unitsEntity()
 
-                    payPalUtils.startPay(BigDecimal(Integer.parseInt(tv_jiage_to.text as String)), currentcy, purchaseUnitsEntity.soft_descriptor,purchaseUnitsEntity.reference_id)
+                    payPalUtils.startPay(BigDecimal(jjj), currentcy, purchaseUnitsEntity.description,purchaseUnitsEntity.reference_id)
                 }
             })
     }

@@ -52,6 +52,10 @@ class MemberFragment :BaseFragment(){
                     val listData= response.body()!!.data.datas
 
                     if (listData!=null&&listData.size>0) {
+
+                        tv_meiyoushuju.visibility=View.INVISIBLE
+                        rv_list_member.visibility=View.VISIBLE
+
                         val layoutManager = LinearLayoutManager(context)
 
                         layoutManager.orientation = LinearLayoutManager.VERTICAL

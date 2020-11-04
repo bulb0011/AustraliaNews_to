@@ -960,6 +960,47 @@ public interface ApiService {
     @POST("app/vipinfo/getAppVipEquityList")
     Call<YaunYiInfo> getAppVipEquityList(@Query("userOid") String userOid);
 
+    /**
+     * 专栏浏览记录
+     **/
+    @POST("app/afnNewsColumnRecord/saveAfnNewsColumnRecord")
+    Call<ResponseBody> saveAfnNewsColumnRecord(@Query("newsColumnOid") String newsColumnOid ,@Query("userOid") String userOid
+            ,@Query("startTime") String startTime,@Query("endTime") String endTime);
+
+    /**
+     * 会员课程浏览记录
+     * @param newsColumnOid
+     * @param userOid
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @POST("app/afnNewsInfoRecord/saveAfnNewsInfoRecord")
+    Call<ResponseBody> saveAfnNewsInfoRecord(@Query("newsColumnOid") String newsColumnOid ,@Query("userOid") String userOid
+            ,@Query("startTime") String startTime,@Query("endTime") String endTime);
 
 
+    /**
+     * 会员课程中目录下的栏目的浏览记录 视频，音频
+     * @param newsColumnOid
+     * @param userOid
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @POST("app/afnNewsDirectoryRecord/saveAfnNewsDirectoryRecord")
+    Call<ResponseBody> saveAfnNewsDirectoryRecord(@Query("newsColumnOid") String newsColumnOid ,@Query("userOid") String userOid
+            ,@Query("startTime") String startTime,@Query("endTime") String endTime);
+
+    /**
+     * 会员课程中目录下的栏目的浏览记录 PDF
+     * @param newsColumnOid
+     * @param userOid
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @POST("app/afnNewsDirectoryRecord/saveAfnNewsDirectoryRecord")
+    Call<ResponseBody> saveAfnNewsDirectoryRecordPDF(@Query("newsColumnOid") String newsColumnOid ,@Query("userOid") String userOid
+            ,@Query("startTime") String startTime,@Query("endTime") String endTime,@Query("readPagenum") String readPagenum);
 }

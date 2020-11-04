@@ -17,6 +17,7 @@ import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.model.NewsDirectoryDetails
 import com.ruanyun.australianews.util.C
+import com.ruanyun.australianews.util.DateUtil
 import com.ruanyun.australianews.util.getTime
 import kotlinx.android.synthetic.main.activity_frequency_play.*
 import okhttp3.ResponseBody
@@ -56,13 +57,19 @@ class FrequencyPlayActivity :BaseActivity() {
     var tvlabel=""
     var productOid=""
 
+    var upDate=""
+    var infoId=""
+
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
 
         setContentView(R.layout.activity_frequency_play)
 
-        initDta(infoId = intent.getStringExtra("infoId"))
+        infoId=intent.getStringExtra("infoId")
 
+        initDta(infoId)
+
+        upDate=DateUtil.getCurrentTime()
 
         head_zanting.visibility=View.GONE
 
@@ -233,6 +240,26 @@ class FrequencyPlayActivity :BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        val endTime= DateUtil.getCurrentTime()
+
+        ApiManger.getApiService().saveAfnNewsDirectoryRecord(infoId,App.app.userOid,upDate,
+            endTime)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ){
+                    val json: String = response.body()!!.string()
+
+                    val je =JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+                }
+
+            })
         mediaPlayer.pause()
         mediaPlayer.release()
     }

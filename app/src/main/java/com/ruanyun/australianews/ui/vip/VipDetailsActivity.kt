@@ -22,9 +22,11 @@ import com.ruanyun.australianews.model.BuyInfo
 import com.ruanyun.australianews.model.VipDetailIfo
 import com.ruanyun.australianews.ui.adapter.VipMuLvAdapter
 import com.ruanyun.australianews.util.C
+import com.ruanyun.australianews.util.DateUtil
 import com.ruanyun.australianews.util.FileUtil
 import com.ruanyun.australianews.widget.SharePopWindow
 import jiguang.chat.utils.ToastUtil
+import kotlinx.android.synthetic.main.activity_special_column.view.*
 import kotlinx.android.synthetic.main.activity_vip_details.*
 import okhttp3.ResponseBody
 import org.greenrobot.eventbus.EventBus
@@ -66,6 +68,8 @@ class VipDetailsActivity :BaseActivity(){
 
     lateinit var sharePopWindow: SharePopWindow
 
+    var upDate=""
+
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
 
@@ -74,6 +78,8 @@ class VipDetailsActivity :BaseActivity(){
         type = intent.getStringExtra("type")
 
         id = intent.getStringExtra("id")
+
+        upDate=DateUtil.getCurrentTime()
 
         if(id!=null)initData()
 
@@ -238,9 +244,10 @@ class VipDetailsActivity :BaseActivity(){
         }
 
         tv_goumai.clickWithTrigger {
+            jjjj
             if(isLoginToActivity)
             SelectPayActivity.start(this,1,id,
-                inamge_url,price_Type,jige,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
+                inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
         }
     }
 
@@ -290,6 +297,7 @@ class VipDetailsActivity :BaseActivity(){
     var inamge_url=""
     var price_Type=1
     var jige=""
+    var jjjj=""
     var zhiqianjiage=""
 
     fun setViewData(detailIfo: com.ruanyun.australianews.model.VipDetailIfo){
@@ -338,16 +346,19 @@ class VipDetailsActivity :BaseActivity(){
             if(iso=="cn"||iso=="CN"){
                 tv_jiage.text = "¥"+df.format(detailIfo.normalPricecny)
                 jige="¥"+df.format(detailIfo.normalPricecny)
+                jjjj=detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
                 tv_jiage.text = "A$"+df.format(detailIfo.normalPriceaud)
                 jige = "A$"+df.format(detailIfo.normalPriceaud)
+                jjjj=detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
                 tv_jiage.text  = "$"+df.format(detailIfo.normalPriceusd)
                 jige = "$"+df.format(detailIfo.normalPriceusd)
+                jjjj=detailIfo.normalPriceusd.toString()
             }
 
         }
@@ -366,6 +377,7 @@ class VipDetailsActivity :BaseActivity(){
 
                 jige="¥"+df.format(detailIfo.normalPricecny)
                 zhiqianjiage="¥"+df.format(detailIfo.normalPricecny)
+                jjjj=detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
@@ -374,6 +386,8 @@ class VipDetailsActivity :BaseActivity(){
 
                 jige="A$"+df.format(detailIfo.specialOfferaud)
                 zhiqianjiage="A$"+df.format(detailIfo.normalPriceaud)
+
+                jjjj=detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
@@ -382,6 +396,8 @@ class VipDetailsActivity :BaseActivity(){
 
                 jige="$"+df.format(detailIfo.specialOfferusd)
                 zhiqianjiage="$"+df.format(detailIfo.normalPriceusd)
+
+                jjjj=detailIfo.normalPriceusd.toString()
             }
 
         }
@@ -401,6 +417,8 @@ class VipDetailsActivity :BaseActivity(){
 
                 jige="限时免费"
                 zhiqianjiage="¥"+df.format(detailIfo.normalPricecny)
+
+                jjjj=detailIfo.normalPricecny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
@@ -408,6 +426,8 @@ class VipDetailsActivity :BaseActivity(){
                 zhiqianjiege.text = "A$"+df.format(detailIfo.normalPriceaud)
                 jige="限时免费"
                 zhiqianjiage="A$"+df.format(detailIfo.normalPriceaud)
+
+                jjjj=detailIfo.normalPriceaud.toString()
             }
             //其他地区
             else{
@@ -416,6 +436,8 @@ class VipDetailsActivity :BaseActivity(){
 
                 jige="限时免费"
                 zhiqianjiage="$"+df.format(detailIfo.normalPriceusd)
+
+                jjjj=detailIfo.normalPriceusd.toString()
             }
 
         }
@@ -485,6 +507,27 @@ class VipDetailsActivity :BaseActivity(){
 
     override fun onDestroy() {
         super.onDestroy()
+
+        val endTime= DateUtil.getCurrentTime()
+
+        ApiManger.getApiService().saveAfnNewsInfoRecord(id,App.app.userOid,upDate,
+            endTime )
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ){
+                    val json: String = response.body()!!.string()
+
+                    val je =JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+                }
+
+            })
+
         EventBus.getDefault().unregister(this)
     }
 

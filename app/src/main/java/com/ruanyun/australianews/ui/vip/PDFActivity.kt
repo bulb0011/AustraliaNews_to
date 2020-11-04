@@ -16,6 +16,7 @@ import com.ruanyun.australianews.base.BaseActivity
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.model.NewsDirectoryDetails
 import com.ruanyun.australianews.util.C
+import com.ruanyun.australianews.util.DateUtil
 import jiguang.chat.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_pdf.*
 import okhttp3.ResponseBody
@@ -54,6 +55,9 @@ class PDFActivity :BaseActivity() {
     var zhiqianjiage=""
     var tvlabel=""
     var productOid=""
+    var upDate=""
+    var infoId=""
+    var pageSize=0
 
     var isBuy=0
 
@@ -71,7 +75,9 @@ class PDFActivity :BaseActivity() {
 
         setContentView(R.layout.activity_pdf)
 
-        initDta(infoId = intent.getStringExtra("infoId"))
+        upDate=DateUtil.getCurrentTime()
+        infoId=intent.getStringExtra("infoId")
+        initDta(infoId)
 
         topbar.setTopBarClickListener(this)
 
@@ -144,6 +150,8 @@ class PDFActivity :BaseActivity() {
 
                                 Log.e("dengpao","sss" + "页数：" + (page + 1) + "/" + pageCount)
 
+                                pageSize=page + 1
+
                                 if ((page+1)==pageCount){
                                     if(isBuy==1){
                                         ToastUtil.shortToast(mContext,"已经是最后一页")
@@ -179,6 +187,28 @@ class PDFActivity :BaseActivity() {
         super.onTopBarRightTextClick()
         SelectPayActivity.start(this,1,productOid,
             inamge_url,price_Type,jige,zhiqianjiage,tvlabel,tv_titl)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val endTime= DateUtil.getCurrentTime()
+        ApiManger.getApiService().saveAfnNewsDirectoryRecordPDF(infoId,App.app.userOid,upDate,
+            endTime,pageSize.toString())
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                }
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ){
+                    val json: String = response.body()!!.string()
+
+                    val je =JsonParser().parse(json)
+
+                    val data = je.asJsonObject["data"].toString()
+                }
+
+            })
     }
 
 

@@ -105,7 +105,8 @@ class VipFragment :BaseFragment(){
 
         //专栏查看更多
         rl_zhuanglian.clickWithTrigger {
-            SpecialColumnActivity.start(mContext,columnOid)
+
+           if(isLoginToActivity)SpecialColumnActivity.start(mContext,columnOid)
         }
 
         //这里是一个自定义的头部刷新布局,自带的也有一个布局  new PtrDefaultHandler();
@@ -118,7 +119,7 @@ class VipFragment :BaseFragment(){
 
         refresh_layoutto.setPtrHandler(object : PtrHandler {
             override fun onRefreshBegin(frame: PtrFrameLayout?) {
-                ToastUtil.shortToast(mContext,"加载数据")
+                context?.let { initData(it) }
                 refresh_layoutto.refreshComplete()
             }
 
@@ -195,26 +196,28 @@ class VipFragment :BaseFragment(){
 
                     adapterVipReMen?.setOnCliakListener(object : VipReMenAdapter.OnCliskListener {
                         override fun onClisk(view: View?, po: Int,type:Int,id:String) {
-                            var s=""
-                            if (type==1){
 
-                                s=C.IntentKey.VIP_TYPE_PDF
-                            }else if (type==2){
+                            if(isLoginToActivity){
+                                var s=""
+                                if (type==1){
 
-                                s=C.IntentKey.VIP_TYPE_VIDEO
-                            }else if (type==3){
+                                    s=C.IntentKey.VIP_TYPE_PDF
+                                }else if (type==2){
 
-                                s=C.IntentKey.VIP_TYPE_MP3
+                                    s=C.IntentKey.VIP_TYPE_VIDEO
+                                }else if (type==3){
+
+                                    s=C.IntentKey.VIP_TYPE_MP3
+                                }
+
+                                context?.let {
+                                    VipDetailsActivity.start(
+                                        it,
+                                        s,
+                                        id
+                                    )
+                                }
                             }
-
-                            context?.let {
-                                VipDetailsActivity.start(
-                                    it,
-                                    s,
-                                    id
-                                )
-                            }
-
                         }
                     })
 
@@ -241,7 +244,7 @@ class VipFragment :BaseFragment(){
 
                     adapterClassif?.setOnCliakListener(object : VipClassifAdapter.OnCliskListener{
                         override fun onClisk(view: View?, title: String, id: String) {
-                            VipListActivity.start(mContext,title,id)
+                            if(isLoginToActivity) VipListActivity.start(mContext,title,id)
                         }
                     })
 
@@ -270,30 +273,31 @@ class VipFragment :BaseFragment(){
 
 //                        WebViewUrlUtil.showAdvertDetailsWeb(mContext, advertList[it])
 
+                        if(isLoginToActivity){
+
                         val info= advertList[it]
-
-                        if (info.type==1) {
-                            var s=""
-                            if (info.contentType==1){
-                                s=C.IntentKey.VIP_TYPE_PDF
-                            }else if (info.contentType==2){
-                                s=C.IntentKey.VIP_TYPE_VIDEO
-                            }else if (info.contentType==3){
-                                s=C.IntentKey.VIP_TYPE_MP3
+                            if (info.type==1) {
+                                var s=""
+                                if (info.contentType==1){
+                                    s=C.IntentKey.VIP_TYPE_PDF
+                                }else if (info.contentType==2){
+                                    s=C.IntentKey.VIP_TYPE_VIDEO
+                                }else if (info.contentType==3){
+                                    s=C.IntentKey.VIP_TYPE_MP3
+                                }
+                                context?.let {
+                                    VipDetailsActivity.start(
+                                        it,
+                                        s,
+                                        info.commonOid
+                                    )
+                                }
+                            }else if (info.type==2){
+                                SpecialColumnActivity.start(mContext,info.commonOid)
+                            }else{
+                                WebViewActivity.start(context, FileUtil.getWebViewUrl(ADVERTISING_DETAILS, advertList[it].commonOid))
                             }
-                            context?.let {
-                                VipDetailsActivity.start(
-                                    it,
-                                    s,
-                                    info.commonOid
-                                )
-                            }
-                        }else if (info.type==2){
-                            SpecialColumnActivity.start(mContext,info.commonOid)
-                        }else{
-                            WebViewActivity.start(context, FileUtil.getWebViewUrl(ADVERTISING_DETAILS, advertList[it].commonOid))
                         }
-
                     }
 
                     convenientBanner?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -400,8 +404,6 @@ class VipFragment :BaseFragment(){
                                 }
                             }
                         })
-                    }else{
-
                     }
 
                 }
@@ -413,7 +415,7 @@ class VipFragment :BaseFragment(){
     fun initEvent(){
         //热门更多
         gengduo.clickWithTrigger{
-            MoreActivity.start(mContext)
+            if(isLoginToActivity) MoreActivity.start(mContext)
         }
 
 

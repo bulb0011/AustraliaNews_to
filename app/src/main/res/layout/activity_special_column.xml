@@ -86,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginBottom="52dp"
                 >
             </android.support.v7.widget.RecyclerView>
 
@@ -115,21 +116,13 @@
             android:layout_height="match_parent"
             >
             <TextView
+                android:id="@+id/tv_tejia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="限时免费"
                 android:textColor="#305F8B"
                 android:layout_gravity="center_vertical"
                 android:textSize="16dp"
-                />
-            <TextView
-                android:id="@+id/tv_mianfeiuedu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:textColor="#999999"
-                android:text="¥112.00"
-                android:layout_gravity="center_vertical"
                 android:paddingLeft="10dp"
                 />
 
@@ -146,7 +139,7 @@
                 android:id="@+id/tv_goumai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="实付："
+                android:text="专栏价："
                 android:drawablePadding="10dp"
                 android:textColor="#999999"
                 android:layout_gravity="center_vertical"
@@ -159,6 +152,16 @@
                 android:textColor="#305F8B"
                 android:text="¥112.00"
                 android:layout_gravity="center_vertical"
+                />
+
+            <TextView
+                android:id="@+id/tv_mianfeiuedu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="#999999"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dp"
                 />
 
         </LinearLayout>

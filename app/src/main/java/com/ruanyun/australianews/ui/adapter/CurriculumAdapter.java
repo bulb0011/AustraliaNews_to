@@ -244,14 +244,15 @@ public class CurriculumAdapter extends RecyclerView.Adapter {
         }
     }
 
-   interface OnCliskListener {
+    public interface OnCliskListener {
       void onClisk(View view, int i);
     }
 
     OnCliskListener onCliskListener;
 
-    public void setOnCliakListener(View view, int i){
-        onCliskListener.onClisk(view,i);
+    public void setOnCliakListener(OnCliskListener onCliakListener){
+        this.onCliskListener=onCliakListener;
+
     }
 
 }

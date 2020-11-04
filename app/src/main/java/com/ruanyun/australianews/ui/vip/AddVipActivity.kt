@@ -125,6 +125,7 @@ class AddVipActivity :BaseActivity() {
                     //国内
                     if(iso=="cn"||iso=="CN"){
                         jiage=data.priceCny.toString()
+
                     }
                     //澳洲
                     else if(iso=="au"|| iso=="AU") {

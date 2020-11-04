@@ -12,6 +12,9 @@ import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.model.DingYueKeCheng
 import com.ruanyun.australianews.model.TextInfo
 import com.ruanyun.australianews.ui.adapter.CurriculumAdapter
+import com.ruanyun.australianews.ui.vip.VipDetailsActivity
+import com.ruanyun.australianews.util.C
+import com.ruanyun.australianews.util.WebViewUrlUtil
 import kotlinx.android.synthetic.main.fragment_my_curriculum.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,6 +73,40 @@ class CurriculumFragment :BaseFragment(){
                             val adapter = context?.let { CurriculumAdapter(it, listData) }
 
                             rv_list.adapter=adapter
+                            //点击
+                            adapter!!.setOnCliakListener(object :CurriculumAdapter. OnCliskListener{
+                                override fun onClisk(view: View?, i: Int) {
+
+                                    val AfnInfoAll=  listData[i].getAfnInfoAll()
+
+                                    if (AfnInfoAll.getDataType()==1) {
+
+                                        val type =AfnInfoAll.contentType
+                                        val id=AfnInfoAll.oid
+
+                                        var s=""
+                                        if (type==1){
+                                            s= C.IntentKey.VIP_TYPE_PDF
+                                        }else if (type==2){
+                                            s=C.IntentKey.VIP_TYPE_VIDEO
+                                        }else if (type==3){
+                                            s=C.IntentKey.VIP_TYPE_MP3
+                                        }
+                                        context?.let {
+                                            VipDetailsActivity.start(
+                                                it,
+                                                s,
+                                                id
+                                            )
+                                        }
+                                    } else if (AfnInfoAll.getDataType()==2) {
+
+                                        WebViewUrlUtil.showVIPNewsWeb(mContext,AfnInfoAll.title,AfnInfoAll.mainPhoto,AfnInfoAll.oid,AfnInfoAll.createTime)
+                                    }
+
+                                }
+
+                            })
                         } else {
                             tv_meiyoushuju.visibility=View.VISIBLE
                             rv_list.visibility=View.INVISIBLE

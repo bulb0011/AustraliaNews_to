@@ -14,6 +14,7 @@ import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.model.DingYueZhuanLan
 import com.ruanyun.australianews.model.VIPSouSuoInfo
 import com.ruanyun.australianews.ui.adapter.SpecialColumnAdapter
+import com.ruanyun.australianews.ui.vip.SpecialColumnActivity
 import kotlinx.android.synthetic.main.fragment_special_column.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -71,6 +72,10 @@ class SpecialColumnFragment :BaseFragment(){
                     val listData= dingYueZhuanLan.datas
 
                     if (listData!=null&&listData.size>0) {
+
+                        tv_meiyoushuju.visibility=View.INVISIBLE
+                        rv_list_specialcolumn.visibility=View.VISIBLE
+
                         val layoutManager = LinearLayoutManager(context)
 
                         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -82,6 +87,15 @@ class SpecialColumnFragment :BaseFragment(){
                         val adapter = context?.let { SpecialColumnAdapter(it, listData) }
 
                         rv_list_specialcolumn.adapter=adapter
+
+                        adapter!!.setOnCliakListener(object :SpecialColumnAdapter.OnCliskListener{
+                            override fun onClisk(view: View?, po: Int) {
+
+                                SpecialColumnActivity.start(mContext,listData[po].afnNewsColumn.oid)
+                            }
+
+                        })
+
                     } else {
                         tv_meiyoushuju.visibility=View.VISIBLE
                         rv_list_specialcolumn.visibility=View.INVISIBLE

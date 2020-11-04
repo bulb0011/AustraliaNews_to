@@ -36,6 +36,8 @@ import com.ruanyun.australianews.ui.my.UserHomePageActivity
 import com.ruanyun.australianews.ui.news.NewsCommentActivity
 import com.ruanyun.australianews.ui.news.NewsDetailsActivity
 import com.ruanyun.australianews.ui.news.SecondaryCommentActivity
+import com.ruanyun.australianews.ui.vip.AddVipActivity
+import com.ruanyun.australianews.ui.vip.SelectPayActivity
 import com.ruanyun.australianews.util.*
 import com.ruanyun.australianews.widget.RYSelectPopWindow
 import com.ruanyun.imagepicker.AndroidImagePicker
@@ -453,6 +455,30 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
         }
 
         /**
+         *Vip支付
+         */
+        @JavascriptInterface
+        fun addVip(){
+            AddVipActivity.start(context)
+        }
+
+        /**
+         *Vip新闻
+         * productOid 新闻id
+         * inamge_url 图片地址（全地址）
+         * price_Type 平价，特价，
+         * jige 支付的价格
+         * zhiqianjiage 原价格
+         * tv_title ，标题
+         *
+         */
+        @JavascriptInterface
+        fun addNewVip(productOid:String,inamge_url:String,price_Type:Int,
+                      jige:String,zhiqianjiage:String, tv_title:String){
+            SelectPayActivity.start(context,2,productOid,inamge_url,price_Type,jige,zhiqianjiage,"新闻",tv_title)
+        }
+
+        /**
          *
          */
         @JavascriptInterface
@@ -510,8 +536,6 @@ open class WebViewActivity : BaseActivity(), AndroidImagePicker.OnPictureTakeCom
 
             WebViewActivity.startHtml(mContext, "澳财经-用资讯创造财富", url,true,1)
         }
-
-
 
         /**
          * 去首页

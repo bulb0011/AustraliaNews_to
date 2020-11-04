@@ -98,9 +98,8 @@ public class DefaultModel2ViewControler<Data> implements IDataDelegate {
                                     }
                                     if(result.datas.size()==0)
                                         return;
-
+                                    collectionBrowseNewsInfos.clear();
                                     if (result.datas.get(0) instanceof CollectionBrowseNewsInfo){
-
 
                                         List <CollectionBrowseNewsInfo>  collectionBrowseNewsInfoList= result.datas;
 
