@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.text.Html
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -26,7 +25,6 @@ import com.ruanyun.australianews.util.DateUtil
 import com.ruanyun.australianews.util.FileUtil
 import com.ruanyun.australianews.widget.SharePopWindow
 import jiguang.chat.utils.ToastUtil
-import kotlinx.android.synthetic.main.activity_special_column.view.*
 import kotlinx.android.synthetic.main.activity_vip_details.*
 import okhttp3.ResponseBody
 import org.greenrobot.eventbus.EventBus
@@ -41,6 +39,14 @@ import java.text.DecimalFormat
 class VipDetailsActivity :BaseActivity(){
 
     companion object{
+
+        fun startTask(context: Context,type: String,id:String) {
+            val starter = Intent(context, VipDetailsActivity::class.java)
+            starter.putExtra("type",type)
+            starter.putExtra("id",id)
+            starter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(starter)
+        }
 
         fun start(context: Context,type: String,id:String) {
             val starter = Intent(context, VipDetailsActivity::class.java)
@@ -284,6 +290,8 @@ class VipDetailsActivity :BaseActivity(){
 
                     isBuy = detailIfo.isBuy
 
+                    setIsBuy(detailIfo.isBuy)
+
                     setViewData(detailIfo)
 
                 }
@@ -376,7 +384,7 @@ class VipDetailsActivity :BaseActivity(){
 
                 jige="¥"+df.format(detailIfo.normalPricecny)
                 zhiqianjiage="¥"+df.format(detailIfo.normalPricecny)
-                jjjj=detailIfo.normalPricecny.toString()
+                jjjj=detailIfo.specialOffercny.toString()
             }
             //澳洲
             else if(iso=="au"|| iso=="AU") {
@@ -386,7 +394,7 @@ class VipDetailsActivity :BaseActivity(){
                 jige="A$"+df.format(detailIfo.specialOfferaud)
                 zhiqianjiage="A$"+df.format(detailIfo.normalPriceaud)
 
-                jjjj=detailIfo.normalPriceaud.toString()
+                jjjj=detailIfo.specialOfferaud.toString()
             }
             //其他地区
             else{
@@ -396,7 +404,7 @@ class VipDetailsActivity :BaseActivity(){
                 jige="$"+df.format(detailIfo.specialOfferusd)
                 zhiqianjiage="$"+df.format(detailIfo.normalPriceusd)
 
-                jjjj=detailIfo.normalPriceusd.toString()
+                jjjj=detailIfo.specialOfferusd.toString()
             }
 
         }
@@ -452,7 +460,7 @@ class VipDetailsActivity :BaseActivity(){
 
         rv_mulv.isNestedScrollingEnabled = false
 
-        val adapter = context?.let { VipMuLvAdapter(it, detailIfo.afnNewsDirectoryList) }
+        val adapter = context?.let { VipMuLvAdapter(it, detailIfo.afnNewsDirectoryList,isBuy) }
 
         rv_mulv.adapter=adapter
 
@@ -462,6 +470,18 @@ class VipDetailsActivity :BaseActivity(){
                 InfoId=id
 
                 if(isLoginToActivity){
+
+                    if(isBuy==1 || App.app.user.isVip==1){
+
+                    }else{
+
+                        if (po!=0) {
+                            ToastUtil.shortToast(mContext,"请购买课程！")
+                            return
+                        }
+
+                    }
+
                     if(C.IntentKey.VIP_TYPE_VIDEO.equals(type)){
                         VideoActivity.start(this@VipDetailsActivity,InfoId,1,id,
                             inamge_url,price_Type,jjjj,zhiqianjiage,tv_label.text.toString(),tv_title.text.toString())
@@ -479,9 +499,6 @@ class VipDetailsActivity :BaseActivity(){
                 }
             }
         })
-
-        setIsBuy(isBuy)
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -495,7 +512,7 @@ class VipDetailsActivity :BaseActivity(){
     }
 
     fun updateIsBuy(){
-        if(isBuy==1){
+        if(isBuy==1 || App.app.user.isVip==1){
             rl_goumai.visibility=View.VISIBLE
             rv_dibu.visibility=View.GONE
         }else{

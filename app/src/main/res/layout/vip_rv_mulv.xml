@@ -14,13 +14,17 @@
         android:textSize="14sp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:minEms="18"
         />
 
     <TextView
+        android:id="@+id/tv_shidu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="试看"
-        android:textColor="#ff000000"
+        android:textColor="#305F8B"
         android:textSize="14sp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
@@ -29,6 +33,17 @@
         android:drawablePadding="10dp"
         />
 
+    <ImageView
+        android:id="@+id/image_suo"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:drawableRight="@drawable/icon_arrow_right"
+        android:layout_marginRight="30dp"
+        android:drawablePadding="10dp"
+        android:background="@drawable/suo"
+        />
     <View
         android:id="@+id/view_xian"
         android:layout_width="match_parent"

@@ -9,6 +9,7 @@ import com.ruanyun.australianews.App;
 import com.ruanyun.australianews.model.JPushInfo;
 import com.ruanyun.australianews.model.NewsInfo;
 import com.ruanyun.australianews.model.uimodel.LifeReleaseCommonUiModel;
+import com.ruanyun.australianews.util.C;
 import com.ruanyun.australianews.util.EventNotifier;
 import com.ruanyun.australianews.util.FileUtil;
 import com.ruanyun.australianews.util.GsonUtil;
@@ -81,6 +82,24 @@ public class MyReceiver extends BroadcastReceiver {
                             case 16://黄页
                                 WebViewUrlUtil.Companion.showLifeDetailsWebNewTask(context, LifeReleaseCommonUiModel.LIFE_YELLOW_PAGE_INFO, jPushInfo.commonOid);
                                 break;
+                            case 17://课程
+                                String s="";
+                                if (jPushInfo.contentType==1){
+
+                                    s= C.IntentKey.VIP_TYPE_PDF;
+                                }else if (jPushInfo.contentType==2){
+
+                                    s=C.IntentKey.VIP_TYPE_VIDEO;
+                                }else if (jPushInfo.contentType==3){
+
+                                    s=C.IntentKey.VIP_TYPE_MP3;
+                                }
+
+                                WebViewUrlUtil.shouVipDetailsActivity(App.getInstance(),s,jPushInfo.commonOid);
+                                break;
+                            case 18://专栏
+                                WebViewUrlUtil.shouSpecialColumnActivity(App.getInstance(),jPushInfo.commonOid);
+                                break;
                         }
                     }
                 }else {
@@ -108,8 +127,14 @@ public class MyReceiver extends BroadcastReceiver {
      * @param info
      */
     public void getNewsDetails(JPushInfo info) {
-        NewsInfo newsInfo = new NewsInfo(info.type,0,info.outUrl,info.videoUrl, "","","",0, 0,0,null);
+        NewsInfo newsInfo = new NewsInfo(info.type,0,info.outUrl,info.videoUrl, "","","",0, 0,0,1,null);
         newsInfo.setOid(info.commonOid);
+        newsInfo.setWatchCount(info.watchCount);
+        newsInfo.setCreateTime(info.commonTime);
+        newsInfo.setCommentCount(info.commentCount);
+        newsInfo.setBaseWebsite(info.baseWebsite);
+        newsInfo.Companion.setTitle(info.title);
+        newsInfo.Companion.setMainPhoto(info.mainPhoto);
 
         WebViewUrlUtil.showNewsDetailsWebNewTask(App.getInstance(), newsInfo);
 

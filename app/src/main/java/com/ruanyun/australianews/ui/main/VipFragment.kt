@@ -90,7 +90,7 @@ class VipFragment :BaseFragment(){
         convenientBanner = getView(R.id.banner)
         convenientBanner.setPageIndicator(MyConvenientBanner.indicators)
         convenientBanner.setPageIndicatorAlign(MyConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
-        convenientBanner.setPageIndicatorMargins(0,0,dp2px(10f),dp2px(5f))
+        convenientBanner.setPageIndicatorMargins(0,0,dp2px(10f),dp2px(10f))
 
 
         initView()
@@ -373,16 +373,22 @@ class VipFragment :BaseFragment(){
 //                }
 //            })
         ApiManger.getApiService().getNewsInfoByNewsType(App.app.cityName,App.app.userOid,100)
-            .enqueue(object : Callback<TextNewInfo> {
-                override fun onFailure(call: Call<TextNewInfo>, t: Throwable) {
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
                 }
 
-                override fun onResponse(call: Call<TextNewInfo>, response: Response<TextNewInfo>) {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
                     if (response!=null&&response.code()==200){
-                        val   data =  response.body()!!.data
-                        val  vipColumnInfo =  data.datas
+
+                        val json = response.body()!!.string()
+
+                        val gson = Gson()
+
+                        val data = gson.fromJson(json, TextNewInfo::class.java)
+
+                        val  vipColumnInfo =  data.data.datas
 
                         val layoutManager = LinearLayoutManager(context)
 

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import com.ruanyun.australianews.App
 import com.ruanyun.australianews.R
 import com.ruanyun.australianews.base.BaseFragment
@@ -13,6 +14,7 @@ import com.ruanyun.australianews.model.TextNewInfo
 import com.ruanyun.australianews.ui.adapter.MorePayAdapter
 import com.ruanyun.australianews.util.WebViewUrlUtil
 import kotlinx.android.synthetic.main.fragment_more_pay.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -79,15 +81,23 @@ class MoerPayFragment : BaseFragment(){
 //
 
         ApiManger.getApiService().getNewsInfoByNewsType(App.app.cityName,App.app.userOid,100)
-            .enqueue(object : Callback<TextNewInfo> {
-                override fun onFailure(call: Call<TextNewInfo>, t: Throwable) {
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
                 }
 
-                override fun onResponse(call: Call<TextNewInfo>, response: Response<TextNewInfo>) {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
 
-                    val   data =  response.body()!!.data
-                    val  vipColumnInfo =  data.datas
+                    val json = response.body()!!.string()
+
+                    val gson = Gson()
+
+                    val data = gson.fromJson(json, TextNewInfo::class.java)
+
+                    val  vipColumnInfo =  data.data.datas
+
+//                    val   data =  response.body()!!.data
+//                    val  vipColumnInfo =  data.datas
 
                     val layoutManager = LinearLayoutManager(context)
 

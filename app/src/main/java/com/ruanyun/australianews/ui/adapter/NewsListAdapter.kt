@@ -1,7 +1,9 @@
 package com.ruanyun.australianews.ui.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.text.TextUtils
+import android.text.style.ImageSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,6 +12,7 @@ import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
 import com.ruanyun.australianews.ext.toImgUrl
 import com.ruanyun.australianews.model.NewsInfo
+import com.ruanyun.australianews.util.TextUtil
 import com.ruanyun.australianews.util.WebViewUrlUtil
 import com.zhy.adapter.recyclerview.base.ItemViewDelegate
 import com.zhy.adapter.recyclerview.base.ViewHolder
@@ -45,17 +48,29 @@ class NewsListAdapter(context: Context, datas: List<NewsInfo>) : AdvertInfoBaseA
                     holder.getView<ImageView>(R.id.iv_photo).loadImage(url)
                 }
 
-                holder.setText(R.id.tv_source, NewsInfo.getSourceStr(item))
+                if(item.newsType==2){
 
+                    var title = ""
+                    if (item.isHot==1){
+                        title= "\t\t\t\t"+item.title
+                    }else{
+                        title= item.title
+                    }
+                    holder.setText(R.id.tv_title,TextUtil.TextImage(mContext,title))
+                }else{
+
+                    if (item.isHot==1){
+                        holder.setText(R.id.tv_title, "\t\t\t\t"+item.title)
+                    }else{
+                        holder.setText(R.id.tv_title, item.title)
+                    }
+                    holder.setText(R.id.tv_title, item.title)
+                }
+
+                holder.setText(R.id.tv_source, NewsInfo.getSourceStr(item))
 
                 holder.getView<TextView>(R.id.tv_hot).visibility = if(item.isHot==1)
                 {View.VISIBLE} else{View.GONE}
-
-                if (item.isHot==1){
-                    holder.setText(R.id.tv_title, "\t\t\t\t"+item.title)
-                }else{
-                    holder.setText(R.id.tv_title, item.title)
-                }
 
 
                 if(item.type==1){
@@ -89,9 +104,22 @@ class NewsListAdapter(context: Context, datas: List<NewsInfo>) : AdvertInfoBaseA
                 holder.getView<TextView>(R.id.tv_hot).visibility = if(item.isHot==1)
                     View.VISIBLE else View.GONE
 
-                if (item.isHot==1){
-                    holder.setText(R.id.tv_title, "\t\t\t\t"+item.title)
+                if(item.newsType==2){
+
+                    var title = ""
+                    if (item.isHot==1){
+                        title= "\t\t\t\t"+item.title
+                    }else{
+                        title= item.title
+                    }
+                    holder.setText(R.id.tv_title,TextUtil.TextImage(mContext,title))
                 }else{
+
+                    if (item.isHot==1){
+                        holder.setText(R.id.tv_title, "\t\t\t\t"+item.title)
+                    }else{
+                        holder.setText(R.id.tv_title, item.title)
+                    }
                     holder.setText(R.id.tv_title, item.title)
                 }
 

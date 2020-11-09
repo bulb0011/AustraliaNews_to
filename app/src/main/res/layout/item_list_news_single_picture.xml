@@ -52,7 +52,8 @@
                 android:paddingRight="@dimen/text_size_px_43"
                 android:text="舒服舒服是否舒服舒服舒服舒一舒服是否舒服舒服舒服舒服舒服是否舒服舒服舒服"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_sp_15" />
+                android:textSize="@dimen/text_size_sp_15"
+                />
 
             <TextView
                 android:id="@+id/tv_hot"

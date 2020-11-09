@@ -159,7 +159,7 @@ public class TextNewInfo {
             private String videoUrl;
             private String createTime;
             private String linkUrl;
-            private int normalPriceusd;
+            private float normalPriceusd;
             private int isHot;
             private boolean mark;
             private int watchCount;
@@ -244,7 +244,7 @@ public class TextNewInfo {
                 this.linkUrl = linkUrl;
             }
 
-            public void setNormalPriceusd(int normalPriceusd) {
+            public void setNormalPriceusd(float normalPriceusd) {
                 this.normalPriceusd = normalPriceusd;
             }
 
@@ -340,7 +340,7 @@ public class TextNewInfo {
                 return linkUrl;
             }
 
-            public int getNormalPriceusd() {
+            public float getNormalPriceusd() {
                 return normalPriceusd;
             }
 

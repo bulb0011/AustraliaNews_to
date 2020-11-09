@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalItem;
 import com.paypal.android.sdk.payments.PayPalPayment;
-import com.paypal.android.sdk.payments.PayPalPaymentDetails;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
@@ -15,10 +13,11 @@ import java.math.BigDecimal;
 
 public class PayPalUtils {
 
-    //    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
-    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_PRODUCTION;
+//        private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
+        private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK;;
+//    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_PRODUCTION;
     private static PayPalConfiguration config;
-    private static final int REQUEST_CODE_PAY_PAL = 1008611;
+    private static final int REQUEST_CODE_PAY_PAL = 111;
     private static final PayPalUtils PAY_PAL_UTILS = new PayPalUtils();
     private static Activity activity;
     private static Back back;
@@ -41,12 +40,10 @@ public class PayPalUtils {
     //价格，货币码(如：USD)，AUD(澳元) CNY（人民币） 商品名
     //价格，货币，商品名称，订单号
     public void startPay(BigDecimal price, String currentcy, String goodsName, String orderNumber) 			{
-        PayPalItem[] items = {new PayPalItem(goodsName, 1, price, currentcy, orderNumber)};
-        PayPalPaymentDetails paymentDetails = new PayPalPaymentDetails(
-                new BigDecimal(0), price, new BigDecimal(0));
-        PayPalPayment payment = new PayPalPayment(price, currentcy
-                , goodsName, PayPalPayment.PAYMENT_INTENT_SALE);
-        payment.items(items).paymentDetails(paymentDetails);
+
+        PayPalPayment payment =  new PayPalPayment(price, currentcy, goodsName,
+                PayPalPayment.PAYMENT_INTENT_SALE);
+
         Intent intent = new Intent(activity, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);

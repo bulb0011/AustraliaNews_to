@@ -9,19 +9,49 @@ import com.ruanyun.australianews.util.*
  * @description
  * @date 2019/5/5
  */
-class NewsInfo(
-        var type: Int = 0, //1图文，2视频，3外部
-        var pushShowType: Int = 0,
-        var outUrl: String?,
-        var videoUrl: String?,
-        var createTime: String?,
-        var baseWebsite: String?,
-        var baseWebsiteName: String?,
-        var isHot: Int = 0,
-        var commentCount: Int = 0,
-        var watchCount: Int = 0,
-        var mainPhotoList: List<String>?
-) : AdvertInfoBase() , LifeReleaseCommonUiModel {
+class NewsInfo : AdvertInfoBase, LifeReleaseCommonUiModel {
+    var type: Int
+    var pushShowType: Int
+    var outUrl: String?
+    var videoUrl: String?
+    var createTime: String?
+    var baseWebsite: String?
+    var baseWebsiteName: String?
+    var isHot: Int
+    var commentCount: Int
+    var watchCount: Int
+    var newsType: Int
+    var mainPhotoList: List<String>?
+
+    //1图文，2视频，3外部
+    constructor(
+        type: Int = 0,
+        pushShowType: Int = 0,
+        outUrl: String?,
+        videoUrl: String?,
+        createTime: String?,
+        baseWebsite: String?,
+        baseWebsiteName: String?,
+        isHot: Int = 0,
+        commentCount: Int = 0,
+        watchCount: Int = 0,
+        newsType: Int = 0,
+        mainPhotoList: List<String>?
+    ) : super() {
+        this.type = type
+        this.pushShowType = pushShowType
+        this.outUrl = outUrl
+        this.videoUrl = videoUrl
+        this.createTime = createTime
+        this.baseWebsite = baseWebsite
+        this.baseWebsiteName = baseWebsiteName
+        this.isHot = isHot
+        this.commentCount = commentCount
+        this.watchCount = watchCount
+        this.newsType = newsType
+        this.mainPhotoList = mainPhotoList
+    }
+
     override val commonOid: String?
         get() = oid
     override val commonTitle: String?
@@ -32,10 +62,10 @@ class NewsInfo(
         get() = FileUtil.getImageUrl(mainPhoto)
     override val itemType: Int
         get() = pushShowType
-
     override fun getINewsInfo(): NewsInfo? {
         return this
     }
+
 
     companion object {
         const val TYPE_SINGLE_PICTURE = 1000
@@ -43,6 +73,9 @@ class NewsInfo(
         const val TYPE_MANY_PICTURE = 2000
 
         const val TYPE_VIDEO = 3000
+
+        var title=""
+        var mainPhoto=""
 
         fun getSourceStr(item: NewsInfo): CharSequence? {
             val baseWebsite = if (TextUtils.isEmpty(item.baseWebsiteName)) {

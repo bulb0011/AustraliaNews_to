@@ -279,4 +279,15 @@ public final class C {
 
     public static final String CONFIG_CLIENT_ID = "AVgiB3LrSa9RnPyPeYfStF9dW0lTPkDOkfbmqZAi_5PH7L7iAnXT5gHHE7ho5xCe2NjmkhJ9Ym_Dj8dg";
     public static final String varjs = "<script type='text/javascript'> \nwindow.onload = function()\n{var $img = document.getElementsByTagName('img');for(var p in  $img){$img[p].style.width = '100%'; $img[p].style.height ='auto'}}</script>";
+    String javascript = "javascript:function ResizeImages() {" +
+            "var myimg,oldwidth;" +
+            "var maxwidth = document.body.clientWidth;" +
+            "for(i=0;i <document.images.length;i++){" +
+            "myimg = document.images[i];" +
+            "if(myimg.width > maxwidth){" +
+            "oldwidth = myimg.width;" +
+            "myimg.width = maxwidth;" +
+            "}" +
+            "}" +
+            "}";
 }

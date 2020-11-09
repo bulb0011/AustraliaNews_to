@@ -4,12 +4,11 @@ import java.util.List;
 
 public class PayPalInfo {
 
-
     /**
      * access_token :
      * msg : 获取成功
      * code : 0
-     * data : {"create_time":"2020-10-17T16:01:54Z","purchase_units":[{"payee":{"email_address":"sb-hzn6754623@business.example.com","merchant_id":"CDEAZES6W4ZF2"},"amount":{"breakdown":{"item_total":{"value":"48.00","currency_code":"AUD"}},"value":"48.00","currency_code":"AUD"},"reference_id":"ff808081752b9a850175374ba742019a","soft_descriptor":"课程购买","custom_id":"ff808081752b9a850175374ba742019a","description":"课程购买"}],"links":[{"method":"GET","rel":"self","href":"https://api.sandbox.paypal.com/v2/checkout/orders/7B4421205E673194G"},{"method":"GET","rel":"approve","href":"https://www.sandbox.paypal.com/checkoutnow?token=7B4421205E673194G"},{"method":"PATCH","rel":"update","href":"https://api.sandbox.paypal.com/v2/checkout/orders/7B4421205E673194G"},{"method":"POST","rel":"capture","href":"https://api.sandbox.paypal.com/v2/checkout/orders/7B4421205E673194G/capture"}],"id":"7B4421205E673194G","intent":"CAPTURE","status":"CREATED"}
+     * data : {"create_time":"2020-11-06T08:57:36Z","purchase_units":[{"payee":{"email_address":"sb-hzn6754623@business.example.com","merchant_id":"CDEAZES6W4ZF2"},"amount":{"breakdown":{"item_total":{"value":"0.10","currency_code":"USD"}},"value":"0.10","currency_code":"USD"},"reference_id":"ff808081759b4c6001759cc67c500023","soft_descriptor":"课程购买","custom_id":"ff808081759b4c6001759cc67c500023","description":"课程购买"}],"links":[{"method":"GET","rel":"self","href":"https://api.sandbox.paypal.com/v2/checkout/orders/00E604641J896913D"},{"method":"GET","rel":"approve","href":"https://www.sandbox.paypal.com/checkoutnow?token=00E604641J896913D"},{"method":"PATCH","rel":"update","href":"https://api.sandbox.paypal.com/v2/checkout/orders/00E604641J896913D"},{"method":"POST","rel":"capture","href":"https://api.sandbox.paypal.com/v2/checkout/orders/00E604641J896913D/capture"}],"id":"00E604641J896913D","intent":"CAPTURE","status":"CREATED"}
      */
     private String access_token;
     private String msg;
@@ -50,10 +49,10 @@ public class PayPalInfo {
 
     public class DataEntity {
         /**
-         * create_time : 2020-10-17T16:01:54Z
-         * purchase_units : [{"payee":{"email_address":"sb-hzn6754623@business.example.com","merchant_id":"CDEAZES6W4ZF2"},"amount":{"breakdown":{"item_total":{"value":"48.00","currency_code":"AUD"}},"value":"48.00","currency_code":"AUD"},"reference_id":"ff808081752b9a850175374ba742019a","soft_descriptor":"课程购买","custom_id":"ff808081752b9a850175374ba742019a","description":"课程购买"}]
-         * links : [{"method":"GET","rel":"self","href":"https://api.sandbox.paypal.com/v2/checkout/orders/7B4421205E673194G"},{"method":"GET","rel":"approve","href":"https://www.sandbox.paypal.com/checkoutnow?token=7B4421205E673194G"},{"method":"PATCH","rel":"update","href":"https://api.sandbox.paypal.com/v2/checkout/orders/7B4421205E673194G"},{"method":"POST","rel":"capture","href":"https://api.sandbox.paypal.com/v2/checkout/orders/7B4421205E673194G/capture"}]
-         * id : 7B4421205E673194G
+         * create_time : 2020-11-06T08:57:36Z
+         * purchase_units : [{"payee":{"email_address":"sb-hzn6754623@business.example.com","merchant_id":"CDEAZES6W4ZF2"},"amount":{"breakdown":{"item_total":{"value":"0.10","currency_code":"USD"}},"value":"0.10","currency_code":"USD"},"reference_id":"ff808081759b4c6001759cc67c500023","soft_descriptor":"课程购买","custom_id":"ff808081759b4c6001759cc67c500023","description":"课程购买"}]
+         * links : [{"method":"GET","rel":"self","href":"https://api.sandbox.paypal.com/v2/checkout/orders/00E604641J896913D"},{"method":"GET","rel":"approve","href":"https://www.sandbox.paypal.com/checkoutnow?token=00E604641J896913D"},{"method":"PATCH","rel":"update","href":"https://api.sandbox.paypal.com/v2/checkout/orders/00E604641J896913D"},{"method":"POST","rel":"capture","href":"https://api.sandbox.paypal.com/v2/checkout/orders/00E604641J896913D/capture"}]
+         * id : 00E604641J896913D
          * intent : CAPTURE
          * status : CREATED
          */
@@ -115,10 +114,10 @@ public class PayPalInfo {
         public class Purchase_unitsEntity {
             /**
              * payee : {"email_address":"sb-hzn6754623@business.example.com","merchant_id":"CDEAZES6W4ZF2"}
-             * amount : {"breakdown":{"item_total":{"value":"48.00","currency_code":"AUD"}},"value":"48.00","currency_code":"AUD"}
-             * reference_id : ff808081752b9a850175374ba742019a
+             * amount : {"breakdown":{"item_total":{"value":"0.10","currency_code":"USD"}},"value":"0.10","currency_code":"USD"}
+             * reference_id : ff808081759b4c6001759cc67c500023
              * soft_descriptor : 课程购买
-             * custom_id : ff808081752b9a850175374ba742019a
+             * custom_id : ff808081759b4c6001759cc67c500023
              * description : 课程购买
              */
             private PayeeEntity payee;
@@ -203,9 +202,9 @@ public class PayPalInfo {
 
             public class AmountEntity {
                 /**
-                 * breakdown : {"item_total":{"value":"48.00","currency_code":"AUD"}}
-                 * value : 48.00
-                 * currency_code : AUD
+                 * breakdown : {"item_total":{"value":"0.10","currency_code":"USD"}}
+                 * value : 0.10
+                 * currency_code : USD
                  */
                 private BreakdownEntity breakdown;
                 private String value;
@@ -237,7 +236,7 @@ public class PayPalInfo {
 
                 public class BreakdownEntity {
                     /**
-                     * item_total : {"value":"48.00","currency_code":"AUD"}
+                     * item_total : {"value":"0.10","currency_code":"USD"}
                      */
                     private Item_totalEntity item_total;
 
@@ -251,8 +250,8 @@ public class PayPalInfo {
 
                     public class Item_totalEntity {
                         /**
-                         * value : 48.00
-                         * currency_code : AUD
+                         * value : 0.10
+                         * currency_code : USD
                          */
                         private String value;
                         private String currency_code;
@@ -281,7 +280,7 @@ public class PayPalInfo {
             /**
              * method : GET
              * rel : self
-             * href : https://api.sandbox.paypal.com/v2/checkout/orders/7B4421205E673194G
+             * href : https://api.sandbox.paypal.com/v2/checkout/orders/00E604641J896913D
              */
             private String method;
             private String rel;

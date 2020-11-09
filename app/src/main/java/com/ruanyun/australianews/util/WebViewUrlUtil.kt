@@ -14,6 +14,8 @@ import com.ruanyun.australianews.ui.main.ReleaseActivitysActivity
 import com.ruanyun.australianews.ui.news.NewsDetailsActivity
 import com.ruanyun.australianews.ui.news.NewsDetailsActivityTo
 import com.ruanyun.australianews.ui.news.VideoNewsDetailsActivity
+import com.ruanyun.australianews.ui.vip.SpecialColumnActivity
+import com.ruanyun.australianews.ui.vip.VipDetailsActivity
 import com.ruanyun.australianews.ui.vip.VipNewsDetailsActivity
 import com.ruanyun.australianews.ui.wealth.ReleaseCivilEstateActivity
 import com.ruanyun.australianews.ui.wealth.ReleaseHousingMarketActivity
@@ -100,8 +102,16 @@ open class WebViewUrlUtil {
         @JvmStatic
         fun showNewsDetailsWebNewTask(context: Context, info: NewsInfo) {
             val shareJsonInfo = ShareJsonInfo()
-            shareJsonInfo.share_title = info.title
-            shareJsonInfo.share_image = info.commonMainPhoto
+
+
+            if(NewsInfo.title!=""){
+                shareJsonInfo.share_title=NewsInfo.title
+                shareJsonInfo.share_image = NewsInfo.mainPhoto
+            }else{
+                shareJsonInfo.share_title = info.title
+                shareJsonInfo.share_image = info.commonMainPhoto
+            }
+
             when(info.type){
                 1-> {
                     val url = FileUtil.getWebViewUrl(NEWS_DETAILS, App.getInstance().cityName, info.oid, App.getInstance().userOid)
@@ -127,6 +137,22 @@ open class WebViewUrlUtil {
                     NewsDetailsActivity.startNewsDetailsNewTask(context, url_zh, info.oid, NewsCommentParams.NEWS, json,info.commentCount,info.watchCount,info.baseWebsite,info.commonTime,url_en)
                 }
             }
+        }
+
+        /**
+         * 跳转课程
+         */
+       @JvmStatic
+       fun shouVipDetailsActivity(context: Context, type: String, commonOid : String){
+           VipDetailsActivity.startTask(context,type,commonOid)
+        }
+
+        /**
+         * 跳转专栏
+         */
+        @JvmStatic
+        fun shouSpecialColumnActivity(context: Context,commonOid : String){
+            SpecialColumnActivity.startTask(context,commonOid);
         }
 
         /**

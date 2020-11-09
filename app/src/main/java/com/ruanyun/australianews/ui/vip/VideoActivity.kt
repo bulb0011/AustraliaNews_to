@@ -2,16 +2,15 @@ package com.ruanyun.australianews.ui.vip
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
-import com.ruanyun.australianews.R
-import com.ruanyun.australianews.base.BaseActivity
-import android.content.res.Configuration;
-import android.text.Html
 import android.widget.ImageView
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.ruanyun.australianews.App
+import com.ruanyun.australianews.R
+import com.ruanyun.australianews.base.BaseActivity
 import com.ruanyun.australianews.data.ApiManger
 import com.ruanyun.australianews.ext.clickWithTrigger
 import com.ruanyun.australianews.ext.loadImage
@@ -147,8 +146,30 @@ class VideoActivity :BaseActivity() {
 
                     val gsyVideoOption = GSYVideoOptionBuilder()
 
+                    tttt.getSettings().setJavaScriptEnabled(true);
+
+                    val varjs =
+                        "<script type='text/javascript'> \nwindow.onload = function()\n{var \$img = document.getElementsByTagName('img');for(var p in  \$img){\$img[p].style.width = '100%'; \$img[p].style.height ='auto'}}</script>"
+                    val javascript = "javascript:function ResizeImages() {" +
+                            "var myimg,oldwidth;" +
+                            "var maxwidth = document.body.clientWidth;" +
+                            "for(i=0;i <document.images.length;i++){" +
+                            "myimg = document.images[i];" +
+                            "if(myimg.width > maxwidth){" +
+                            "oldwidth = myimg.width;" +
+                            "myimg.width = maxwidth;" +
+                            "}" +
+                            "}" +
+                            "}"
+
+
                     tttt.loadDataWithBaseURL(null,C.varjs+detailIfo.content,"text/html","UTF-8",null);
 
+
+//                    tttt.loadUrl(detailIfo.content);
+//
+//                    tttt.loadUrl(javascript)
+//                    tttt.loadUrl("javascript:ResizeImages();")
 
 //            .setThumbImageView(imageView)
 

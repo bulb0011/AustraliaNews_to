@@ -11,4 +11,12 @@ public class JPushInfo {
     public String videoUrl;//视频连接
     public String mainPhoto;
     public String outUrl;//外部链接
+
+    public int contentType;
+
+    public int commentCount; // 记录
+    public int watchCount; //评论
+    public String baseWebsite;// 来源
+    public String commonTime; // 时间
+    public String title;
 }

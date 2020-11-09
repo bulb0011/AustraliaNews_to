@@ -38,11 +38,7 @@ import com.ruanyun.australianews.model.NewsCommentCountInfo;
 import com.ruanyun.australianews.model.NewsInfo;
 import com.ruanyun.australianews.model.NotificationInfo;
 import com.ruanyun.australianews.model.ParentCodeInfo;
-import com.ruanyun.australianews.model.PayInfo;
-import com.ruanyun.australianews.model.PayInfoWx;
-import com.ruanyun.australianews.model.PayPalInfo;
 import com.ruanyun.australianews.model.PushRecordNewsInfo;
-import com.ruanyun.australianews.model.TextNewInfo;
 import com.ruanyun.australianews.model.UserInfo;
 import com.ruanyun.australianews.model.VipBannerInfo;
 import com.ruanyun.australianews.model.VipColumnInfo;
@@ -902,7 +898,7 @@ public interface ApiService {
      * vip界面最下面的新闻
      **/
     @POST("app/newsinfo/getNewsInfoByNewsType")
-    Call<TextNewInfo> getNewsInfoByNewsType(@Query("city") String city, @Query("userOid") String userOid,@Query("pageSize") int s);
+    Call<ResponseBody> getNewsInfoByNewsType(@Query("city") String city, @Query("userOid") String userOid,@Query("pageSize") int s);
 
     /**
      * 购买vip界面
@@ -914,7 +910,7 @@ public interface ApiService {
      * 购买付费订阅商品（omipay支付宝支付）
       */
     @POST("app/androidpay/afnAppPay")
-    Call<PayInfo> afnAppPay(@Query("productType") int productType, @Query("productOid") String productOid,
+    Call<ResponseBody> afnAppPay(@Query("productType") int productType, @Query("productOid") String productOid,
                             @Query("payAmountType") int payAmountType, @Query("payWay") int payWay, @Query("userOid") String userOid);
 
 
@@ -922,7 +918,7 @@ public interface ApiService {
      * 购买付费订阅商品（omipay支付微信支付）
      */
     @POST("app/androidpay/afnAppPay")
-    Call<PayInfoWx> afnAppPayWx(@Query("productType") int productType, @Query("productOid") String productOid,
+    Call<ResponseBody> afnAppPayWx(@Query("productType") int productType, @Query("productOid") String productOid,
                                 @Query("payAmountType") int payAmountType, @Query("payWay") int payWay, @Query("userOid") String userOid);
 
 
@@ -930,7 +926,7 @@ public interface ApiService {
      * 购买付费订阅商品（omipay支付微信支付）
      */
     @POST("app/androidpay/afnAppPay")
-    Call<PayPalInfo> afnAppPayPayPal(@Query("productType") int productType, @Query("productOid") String productOid,
+    Call<ResponseBody> afnAppPayPayPal(@Query("productType") int productType, @Query("productOid") String productOid,
                                      @Query("payAmountType") int payAmountType, @Query("payWay") int payWay, @Query("userOid") String userOid);
 
     /**

@@ -42,6 +42,13 @@ class SpecialColumnActivity :BaseActivity(){
             starter.putExtra("columnOid",columnOid)
             context.startActivity(starter)
         }
+        fun startTask(context: Context,columnOid :String) {
+            val starter = Intent(context, SpecialColumnActivity::class.java)
+            starter.putExtra("columnOid",columnOid)
+            starter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(starter)
+        }
+
     }
 
     val dataList=ArrayList<ZhuanLanListInfo>()
